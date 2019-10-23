@@ -9,5 +9,16 @@ Membros do Grupo:
   -
   -
   -
+  - Gonçalo Tomé Ribeiro, Nº73098
   -
-  -
+  
+  Descrição de erros:
+    - (ainda não se verificaram!)
+    
+    
+  Descrição de funcionalidade incompletas:
+    - (ainda não se verificaram!)
+    
+  
+  Descrição de funcionalidade não implementadas:
+    - (ainda não se verificaram!)
