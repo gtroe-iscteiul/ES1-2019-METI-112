@@ -7,7 +7,7 @@ Grupo 112
 Membros do Grupo:
   - Carolina Gonçalves, Nº73122
   - Jorge Magalhães, Nº72767
-  -
+  - Catarina Rita, Nº 72740
   -
   - Gonçalo Tomé Ribeiro, Nº73098
   -
