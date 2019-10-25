@@ -10,7 +10,7 @@ Membros do Grupo:
   - Catarina Rita, Nº 72740
   - Inês Palma, Nº 73021
   - Gonçalo Tomé Ribeiro, Nº73098
-  -
+  - Débora Eulália Manhique Cuco, Nº 88345
   
   Descrição de erros:
     - (ainda não se verificaram!)
