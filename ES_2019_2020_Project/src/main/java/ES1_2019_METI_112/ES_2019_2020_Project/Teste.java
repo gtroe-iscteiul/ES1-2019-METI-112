@@ -12,7 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Teste {
 
-	private String path = "/Users/Jorge/git/projeto/ES1-2019-METI-112/ES_2019_2020_Project/documentos/Long-Method.xlsx";
+
 
 	public static void main(String[] args) throws IOException {
 //		File excelFile = new File("/Users/Jorge/git/projeto/ES1-2019-METI-112/ES_2019_2020_Project/documentos/Long-Method.xlsx");
@@ -43,9 +43,11 @@ public class Teste {
          // Return first sheet from the XLSX workbook
          XSSFSheet mySheet = myWorkBook.getSheetAt(0);
         
-        
+
 		for (Row row : mySheet) {
-			System.out.println(row.toString() + ";");
+			System.out.println(row.getCell(1).getStringCellValue());
+			
+			//System.out.println(row.toString() + ";");
 		}
 		
 	}
