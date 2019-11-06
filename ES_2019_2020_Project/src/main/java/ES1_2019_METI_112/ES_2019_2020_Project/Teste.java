@@ -3,10 +3,10 @@ package ES1_2019_METI_112.ES_2019_2020_Project;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -43,7 +43,23 @@ public class Teste {
          // Return first sheet from the XLSX workbook
          XSSFSheet mySheet = myWorkBook.getSheetAt(0);
         
+         
+/////// Serve para saber o número de linhas e colunas do ficheiro Excel///////////////////
+      	Iterator<Row> iterator = mySheet.iterator();
 
+      	XSSFRow Hrow = null;
+        while( iterator.hasNext()){
+        	Hrow = (XSSFRow) iterator.next();
+        }
+        if (Hrow != null) {
+            System.out.print("Number of lines: " + (Hrow).getRowNum());
+            System.out.println("");
+            System.out.println("Number os columns: " + (Hrow).getLastCellNum());
+            System.out.println("");
+        }
+//////////////////////////////////////////////////////////////////////////////////////////
+        
+         
 		for (Row row : mySheet) {
 			System.out.println(row.getCell(1).getStringCellValue());
 			
