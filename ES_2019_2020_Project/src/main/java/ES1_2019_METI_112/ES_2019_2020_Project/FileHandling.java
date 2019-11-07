@@ -17,15 +17,23 @@ public class FileHandling {
 	private XSSFWorkbook myWorkBook;
 	private XSSFSheet mySheet;
 	
-	public void init () throws IOException {
-		 file = new File("Long-Method.xlsx");
-	     inputFile = new FileInputStream(file);
-	     
-	     // Finds the workbook instance for XLSX file
-	     myWorkBook = new XSSFWorkbook (inputFile);
-	     
-	     // Return first sheet from the XLSX workbook
-	     mySheet = myWorkBook.getSheetAt(0);
+	public void init (String fileName) throws IOException {
+		 file = new File(fileName);
+		
+		 if (file.exists()) {
+		     inputFile = new FileInputStream(file);
+		     
+		     // Finds the workbook instance for XLSX file
+		     myWorkBook = new XSSFWorkbook (inputFile);
+		     
+		     // Return first sheet from the XLSX workbook
+		     mySheet = myWorkBook.getSheetAt(0);
+		 } else {
+			 // later the exception will cease to exist and 
+			 // will become a warning in a jframe
+			 throw new IllegalStateException ("The file name entered does "
+			 		+ "not exist in the directory!");
+		 }
 	}
 	
 	public int getNumberOfLines () {
@@ -54,14 +62,23 @@ public class FileHandling {
 	    }
 	}
 	
-	public String getTypeOfColumn (int column) {
-		String result = null;
+	public int getColumnOfType (String type) {
+		int value = -1;
 		for (Row row : mySheet) {
-			if (row.getRowNum()==0) {
-				result = row.getCell(column).getStringCellValue();
+			for (int i=0; i<getNumberOfColumns(); i++) {
+				if (row.getRowNum()==0 && getValueExpected(row, i).equals(type)) {
+					value = i;
+				}
 			}
 		}
-		return result;
+		if (value!=-1) {
+			return value;
+		} else {
+			 // later the exception will cease to exist and 
+			 // will become a warning in a jframe
+			 throw new IllegalStateException ("The type entered does "
+			 		+ "not exist in the Excel file!");
+		}
 	}
 	
 	public String getValueExpected (Row row, int column) {
@@ -78,11 +95,13 @@ public class FileHandling {
 		return value;
 	}
 	
-	public String getCellValue (int line, int column) {
+	// This function allows to select a cell based on MethodID and a column type
+	// which will be very useful to use in Jframe responsible for the user selection
+	public String getCellValue (int methodId, String type) {
 		String result = null;
 		for (Row row : mySheet) {
-			if (row.getRowNum()==line) {
-				result = getValueExpected(row, column);
+			if (row.getRowNum()==methodId) {
+				result = getValueExpected(row, getColumnOfType(type));
 			}
 		}
 		return result;
@@ -92,22 +111,22 @@ public class FileHandling {
 	public static void main(String[] args) throws IOException {        
                   
 		FileHandling fh = new FileHandling();
-		fh.init();
+		fh.init("Long-Method.xlsx");
 		System.out.println("Number of lines: " + fh.getNumberOfLines());
 		System.out.println("Number of columns: " + fh.getNumberOfColumns());
-		System.out.println("Cell 0 on 0: " + fh.getCellValue(0, 0));
-		System.out.println("Cell 1 on 1: " + fh.getCellValue(1, 1));
-		System.out.println("Cell 2 on 2: " + fh.getCellValue(2, 2));
-		System.out.println("Cell 3 on 3: " + fh.getCellValue(3, 3));
-		System.out.println("Cell 4 on 4: " + fh.getCellValue(4, 4));
-		System.out.println("Cell 5 on 5: " + fh.getCellValue(5, 5));
-		System.out.println("Cell 6 on 6: " + fh.getCellValue(6, 6));
-		System.out.println("Cell 7 on 7: " + fh.getCellValue(7, 7));
-		System.out.println("Cell 8 on 8: " + fh.getCellValue(8, 8));
-		System.out.println("Cell 9 on 9: " + fh.getCellValue(9, 9));
-		System.out.println("Cell 10 on 10: " + fh.getCellValue(10, 10));
-		System.out.println("Cell 11 on 11: " + fh.getCellValue(11, 11));
-		System.out.println("Cell 0 on 11: " + fh.getCellValue(0, 11));
+		System.out.println("Cell 0 on 0: " + fh.getCellValue(0, "MethodID"));
+		System.out.println("Cell 1 on 1: " + fh.getCellValue(1, "package"));
+		System.out.println("Cell 2 on 2: " + fh.getCellValue(2, "class"));
+		System.out.println("Cell 3 on 3: " + fh.getCellValue(3, "method"));
+		System.out.println("Cell 4 on 4: " + fh.getCellValue(4, "LOC"));
+		System.out.println("Cell 5 on 5: " + fh.getCellValue(5, "CYCLO"));
+		System.out.println("Cell 6 on 6: " + fh.getCellValue(6, "ATFD"));
+		System.out.println("Cell 7 on 7: " + fh.getCellValue(7, "LAA"));
+		System.out.println("Cell 8 on 8: " + fh.getCellValue(8, "is_long_method"));
+		System.out.println("Cell 9 on 9: " + fh.getCellValue(9, "iPlasma"));
+		System.out.println("Cell 10 on 10: " + fh.getCellValue(10, "PMD"));
+		System.out.println("Cell 11 on 11: " + fh.getCellValue(11, "is_feature_envy"));
+		System.out.println("Cell 0 on 11: " + fh.getCellValue(0, "is_feature_envy"));
 	}
 	
 }
