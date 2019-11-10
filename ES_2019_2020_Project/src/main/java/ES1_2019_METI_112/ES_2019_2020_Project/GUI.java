@@ -1,6 +1,8 @@
 package ES1_2019_METI_112.ES_2019_2020_Project;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -126,6 +128,13 @@ public class GUI {
 		
 		JButton btnCriarUmaRegra = new JButton("Definir uma regra");
 		btnCriarUmaRegra.setBounds(242, 205, 146, 23);
+		btnCriarUmaRegra.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RuleWindow ruleWindow = new RuleWindow();
+			}
+		});
 		frame.getContentPane().add(btnCriarUmaRegra);
 	}
 }
