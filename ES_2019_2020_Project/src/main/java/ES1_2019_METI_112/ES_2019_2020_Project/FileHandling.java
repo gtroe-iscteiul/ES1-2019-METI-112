@@ -108,7 +108,16 @@ public class FileHandling {
 		}
 		return result;
 	}
-
+	
+	public String getCellValue (int line, int column) {
+		String value = null;
+		for (Row row : mySheet) {
+			if (row.getRowNum()==line) {
+				value = getValueExpected(row, column);
+			}
+		}
+		return value;
+	}
 
 /*	public static void main(String[] args) throws IOException {        
                   
