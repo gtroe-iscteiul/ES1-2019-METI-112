@@ -1,4 +1,4 @@
-package ES1_2019_METI_112.ES_2019_2020_Project;
+package Classes_To_Use_As_A_Base;
 
 import java.awt.EventQueue;
 

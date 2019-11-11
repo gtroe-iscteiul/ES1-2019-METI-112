@@ -7,9 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-
-import ES1_2019_METI_112.ES_2019_2020_Project.RuleWindow;
-
 import javax.swing.JCheckBox;
 
 public class GUI {
