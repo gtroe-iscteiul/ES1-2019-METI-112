@@ -20,20 +20,22 @@ public class FileHandling {
 	public void init (String fileName) throws IOException {
 		 file = new File(fileName);
 		
-		 if (file.exists()) {
-		     inputFile = new FileInputStream(file);
+		 inputFile = new FileInputStream(file);
 		     
-		     // Finds the workbook instance for XLSX file
-		     myWorkBook = new XSSFWorkbook (inputFile);
+		 // Finds the workbook instance for XLSX file
+		 myWorkBook = new XSSFWorkbook (inputFile);
 		     
-		     // Return first sheet from the XLSX workbook
-		     mySheet = myWorkBook.getSheetAt(0);
-		 } else {
-			 // later the exception will cease to exist and 
-			 // will become a warning in a jframe
-			 throw new IllegalStateException ("The file name entered does "
-			 		+ "not exist in the directory!");
-		 }
+		 // Return first sheet from the XLSX workbook
+		 mySheet = myWorkBook.getSheetAt(0);
+	}
+	
+	public boolean existsFile (File file) {
+		if (file.exists()) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 	
 	public int getNumberOfLines () {
@@ -108,7 +110,7 @@ public class FileHandling {
 	}
 
 
-	public static void main(String[] args) throws IOException {        
+/*	public static void main(String[] args) throws IOException {        
                   
 		FileHandling fh = new FileHandling();
 		fh.init("Long-Method.xlsx");
@@ -128,5 +130,5 @@ public class FileHandling {
 		System.out.println("Cell 11 on 11: " + fh.getCellValue(11, "is_feature_envy"));
 		System.out.println("Cell 0 on 11: " + fh.getCellValue(0, "is_feature_envy"));
 	}
-	
+*/	
 }
