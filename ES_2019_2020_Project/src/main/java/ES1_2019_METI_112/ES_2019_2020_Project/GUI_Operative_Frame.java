@@ -12,19 +12,23 @@ import javax.swing.WindowConstants;
 
 public class GUI_Operative_Frame {
 	
-	private GUI_Main_Class gui;
+	private GUI_Main_Class GMC;
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
 	private GUI_JTable GJT;
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
-		this.gui = g;
+		this.GMC = g;
 		GOF = this;
 		init();
 	}
 	
 	public GUI_Main_Class getGMC () {
-		return gui;
+		return GMC;
+	}
+	
+	public GUI_JTable getGJT () {
+		return GJT;
 	}
 	
 	private void init () {
@@ -36,6 +40,7 @@ public class GUI_Operative_Frame {
 		open();
 		}
 		
+	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 200);
 		frame.setVisible(true);
@@ -47,17 +52,16 @@ public class GUI_Operative_Frame {
 		JPanel panel = new JPanel();		
 		panel.setLayout(new GridLayout(5,1));
 		
-		buildPanel(panel, "View File", "abrir jTable", 1);
-		buildPanel(panel, "Set Thresholds", "abrir janela das thresolds", 2);
-		buildPanel(panel, "Set Rules", "abrir janela das regras", 3);
-		buildPanel(panel, "Defects Detection", "abrir janela dos defeitos detectados", 4);
-		buildPanel(panel, "Reselect File", "voltar à janela 'GUI_Main_Class'", 5);
+		buildPanel(panel, "View File", 1);
+		buildPanel(panel, "Set Thresholds", 2);
+		buildPanel(panel, "Set Rules", 3);
+		buildPanel(panel, "Defects Detection", 4);
+		buildPanel(panel, "Reselect File", 5);
 								
 		frame.add(panel, BorderLayout.CENTER);
 	}
 	
-	private void buildPanel(JPanel panel, String name, final String message, 
-			final int number) {
+	private void buildPanel(JPanel panel, String name, final int number) {
 		JButton button = new JButton(name);
 		button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -65,13 +69,14 @@ public class GUI_Operative_Frame {
 					GJT = new GUI_JTable(GOF);
 				}
 				if (number==2) {
-					System.out.println("Button 2: " + message);
+					System.out.println("Button 2: " + "abrir janela das thresolds");
 				}
 				if (number==3) {
-					System.out.println("Button 3: " + message);
+					System.out.println("Button 3: " + "abrir janela das regras");
 				}
 				if (number==4) {
-					System.out.println("Button 4: " + message);
+					System.out.println("Button 4: " + 
+							"abrir janela dos defeitos detectados");
 				}
 				if (number==5) {
 					frame.dispose();
