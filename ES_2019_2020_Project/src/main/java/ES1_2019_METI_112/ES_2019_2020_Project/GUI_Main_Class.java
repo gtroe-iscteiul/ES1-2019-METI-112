@@ -25,6 +25,10 @@ public class GUI_Main_Class {
 	
 	public GUI_Main_Class () {
 		GMC = this;
+		init();
+	}
+	
+	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
 		addFrameContent();
@@ -37,6 +41,11 @@ public class GUI_Main_Class {
 		return file;
 	}
 	
+	public GUI_Operative_Frame getGOF() {
+		return GOF;
+	}
+	
+	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(400, 135);
 		frame.setVisible(true);
@@ -83,8 +92,6 @@ public class GUI_Main_Class {
 		File f = new File(fileName);
 		 if (file.existsFile(f)) {
 			file.init(fileName);
-			// "fileTest()" apenas para testar a interface, depois é para apagar!
-//			fileTest();
 			GOF = new GUI_Operative_Frame(GMC);
 		 } else {
 			 final JPanel warning = new JPanel();
@@ -93,30 +100,9 @@ public class GUI_Main_Class {
 					 JOptionPane.WARNING_MESSAGE);
 		 }		
 	}
-	
-/*	private void fileTest() {
-		System.out.println("selecção do ficheiro: " + fileName);
-		System.out.println("a partir daqui, entra então o mecanismo de import...");
-		System.out.println("");
-		System.out.println("Number of lines: " + file.getNumberOfLines());
-		System.out.println("Number of columns: " + file.getNumberOfColumns());
-		System.out.println("Cell 0 on 0: " + file.getCellValue(0, "MethodID"));
-		System.out.println("Cell 1 on 1: " + file.getCellValue(1, "package"));
-		System.out.println("Cell 2 on 2: " + file.getCellValue(2, "class"));
-		System.out.println("Cell 3 on 3: " + file.getCellValue(3, "method"));
-		System.out.println("Cell 4 on 4: " + file.getCellValue(4, "LOC"));
-		System.out.println("Cell 5 on 5: " + file.getCellValue(5, "CYCLO"));
-		System.out.println("Cell 6 on 6: " + file.getCellValue(6, "ATFD"));
-		System.out.println("Cell 7 on 7: " + file.getCellValue(7, "LAA"));
-		System.out.println("Cell 8 on 8: " + file.getCellValue(8, "is_long_method"));
-		System.out.println("Cell 9 on 9: " + file.getCellValue(9, "iPlasma"));
-		System.out.println("Cell 10 on 10: " + file.getCellValue(10, "PMD"));
-		System.out.println("Cell 11 on 11: " + file.getCellValue(11, "is_feature_envy"));
-		System.out.println("Cell 0 on 11: " + file.getCellValue(0, "is_feature_envy"));
 		
-	}
-*/	
 	public static void main(String[] args) {
 		GUI_Main_Class GUI = new GUI_Main_Class();
+		GUI.init();
 	}
 }

@@ -3,20 +3,28 @@ package ES1_2019_METI_112.ES_2019_2020_Project;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 
 public class GUI_JTable {
 	
-	private GUI_Operative_Frame gui;
+	private GUI_Operative_Frame GOF;
 	private JFrame frame;
 	
 	public GUI_JTable (GUI_Operative_Frame g) {
-		this.gui = g;
-		init();
+		this.GOF = g;
+		if (GOF.getGMC().getFile().isEmpty()) {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "The imported file "
+					+ "has no content!", "Warning",
+					 JOptionPane.WARNING_MESSAGE);
+		} else {
+			init();
+		}
 	}
-	
 	
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
@@ -27,6 +35,7 @@ public class GUI_JTable {
 		open();
 		}
 		
+	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(1200, 500);
 		frame.setVisible(true);
@@ -39,19 +48,19 @@ public class GUI_JTable {
 	}
 	
 	private void openJTable() {
-		int lines = gui.getGMC().getFile().getNumberOfLines();
-		int columns = gui.getGMC().getFile().getNumberOfColumns();
+		int lines = GOF.getGMC().getFile().getNumberOfLines();
+		int columns = GOF.getGMC().getFile().getNumberOfColumns();
 				
 		String[][] data = new String[lines-1][columns];
 		String columnName [] = new String[columns];
 		
 		for (int i=0; i<columns; i++) {
-			columnName[i] = gui.getGMC().getFile().getCellValue(0, i);
+			columnName[i] = GOF.getGMC().getFile().getCellValue(0, i);
 		}
 		
 		for (int x=1; x<lines; x++) {
 			for (int y=0; y<columns; y++) {
-				data[x-1][y] = gui.getGMC().getFile().getCellValue(x, y);
+				data[x-1][y] = GOF.getGMC().getFile().getCellValue(x, y);
 			}
 		}
 		
