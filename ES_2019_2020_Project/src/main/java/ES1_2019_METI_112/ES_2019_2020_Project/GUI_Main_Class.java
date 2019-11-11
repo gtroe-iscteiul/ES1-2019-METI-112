@@ -20,14 +20,21 @@ public class GUI_Main_Class {
 	private FileHandling file;
 	private String fileName;
 	private JFrame frame;
+	private GUI_Operative_Frame GOF;
+	private GUI_Main_Class GMC;
 	
 	public GUI_Main_Class () {
+		GMC = this;
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
 		addFrameContent();
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.pack();
 		open();
+	}
+	
+	public FileHandling getFile () {
+		return file;
 	}
 	
 	private void open(){
@@ -76,9 +83,9 @@ public class GUI_Main_Class {
 		File f = new File(fileName);
 		 if (file.existsFile(f)) {
 			file.init(fileName);
-			// fileTest apenas para testar a interface, depois é para apagar!
-			fileTest();
-			//////////////////////////////////////////////////////////
+			// "fileTest()" apenas para testar a interface, depois é para apagar!
+//			fileTest();
+			GOF = new GUI_Operative_Frame(GMC);
 		 } else {
 			 final JPanel warning = new JPanel();
 			 JOptionPane.showMessageDialog(warning, "The file name entered does " + 
@@ -87,7 +94,7 @@ public class GUI_Main_Class {
 		 }		
 	}
 	
-	private void fileTest() {
+/*	private void fileTest() {
 		System.out.println("selecção do ficheiro: " + fileName);
 		System.out.println("a partir daqui, entra então o mecanismo de import...");
 		System.out.println("");
@@ -108,7 +115,7 @@ public class GUI_Main_Class {
 		System.out.println("Cell 0 on 11: " + file.getCellValue(0, "is_feature_envy"));
 		
 	}
-	
+*/	
 	public static void main(String[] args) {
 		GUI_Main_Class GUI = new GUI_Main_Class();
 	}
