@@ -1,4 +1,4 @@
-package ES1_2019_METI_112.ES_2019_2020_Project;
+package Classes_To_Use_As_A_Base;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
+import ES1_2019_METI_112.ES_2019_2020_Project.RuleWindow;
+
 import javax.swing.JCheckBox;
 
 public class GUI {
