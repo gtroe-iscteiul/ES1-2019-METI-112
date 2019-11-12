@@ -16,12 +16,11 @@ public class GUI_Operative_Frame {
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
 	private GUI_JTable GJT;
+	private GUI_Thresholds_Frame GTF;
 	private String LOC = null;
 	private String CYCLO = null;
 	private String ATFD = null;
 	private String LAA = null;
-	private Treshold_GUI teste;
-
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
@@ -35,6 +34,10 @@ public class GUI_Operative_Frame {
 	
 	public GUI_JTable getGJT () {
 		return GJT;
+	}
+	
+	public GUI_Thresholds_Frame getGTF () {
+		return GTF;
 	}
 	
 	public String getLOC () {
@@ -105,11 +108,9 @@ public class GUI_Operative_Frame {
 			public void actionPerformed(ActionEvent e){
 				if (number==1) {
 					GJT = new GUI_JTable(GOF);
-					
 				}
 				if (number==2) {
-					teste = new Treshold_GUI();
-					System.out.println("Button 2: " + "abrir janela das thresolds");
+					GTF = new GUI_Thresholds_Frame(GOF);
 				}
 				if (number==3) {
 					System.out.println("Button 3: " + "abrir janela das regras");
