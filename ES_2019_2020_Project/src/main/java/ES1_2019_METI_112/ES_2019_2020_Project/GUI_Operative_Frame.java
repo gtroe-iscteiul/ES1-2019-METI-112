@@ -16,10 +16,15 @@ public class GUI_Operative_Frame {
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
 	private GUI_JTable GJT;
+<<<<<<< HEAD
 	private String LOC = null;
 	private String CYCLO = null;
 	private String ATFD = null;
 	private String LAA = null;
+=======
+	private Treshold_GUI teste;
+	//private ThresholdGUI GTH;
+>>>>>>> refs/remotes/origin/Treshold_GUI
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
@@ -103,8 +108,10 @@ public class GUI_Operative_Frame {
 			public void actionPerformed(ActionEvent e){
 				if (number==1) {
 					GJT = new GUI_JTable(GOF);
+					
 				}
 				if (number==2) {
+					teste = new Treshold_GUI();
 					System.out.println("Button 2: " + "abrir janela das thresolds");
 				}
 				if (number==3) {
