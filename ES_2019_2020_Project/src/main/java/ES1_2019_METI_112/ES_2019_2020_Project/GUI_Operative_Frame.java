@@ -16,6 +16,10 @@ public class GUI_Operative_Frame {
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
 	private GUI_JTable GJT;
+	private String LOC = null;
+	private String CYCLO = null;
+	private String ATFD = null;
+	private String LAA = null;
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
@@ -29,6 +33,38 @@ public class GUI_Operative_Frame {
 	
 	public GUI_JTable getGJT () {
 		return GJT;
+	}
+	
+	public String getLOC () {
+		return LOC;
+	}
+	
+	public String getCYCLO () {
+		return CYCLO;
+	}
+	
+	public String getATFD () {
+		return ATFD;
+	}
+	
+	public String getLAA () {
+		return LAA;
+	}
+	
+	public void setLOC (String s) {
+		LOC = s;
+	}
+	
+	public void setCYCLO (String s) {
+		CYCLO = s;
+	}
+	
+	public void setATFD (String s) {
+		ATFD = s;
+	}
+	
+	public void setLAA (String s) {
+		LAA = s;
 	}
 	
 	private void init () {
