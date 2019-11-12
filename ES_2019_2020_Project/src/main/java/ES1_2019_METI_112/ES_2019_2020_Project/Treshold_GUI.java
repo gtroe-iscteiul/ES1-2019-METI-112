@@ -1,12 +1,14 @@
-package Classes_To_Use_As_A_Base;
+package ES1_2019_METI_112.ES_2019_2020_Project;
 
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 
-public class ThresholdGUI {
+import org.apache.xmlbeans.impl.xb.xsdschema.OpenAttrs;
+
+public class Treshold_GUI {
 
 	private JFrame frame;
 	private JTextField txtDefinirThresholds;
@@ -26,8 +28,7 @@ public class ThresholdGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ThresholdGUI window = new ThresholdGUI();
-					window.frame.setVisible(true);
+					Treshold_GUI window = new Treshold_GUI();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,7 +39,7 @@ public class ThresholdGUI {
 	/**
 	 * Create the application.
 	 */
-	public ThresholdGUI() {
+	public Treshold_GUI() {
 		initialize();
 	}
 
@@ -50,6 +51,7 @@ public class ThresholdGUI {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setVisible(true);
 		
 		txtDefinirThresholds = new JTextField();
 		txtDefinirThresholds.setText("Definir Thresholds");
