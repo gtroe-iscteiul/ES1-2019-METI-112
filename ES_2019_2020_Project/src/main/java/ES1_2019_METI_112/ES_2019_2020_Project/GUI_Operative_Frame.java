@@ -16,12 +16,10 @@ public class GUI_Operative_Frame {
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
 	private GUI_JTable GJT;
-
 	private String LOC = null;
 	private String CYCLO = null;
 	private String ATFD = null;
 	private String LAA = null;
-
 	private Treshold_GUI teste;
 
 	
