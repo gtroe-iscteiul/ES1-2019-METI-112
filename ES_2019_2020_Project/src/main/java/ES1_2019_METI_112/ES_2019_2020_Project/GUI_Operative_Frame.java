@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -21,6 +23,8 @@ public class GUI_Operative_Frame {
 	private String CYCLO = null;
 	private String ATFD = null;
 	private String LAA = null;
+	private boolean isGuiJTableOpen = false;
+	private boolean isGuiThresholdsFrameOpen = false;
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
@@ -72,6 +76,22 @@ public class GUI_Operative_Frame {
 		LAA = s;
 	}
 	
+	public boolean getIsOpenGJT() {
+		return isGuiJTableOpen;
+	}
+	
+	public void setIsOpenGJT(boolean state) {
+		this.isGuiJTableOpen = state;
+	}
+	
+	public boolean getIsOpenGTF() {
+		return isGuiThresholdsFrameOpen;
+	}
+	
+	public void setIsOpenGTF(boolean state) {
+		this.isGuiThresholdsFrameOpen = state;
+	}
+	
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -106,26 +126,61 @@ public class GUI_Operative_Frame {
 		JButton button = new JButton(name);
 		button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (number==1) {
-					GJT = new GUI_JTable(GOF);
-				}
-				if (number==2) {
-					GTF = new GUI_Thresholds_Frame(GOF);
-				}
-				if (number==3) {
-					System.out.println("Button 3: " + "abrir janela das regras");
-				}
-				if (number==4) {
-					System.out.println("Button 4: " + 
-							"abrir janela dos defeitos detectados");
-				}
-				if (number==5) {
-					GMC.setIsOpenGOF(false);
-					frame.dispose();
+				try {
+					if (number==1) {
+						dealWithErrors_GJT();
+					}
+					if (number==2) {
+						dealWithErrors_GTF();
+					}
+					if (number==3) {
+						System.out.println("Button 3: " + "abrir janela das regras");
+					}
+					if (number==4) {
+						System.out.println("Button 4: " + 
+								"abrir janela dos defeitos detectados");
+					}
+					if (number==5) {
+						GMC.setIsOpenGOF(false);
+						frame.dispose();
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
 		});
 		panel.add(button);
+	}
+	
+	private void dealWithErrors_GJT() throws IOException {
+		if (getGMC().getFile().isEmpty()) {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "The imported file "
+					+ "has no content!", "Warning",
+					 JOptionPane.WARNING_MESSAGE);
+		} else {
+			if (isGuiJTableOpen==true) {
+				final JPanel warning = new JPanel();
+				JOptionPane.showMessageDialog(warning, "Unable to open new "
+						+ "window for viewing Excel file! Window is already "
+						+ "open!", "Warning", JOptionPane.WARNING_MESSAGE);
+			} else {
+				this.isGuiJTableOpen = true;
+				GJT = new GUI_JTable(GOF);
+			}
+		}
+	}
+	
+	private void dealWithErrors_GTF() throws IOException {
+		if (isGuiThresholdsFrameOpen==true) {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "Unable to open new window "
+					+ "for thresholds settings! Window is already open!", 
+					"Warning", JOptionPane.WARNING_MESSAGE);
+		} else {
+			this.isGuiThresholdsFrameOpen = true;
+			GTF = new GUI_Thresholds_Frame(GOF);
+		}
 	}
 		
 }

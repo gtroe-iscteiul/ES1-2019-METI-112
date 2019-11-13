@@ -111,6 +111,7 @@ public class GUI_Thresholds_Frame {
 		JButton back = new JButton("BACK");
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				GOF.setIsOpenGTF(false);
 				frame.dispose();
 			}
 		});
@@ -129,7 +130,7 @@ public class GUI_Thresholds_Frame {
 	private void failed() {
 		 final JPanel warning = new JPanel();
 		 JOptionPane.showMessageDialog(warning, "There are empty "
-		 		+ "thresholds fields! Please fill them in first!"
+		 		+ "thresholds fields! Please fill them first!"
 		 		, "Warning",
 				 JOptionPane.WARNING_MESSAGE);
 	}
@@ -139,6 +140,8 @@ public class GUI_Thresholds_Frame {
 		GOF.setCYCLO(CYCLO.getText());
 		GOF.setATFD(ATFD.getText());
 		GOF.setLAA(LAA.getText());
+		
+		GOF.setIsOpenGTF(false);
 		frame.dispose();
 		final JPanel warning = new JPanel();
 		JOptionPane.showMessageDialog(warning, "Successfully saved!"
