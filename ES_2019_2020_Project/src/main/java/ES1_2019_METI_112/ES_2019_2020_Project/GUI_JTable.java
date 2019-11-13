@@ -1,9 +1,11 @@
 package ES1_2019_METI_112.ES_2019_2020_Project;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,21 +18,14 @@ public class GUI_JTable {
 	
 	public GUI_JTable (GUI_Operative_Frame g) {
 		this.GOF = g;
-		if (GOF.getGMC().getFile().isEmpty()) {
-			final JPanel warning = new JPanel();
-			JOptionPane.showMessageDialog(warning, "The imported file "
-					+ "has no content!", "Warning",
-					 JOptionPane.WARNING_MESSAGE);
-		} else {
-			init();
-		}
+		init();
 	}
 	
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
 		addFrameContent();
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.pack();
 		open();
 		}
@@ -68,7 +63,18 @@ public class GUI_JTable {
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 			
-		frame.add(scrollPane);		
+		frame.add(scrollPane, BorderLayout.NORTH);	
+		
+		JPanel panel = new JPanel();
+		JButton button = new JButton("BACK");
+		button.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				GOF.setIsOpenGJT(false);
+				frame.dispose();
+			}
+		});
+		panel.add(button);
+		frame.add(panel, BorderLayout.SOUTH);
 	}
 	
 }

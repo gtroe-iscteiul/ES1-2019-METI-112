@@ -26,7 +26,6 @@ public class GUI_Main_Class {
 	
 	public GUI_Main_Class () {
 		GMC = this;
-		init();
 	}
 	
 	private void init () {
