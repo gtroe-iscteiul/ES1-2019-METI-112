@@ -120,6 +120,7 @@ public class GUI_Operative_Frame {
 							"abrir janela dos defeitos detectados");
 				}
 				if (number==5) {
+					GMC.setIsOpenGOF(false);
 					frame.dispose();
 				}
 			}

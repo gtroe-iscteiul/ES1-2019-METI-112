@@ -22,6 +22,7 @@ public class GUI_Main_Class {
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
 	private GUI_Main_Class GMC;
+	private boolean isGuiOperativeFrameOpen = false;
 	
 	public GUI_Main_Class () {
 		GMC = this;
@@ -44,6 +45,14 @@ public class GUI_Main_Class {
 	public GUI_Operative_Frame getGOF() {
 		return GOF;
 	}
+	
+	public boolean getIsOpenGOF() {
+		return isGuiOperativeFrameOpen;
+	}
+	
+	public void setIsOpenGOF(boolean state) {
+		this.isGuiOperativeFrameOpen = state;
+	}	
 	
 	@SuppressWarnings("deprecation")
 	private void open(){
@@ -69,36 +78,64 @@ public class GUI_Main_Class {
 		panel_2.add(text);
 		
 		// panel_3 definition
-		JButton ok = new JButton("OK");
-		ok.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				try {
-					fileName = text.getText();
-					file = new FileHandling();
-					importFile();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		panel_3.add(ok);
+		panelBuild(panel_3, text);
 				
 		frame.add(panel_1, BorderLayout.NORTH);
 		frame.add(panel_2, BorderLayout.CENTER);
 		frame.add(panel_3, BorderLayout.SOUTH);
 	}
 	
-	private void importFile () throws IOException {
+	private void panelBuild(JPanel panel_3, final JTextField text) {
+		JButton ok = new JButton("OK");
+		ok.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+					fileName = text.getText();
+					file = new FileHandling();
+					importFile(text);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panel_3.add(ok);
+	}
+	
+	private void importFile (JTextField text) throws IOException {
 		File f = new File(fileName);
 		 if (file.existsFile(f)) {
-			file.init(fileName);
+			 dealWithExternalErrors(file);
+		 } else {
+			 dealWithInternalErrors(text);
+		 }		
+	}
+	
+	private void dealWithExternalErrors(FileHandling file) throws IOException {
+		file.init(fileName);
+		if (isGuiOperativeFrameOpen==true) {
+			 final JPanel warning = new JPanel();
+			 JOptionPane.showMessageDialog(warning, "Unable to open "
+			 		+ "new file operations window! Window is already "
+			 		+ "open!", "Warning", JOptionPane.WARNING_MESSAGE);
+		} else {
+			isGuiOperativeFrameOpen = true;
 			GOF = new GUI_Operative_Frame(GMC);
+		}
+	}
+	
+	private void dealWithInternalErrors(JTextField text) {
+		 if (text.getText().isBlank()) {
+			 final JPanel warning = new JPanel();
+			 JOptionPane.showMessageDialog(warning, "Empty search field! "
+			 		+ "Please enter filename to continue!", "Warning",
+			 		JOptionPane.WARNING_MESSAGE);
 		 } else {
 			 final JPanel warning = new JPanel();
-			 JOptionPane.showMessageDialog(warning, "The file name entered does " + 
-			 		"not exist in the directory!", "Warning",
-					 JOptionPane.WARNING_MESSAGE);
-		 }		
+			 JOptionPane.showMessageDialog(warning, "The file name entered "
+			 		+ "does not exist in the directory!", "Warning",
+			 		JOptionPane.WARNING_MESSAGE);
+		 }
+		
 	}
 		
 	public static void main(String[] args) {
