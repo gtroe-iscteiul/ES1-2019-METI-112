@@ -38,7 +38,7 @@ public class GUI_Thresholds_Frame {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
 		addFrameContent();
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.pack();
 		open();
 		}
@@ -123,7 +123,7 @@ public class GUI_Thresholds_Frame {
 				|| ATFD.getText().isBlank() || LAA.getText().isBlank()) {
 			failed();
 		} else {
-			succeeded();
+			testingType();
 		}
 	}
 	
@@ -147,6 +147,50 @@ public class GUI_Thresholds_Frame {
 		JOptionPane.showMessageDialog(warning, "Successfully saved!"
 		 		, "Information",
 				 JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	private void testingType() {
+		if (notOnlyNumbers(LOC.getText(), CYCLO.getText(), 
+				ATFD.getText(), LAA.getText())==4) {
+			succeeded();
+		} else {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "Invalid values! Values "
+					+ "​​must be all numeric!", "Warning",
+					 JOptionPane.WARNING_MESSAGE);
+		}
+		
+	}
+	
+	private int notOnlyNumbers(String v1, String v2, String v3, String v4) {
+		int checkDouble = doubleNumber(v1) + doubleNumber(v2) + 
+				doubleNumber(v3) + doubleNumber(v4);
+		int checkInteger = intNumber(v1) + intNumber(v2) + 
+				intNumber(v3) + intNumber(v4);
+		int count = checkDouble + checkInteger;
+		return count;
+	}
+	
+	@SuppressWarnings("unused")
+	private int doubleNumber(String value) {
+		int count = 0;
+	    try {
+	        double d = Double.parseDouble(value);
+	        count++;
+	    } catch (NumberFormatException | NullPointerException nfe) {
+	    }
+		return count;
+	}
+	
+	@SuppressWarnings("unused")
+	private int intNumber(String value) {
+		int count = 0;
+	    try {
+	        int i = Integer.parseInt(value);
+	        count++;
+	    } catch (NumberFormatException | NullPointerException nfe) {
+	    }
+		return count;
 	}
 	
 }
