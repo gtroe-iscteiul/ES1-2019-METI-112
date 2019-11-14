@@ -163,16 +163,13 @@ public class GUI_Thresholds_Frame {
 	}
 	
 	private int notOnlyNumbers(String v1, String v2, String v3, String v4) {
-		int checkDouble = doubleNumber(v1) + doubleNumber(v2) + 
-				doubleNumber(v3) + doubleNumber(v4);
-		int checkInteger = intNumber(v1) + intNumber(v2) + 
-				intNumber(v3) + intNumber(v4);
-		int count = checkDouble + checkInteger;
-		return count;
+		int check = isNumber(v1) + isNumber(v2) + 
+				isNumber(v3) + isNumber(v4);
+		return check;
 	}
 	
 	@SuppressWarnings("unused")
-	private int doubleNumber(String value) {
+	private int isNumber(String value) {
 		int count = 0;
 	    try {
 	        double d = Double.parseDouble(value);
@@ -181,16 +178,5 @@ public class GUI_Thresholds_Frame {
 	    }
 		return count;
 	}
-	
-	@SuppressWarnings("unused")
-	private int intNumber(String value) {
-		int count = 0;
-	    try {
-	        int i = Integer.parseInt(value);
-	        count++;
-	    } catch (NumberFormatException | NullPointerException nfe) {
-	    }
-		return count;
-	}
-	
+		
 }

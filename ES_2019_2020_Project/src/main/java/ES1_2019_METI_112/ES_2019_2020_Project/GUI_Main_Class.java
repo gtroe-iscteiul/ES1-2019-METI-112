@@ -35,6 +35,8 @@ public class GUI_Main_Class {
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.pack();
 		open();
+		
+		disableWarning();
 	}
 	
 	public FileHandling getFile () {
@@ -135,6 +137,11 @@ public class GUI_Main_Class {
 			 		JOptionPane.WARNING_MESSAGE);
 		 }
 		
+	}
+	
+	private static void disableWarning() {
+	    System.err.close();
+	    System.setErr(System.out);
 	}
 		
 	public static void main(String[] args) {
