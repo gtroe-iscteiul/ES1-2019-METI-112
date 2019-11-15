@@ -13,8 +13,8 @@ public class SetCYCLO_Test extends TestCase {
 			GUI_Operative_Frame of= new GUI_Operative_Frame(new GUI_Main_Class());
 			of.setCYCLO("cyclo");
 
-			String expected = "cyclo";
-			assertEquals(expected, of.getCYCLO());
+			String expected_result = "cyclo";
+			assertEquals(expected_result, of.getCYCLO());
 		}
 
 

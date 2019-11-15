@@ -129,7 +129,7 @@ public class FileHandling {
 		}
 	}
 	
-	//These 2 methods were created in order to perform the JUnit tests
+	//These 2 methods were created in order to perform the JUnit tests for the FileHandling class
 
 	public XSSFSheet getMySheet() {
 		return mySheet;

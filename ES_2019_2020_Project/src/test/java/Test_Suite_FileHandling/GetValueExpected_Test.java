@@ -14,10 +14,10 @@ public class GetValueExpected_Test extends TestCase {
 	public void test() throws IOException {
 		FileHandling file = new FileHandling();
 		file.init("Long-Method.xlsx");
-		String result = null;
+		String final_result = null;
 		for(Row row : file.getMySheet()) {
-			result = file.getValueExpected(row,0);
+			final_result = file.getValueExpected(row,0);
 		}
-		assertEquals("420.0",result);	}
+		assertEquals("420.0",final_result);	}
 
 }

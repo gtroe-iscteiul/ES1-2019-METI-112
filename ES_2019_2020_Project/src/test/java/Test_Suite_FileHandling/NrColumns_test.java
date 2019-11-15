@@ -13,9 +13,9 @@ public class NrColumns_test extends TestCase{
 	public void test() throws IOException {
 		FileHandling file = new FileHandling();
 		file.init("Long-Method.xlsx");
-		int result = file.getNumberOfColumns();
+		int expected = file.getNumberOfColumns();
 		
-		assertEquals(12,result);
+		assertEquals(12,expected);
 	}
 
 }

@@ -12,9 +12,9 @@ public class SetIsOpenGOF_Test extends TestCase{
 		GUI_Main_Class mc = new GUI_Main_Class();
 		mc.setIsOpenGOF(true);
 		
-		boolean condition = mc.getIsOpenGOF();
+		boolean expected_condition = mc.getIsOpenGOF();
 		
-		assertTrue(condition);
+		assertTrue(expected_condition);
 	}
 
 }

@@ -13,9 +13,9 @@ public class ExistsFile_Test extends TestCase {
 	public void test_ExistsFile() throws IOException {
 		FileHandling file = new FileHandling();
 		file.init("Long-Method.xlsx");
-		boolean result = file.existsFile(file.getFile());
+		boolean expected = file.existsFile(file.getFile());
 		
-		assertTrue(result);
+		assertTrue(expected);
 		//file.init("ficheiro_inexistente");
 		//assertFalse(result);
 	
