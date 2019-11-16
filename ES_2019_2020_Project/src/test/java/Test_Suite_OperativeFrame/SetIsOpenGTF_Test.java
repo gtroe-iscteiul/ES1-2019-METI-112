@@ -14,7 +14,6 @@ public class SetIsOpenGTF_Test {
 		GUI_Operative_Frame of= new GUI_Operative_Frame(new GUI_Main_Class());
 		of.setIsOpenGTF(true);
 		boolean condition = of.getIsOpenGTF();
-
 		assertTrue(condition);
 	}
 }

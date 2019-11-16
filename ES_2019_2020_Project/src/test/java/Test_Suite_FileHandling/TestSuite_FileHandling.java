@@ -8,5 +8,4 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ ExistsFile_Test.class, GetCellValue_Test.class, GetValueExpected_Test.class, IsEmpty_Test.class,
 		NrColumns_test.class, NrLines_Test.class })
 public class TestSuite_FileHandling {
-
 }

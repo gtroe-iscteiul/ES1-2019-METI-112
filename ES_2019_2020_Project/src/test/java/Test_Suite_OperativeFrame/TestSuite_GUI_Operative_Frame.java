@@ -1,5 +1,4 @@
 package Test_Suite_OperativeFrame;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;

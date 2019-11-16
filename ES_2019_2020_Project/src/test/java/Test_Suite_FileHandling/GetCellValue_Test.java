@@ -13,9 +13,9 @@ public class GetCellValue_Test extends TestCase{
 	public void test_cellValue() throws IOException {
 		FileHandling file = new FileHandling();
 		file.init("Long-Method.xlsx");
-		String result = file.getCellValue(1,1);
+		String resultado = file.getCellValue(1,1);
 		
-		assertEquals("fat",result);
+		assertEquals("fat",resultado);
 	
 	}
 

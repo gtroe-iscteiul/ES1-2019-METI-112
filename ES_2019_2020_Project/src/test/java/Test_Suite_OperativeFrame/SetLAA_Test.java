@@ -16,5 +16,4 @@ public class SetLAA_Test {
 
 		String expected = "LAA";
 		assertEquals(expected, of.getLAA());	}
-
 }
