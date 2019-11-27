@@ -159,7 +159,6 @@ public class GUI_Thresholds_Frame {
 					+ "​​must be all numeric!", "Warning",
 					 JOptionPane.WARNING_MESSAGE);
 		}
-		
 	}
 	
 	private int notOnlyNumbers(String v1, String v2, String v3, String v4) {
