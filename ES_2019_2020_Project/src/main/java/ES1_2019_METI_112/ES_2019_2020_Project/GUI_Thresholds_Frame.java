@@ -22,7 +22,6 @@ public class GUI_Thresholds_Frame {
 	private JTextField CYCLO;
 	private JTextField ATFD;
 	private JTextField LAA;
-
 	
 	public GUI_Thresholds_Frame (GUI_Operative_Frame g) {
 		this.GOF = g;
@@ -35,7 +34,6 @@ public class GUI_Thresholds_Frame {
 		init();
 	}
 	
-
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -138,11 +136,10 @@ public class GUI_Thresholds_Frame {
 	}
 	
 	private void succeeded() {
-		GOF.setLOC(LOC.getText());
-		GOF.setCYCLO(CYCLO.getText());
-		GOF.setATFD(ATFD.getText());
-		GOF.setLAA(LAA.getText());
-		GOF.setisTresholdSet(true);
+		GOF.getMD().setLOC(LOC.getText());
+		GOF.getMD().setCYCLO(CYCLO.getText());
+		GOF.getMD().setATFD(ATFD.getText());
+		GOF.getMD().setLAA(LAA.getText());
 		
 		GOF.setIsOpenGTF(false);
 		frame.dispose();

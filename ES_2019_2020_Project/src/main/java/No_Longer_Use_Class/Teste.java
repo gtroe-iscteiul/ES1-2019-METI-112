@@ -38,7 +38,8 @@ public class Teste {
          FileInputStream fis = new FileInputStream(myFile);
 
          // Finds the workbook instance for XLSX file
-         XSSFWorkbook myWorkBook = new XSSFWorkbook (fis);
+         @SuppressWarnings("resource")
+		XSSFWorkbook myWorkBook = new XSSFWorkbook (fis);
         
          // Return first sheet from the XLSX workbook
          XSSFSheet mySheet = myWorkBook.getSheetAt(0);

@@ -6,8 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.OpenAttrs;
-
 public class Treshold_GUI {
 
 	private JFrame frame;
@@ -28,6 +26,7 @@ public class Treshold_GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					@SuppressWarnings("unused")
 					Treshold_GUI window = new Treshold_GUI();
 				} catch (Exception e) {
 					e.printStackTrace();
