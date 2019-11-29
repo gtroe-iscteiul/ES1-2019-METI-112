@@ -115,5 +115,6 @@ public class GUI_Rule_Definition {
 		JButton btnReset = new JButton("RESET");
 		btnReset.setBounds(53, 220, 89, 23);
 		frame.getContentPane().add(btnReset);
+		frame.setVisible(true);
 	}
 }

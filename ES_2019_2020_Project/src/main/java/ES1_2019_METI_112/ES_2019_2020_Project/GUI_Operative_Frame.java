@@ -27,6 +27,7 @@ public class GUI_Operative_Frame {
 	private boolean isGuiJTableOpen = false;
 	private boolean isGuiThresholdsFrameOpen = false;
 	private boolean isGuiSelectionRulesFrameOpen = false;
+	private boolean isTresholdSet = false; //Para ver se foram realmente dado os valores dos Tresholds para a janela do Selection Rule
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
@@ -86,12 +87,30 @@ public class GUI_Operative_Frame {
 		this.isGuiJTableOpen = state;
 	}
 	
+
+	
 	public boolean getIsOpenGTF() {
 		return isGuiThresholdsFrameOpen;
 	}
 	
 	public void setIsOpenGTF(boolean state) {
 		this.isGuiThresholdsFrameOpen = state;
+	}
+	
+	public boolean getIsGuiSelectionRulesFrameOpen() {
+		return isGuiSelectionRulesFrameOpen;
+	}
+	
+	public void setIsGuiSelectionRulesFrameOpen(boolean state) {
+		this.isGuiSelectionRulesFrameOpen = state;
+	}
+	
+	public boolean getisTresholdSet() {
+		return isTresholdSet;
+	}
+	
+	public void setisTresholdSet(boolean state) {
+		this.isTresholdSet = state;
 	}
 	
 	private void init () {
