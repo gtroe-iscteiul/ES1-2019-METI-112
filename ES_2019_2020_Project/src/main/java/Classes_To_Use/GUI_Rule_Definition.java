@@ -1,4 +1,4 @@
-package ES1_2019_METI_112.ES_2019_2020_Project;
+package Classes_To_Use;
 
 import java.awt.EventQueue;
 
@@ -115,6 +115,7 @@ public class GUI_Rule_Definition {
 		JButton btnReset = new JButton("RESET");
 		btnReset.setBounds(53, 220, 89, 23);
 		frame.getContentPane().add(btnReset);
+		
 		frame.setVisible(true);
 	}
 }

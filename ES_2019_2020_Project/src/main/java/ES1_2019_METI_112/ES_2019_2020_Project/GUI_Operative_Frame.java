@@ -19,19 +19,16 @@ public class GUI_Operative_Frame {
 	private GUI_Operative_Frame GOF;
 	private GUI_JTable GJT;
 	private GUI_Thresholds_Frame GTF;
-	private GUI_Selection_Rule GSR;
-	private String LOC = null;
-	private String CYCLO = null;
-	private String ATFD = null;
-	private String LAA = null;
+	private GUI_Rules_Frame GRF;
 	private boolean isGuiJTableOpen = false;
 	private boolean isGuiThresholdsFrameOpen = false;
-	private boolean isGuiSelectionRulesFrameOpen = false;
-	private boolean isTresholdSet = false; //Para ver se foram realmente dado os valores dos Tresholds para a janela do Selection Rule
+	private boolean isGuiRulesFrameOpen = false;
+	private MethodDefinition MD;
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
 		GOF = this;
+		MD = new MethodDefinition("-1","-1","-1","-1");
 		init();
 	}
 	
@@ -47,47 +44,21 @@ public class GUI_Operative_Frame {
 		return GTF;
 	}
 	
-	public String getLOC () {
-		return LOC;
-	}
-	
-	public String getCYCLO () {
-		return CYCLO;
-	}
-	
-	public String getATFD () {
-		return ATFD;
-	}
-	
-	public String getLAA () {
-		return LAA;
-	}
-	
-	public void setLOC (String s) {
-		LOC = s;
-	}
-	
-	public void setCYCLO (String s) {
-		CYCLO = s;
-	}
-	
-	public void setATFD (String s) {
-		ATFD = s;
-	}
-	
-	public void setLAA (String s) {
-		LAA = s;
-	}
-	
 	public boolean getIsOpenGJT() {
 		return isGuiJTableOpen;
+	}
+	
+	public MethodDefinition getMD() {
+		return MD;
+	}
+	
+	public GUI_Rules_Frame getGRF () {
+		return GRF;
 	}
 	
 	public void setIsOpenGJT(boolean state) {
 		this.isGuiJTableOpen = state;
 	}
-	
-
 	
 	public boolean getIsOpenGTF() {
 		return isGuiThresholdsFrameOpen;
@@ -97,20 +68,8 @@ public class GUI_Operative_Frame {
 		this.isGuiThresholdsFrameOpen = state;
 	}
 	
-	public boolean getIsGuiSelectionRulesFrameOpen() {
-		return isGuiSelectionRulesFrameOpen;
-	}
-	
-	public void setIsGuiSelectionRulesFrameOpen(boolean state) {
-		this.isGuiSelectionRulesFrameOpen = state;
-	}
-	
-	public boolean getisTresholdSet() {
-		return isTresholdSet;
-	}
-	
-	public void setisTresholdSet(boolean state) {
-		this.isTresholdSet = state;
+	public void setIsOpenGRF(boolean state) {
+		this.isGuiRulesFrameOpen = state;
 	}
 	
 	private void init () {
@@ -205,14 +164,22 @@ public class GUI_Operative_Frame {
 	}
 	
 	private void dealWithErrors_GSR() throws IOException {
-		if (isGuiSelectionRulesFrameOpen==true) {
+		if (isGuiRulesFrameOpen==true) {
 			final JPanel warning = new JPanel();
 			JOptionPane.showMessageDialog(warning, "Unable to open new window "
-					+ "for rules selection! Window is already open!", 
+					+ "to set rules! Window is already open!", 
 					"Warning", JOptionPane.WARNING_MESSAGE);
 		} else {
-			this.isGuiSelectionRulesFrameOpen = true;
-			GSR = new GUI_Selection_Rule(GOF);
+			if(MD.hasBeenInitialized()==true) {
+				this.isGuiRulesFrameOpen = true;
+				GRF = new GUI_Rules_Frame(GOF);
+			} else {
+				final JPanel warning = new JPanel();
+				JOptionPane.showMessageDialog(warning, "Unable to open new window "
+						+ "to set rules! The limits of thresholds must "
+						+ "be initialized first!", 
+						"Warning", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package Classes_To_Use_As_A_Base;
+package No_Longer_Use_Class;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -132,6 +132,7 @@ public class GUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				@SuppressWarnings("unused")
 				RuleWindow ruleWindow = new RuleWindow();
 			}
 		});
