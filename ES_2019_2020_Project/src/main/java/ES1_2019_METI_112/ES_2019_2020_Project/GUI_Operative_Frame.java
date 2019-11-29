@@ -19,12 +19,14 @@ public class GUI_Operative_Frame {
 	private GUI_Operative_Frame GOF;
 	private GUI_JTable GJT;
 	private GUI_Thresholds_Frame GTF;
+	private GUI_Selection_Rule GSR;
 	private String LOC = null;
 	private String CYCLO = null;
 	private String ATFD = null;
 	private String LAA = null;
 	private boolean isGuiJTableOpen = false;
 	private boolean isGuiThresholdsFrameOpen = false;
+	private boolean isGuiSelectionRulesFrameOpen = false;
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
@@ -134,7 +136,7 @@ public class GUI_Operative_Frame {
 						dealWithErrors_GTF();
 					}
 					if (number==3) {
-						System.out.println("Button 3: " + "abrir janela das regras");
+						dealWithErrors_GSR();
 					}
 					if (number==4) {
 						System.out.println("Button 4: " + 
@@ -182,5 +184,18 @@ public class GUI_Operative_Frame {
 			GTF = new GUI_Thresholds_Frame(GOF);
 		}
 	}
+	
+	private void dealWithErrors_GSR() throws IOException {
+		if (isGuiSelectionRulesFrameOpen==true) {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "Unable to open new window "
+					+ "for rules selection! Window is already open!", 
+					"Warning", JOptionPane.WARNING_MESSAGE);
+		} else {
+			this.isGuiSelectionRulesFrameOpen = true;
+			GSR = new GUI_Selection_Rule(GOF);
+		}
+	}
+	
 		
 }
