@@ -13,9 +13,9 @@ public class SetATFD_Test {
 	public void test_SetATFD() {
 
 		GUI_Operative_Frame of= new GUI_Operative_Frame(new GUI_Main_Class());
-		of.setATFD("atfd");;
+		of.getMD().setATFD("atfd");;
 
 		String expected = "atfd";
-		assertEquals(expected, of.getATFD());
+		assertEquals(expected, of.getMD().getATFD());
 	}
 }

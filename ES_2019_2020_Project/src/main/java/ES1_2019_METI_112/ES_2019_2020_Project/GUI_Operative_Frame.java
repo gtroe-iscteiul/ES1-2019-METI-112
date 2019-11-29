@@ -19,18 +19,16 @@ public class GUI_Operative_Frame {
 	private GUI_Operative_Frame GOF;
 	private GUI_JTable GJT;
 	private GUI_Thresholds_Frame GTF;
-	private GUI_Selection_Rule GSR;
-	private String LOC = null;
-	private String CYCLO = null;
-	private String ATFD = null;
-	private String LAA = null;
+	private GUI_Rules_Frame GRF;
 	private boolean isGuiJTableOpen = false;
 	private boolean isGuiThresholdsFrameOpen = false;
-	private boolean isGuiSelectionRulesFrameOpen = false;
+	private boolean isGuiRulesFrameOpen = false;
+	private MethodDefinition MD;
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
 		GOF = this;
+		MD = new MethodDefinition("-1","-1","-1","-1");
 		init();
 	}
 	
@@ -46,40 +44,16 @@ public class GUI_Operative_Frame {
 		return GTF;
 	}
 	
-	public String getLOC () {
-		return LOC;
-	}
-	
-	public String getCYCLO () {
-		return CYCLO;
-	}
-	
-	public String getATFD () {
-		return ATFD;
-	}
-	
-	public String getLAA () {
-		return LAA;
-	}
-	
-	public void setLOC (String s) {
-		LOC = s;
-	}
-	
-	public void setCYCLO (String s) {
-		CYCLO = s;
-	}
-	
-	public void setATFD (String s) {
-		ATFD = s;
-	}
-	
-	public void setLAA (String s) {
-		LAA = s;
-	}
-	
 	public boolean getIsOpenGJT() {
 		return isGuiJTableOpen;
+	}
+	
+	public MethodDefinition getMD() {
+		return MD;
+	}
+	
+	public GUI_Rules_Frame getGRF () {
+		return GRF;
 	}
 	
 	public void setIsOpenGJT(boolean state) {
@@ -92,6 +66,10 @@ public class GUI_Operative_Frame {
 	
 	public void setIsOpenGTF(boolean state) {
 		this.isGuiThresholdsFrameOpen = state;
+	}
+	
+	public void setIsOpenGRF(boolean state) {
+		this.isGuiRulesFrameOpen = state;
 	}
 	
 	private void init () {
@@ -186,14 +164,14 @@ public class GUI_Operative_Frame {
 	}
 	
 	private void dealWithErrors_GSR() throws IOException {
-		if (isGuiSelectionRulesFrameOpen==true) {
+		if (isGuiRulesFrameOpen==true) {
 			final JPanel warning = new JPanel();
 			JOptionPane.showMessageDialog(warning, "Unable to open new window "
-					+ "for rules selection! Window is already open!", 
+					+ "to set rules! Window is already open!", 
 					"Warning", JOptionPane.WARNING_MESSAGE);
 		} else {
-			this.isGuiSelectionRulesFrameOpen = true;
-			GSR = new GUI_Selection_Rule(GOF);
+			this.isGuiRulesFrameOpen = true;
+			GRF = new GUI_Rules_Frame(GOF);
 		}
 	}
 	

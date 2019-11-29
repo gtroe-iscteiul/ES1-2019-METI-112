@@ -11,10 +11,10 @@ public class SetLOC_Test extends TestCase {
 	@Test
 	public void test_SetLoc() {
 		GUI_Operative_Frame of= new GUI_Operative_Frame(new GUI_Main_Class());
-		of.setLOC("loc");
+		of.getMD().setLOC("loc");
 		
 		String expected = "loc";
-		assertEquals(expected, of.getLOC());
+		assertEquals(expected, of.getMD().getLOC());
 	}
 
 }

@@ -136,10 +136,10 @@ public class GUI_Thresholds_Frame {
 	}
 	
 	private void succeeded() {
-		GOF.setLOC(LOC.getText());
-		GOF.setCYCLO(CYCLO.getText());
-		GOF.setATFD(ATFD.getText());
-		GOF.setLAA(LAA.getText());
+		GOF.getMD().setLOC(LOC.getText());
+		GOF.getMD().setCYCLO(CYCLO.getText());
+		GOF.getMD().setATFD(ATFD.getText());
+		GOF.getMD().setLAA(LAA.getText());
 		
 		GOF.setIsOpenGTF(false);
 		frame.dispose();

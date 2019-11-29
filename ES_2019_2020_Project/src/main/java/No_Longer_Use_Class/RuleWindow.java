@@ -1,18 +1,18 @@
-package Classes_To_Use_As_A_Base;
-
-import java.awt.EventQueue;
+package No_Longer_Use_Class;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.SwingUtilities;
 import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 
 public class RuleWindow extends JFrame { 
-    private JList<String> countryList;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JList<String> countryList;
     private JTextField txtMtrica;
     private JTextField textField;
     private JTextField txtMtrica_1;
