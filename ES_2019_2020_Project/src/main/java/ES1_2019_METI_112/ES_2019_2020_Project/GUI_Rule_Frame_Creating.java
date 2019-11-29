@@ -1,12 +1,14 @@
-package Classes_To_Use;
-
-import java.awt.EventQueue;
+package ES1_2019_METI_112.ES_2019_2020_Project;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
-public class GUI_Rule_Definition {
+public class GUI_Rule_Frame_Creating {
 
 	private JFrame frame;
 	private JTextField txtSelectionOfif;
@@ -14,27 +16,14 @@ public class GUI_Rule_Definition {
 	private JTextField txtOperators;
 	private JTextField txtResult;
 	private JTextField textField;
+	private GUI_Rules_Frame GRF;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI_Rule_Definition window = new GUI_Rule_Definition();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public GUI_Rule_Definition() {
+	public GUI_Rule_Frame_Creating(GUI_Rules_Frame grf) {
+		this.GRF = grf;
 		initialize();
 	}
 
@@ -44,7 +33,7 @@ public class GUI_Rule_Definition {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		txtSelectionOfif = new JTextField();
@@ -110,6 +99,12 @@ public class GUI_Rule_Definition {
 		
 		JButton btnBack = new JButton("BACK");
 		btnBack.setBounds(299, 220, 89, 23);
+		btnBack.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				GRF.setIsOpenGRFC(false);
+				frame.dispose();
+			}
+		});
 		frame.getContentPane().add(btnBack);
 		
 		JButton btnReset = new JButton("RESET");
