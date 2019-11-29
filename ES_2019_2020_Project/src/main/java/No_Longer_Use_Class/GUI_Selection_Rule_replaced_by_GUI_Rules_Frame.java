@@ -1,4 +1,4 @@
-package Classes_To_Use;
+package No_Longer_Use_Class;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Operative_Frame;
+import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rule_Frame_Creating;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +16,7 @@ public class GUI_Selection_Rule_replaced_by_GUI_Rules_Frame{
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
 	@SuppressWarnings("unused")
-	private GUI_Rule_Definition GRD;
+	private GUI_Rule_Frame_Creating GRD;
 
 
 	@SuppressWarnings("unused")
@@ -28,7 +29,7 @@ public class GUI_Selection_Rule_replaced_by_GUI_Rules_Frame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				if(GOF.getisTresholdSet()) {
-					GRD = new GUI_Rule_Definition();
+//					GRD = new GUI_Rule_Frame_Creating();
 //				} else {
 					final JPanel warning = new JPanel();
 					JOptionPane.showMessageDialog(warning, "Unable to open new window "

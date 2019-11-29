@@ -170,16 +170,8 @@ public class GUI_Operative_Frame {
 					+ "to set rules! Window is already open!", 
 					"Warning", JOptionPane.WARNING_MESSAGE);
 		} else {
-			if(MD.hasBeenInitialized()==true) {
-				this.isGuiRulesFrameOpen = true;
-				GRF = new GUI_Rules_Frame(GOF);
-			} else {
-				final JPanel warning = new JPanel();
-				JOptionPane.showMessageDialog(warning, "Unable to open new window "
-						+ "to set rules! The limits of thresholds must "
-						+ "be initialized first!", 
-						"Warning", JOptionPane.WARNING_MESSAGE);
-			}
+			this.isGuiRulesFrameOpen = true;
+			GRF = new GUI_Rules_Frame(GOF);
 		}
 	}
 	
