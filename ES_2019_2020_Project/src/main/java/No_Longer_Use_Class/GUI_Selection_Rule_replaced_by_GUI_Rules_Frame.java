@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Operative_Frame;
-import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rule_Frame_Creating;
+import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rule_Frame_Creating_Condition;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +16,7 @@ public class GUI_Selection_Rule_replaced_by_GUI_Rules_Frame{
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
 	@SuppressWarnings("unused")
-	private GUI_Rule_Frame_Creating GRD;
+	private GUI_Rule_Frame_Creating_Condition GRD;
 
 
 	@SuppressWarnings("unused")
