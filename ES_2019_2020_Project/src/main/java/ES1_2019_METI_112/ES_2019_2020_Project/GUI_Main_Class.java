@@ -125,7 +125,7 @@ public class GUI_Main_Class {
 	}
 	
 	private void dealWithInternalErrors(JTextField text) {
-		 if (text.getText().isBlank()) {
+		 if (text.getText().isEmpty()) {
 			 final JPanel warning = new JPanel();
 			 JOptionPane.showMessageDialog(warning, "Empty search field! "
 			 		+ "Please enter filename to continue!", "Warning",
