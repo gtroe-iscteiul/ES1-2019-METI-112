@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class GUI_Rule_Frame_Creating {
+public class GUI_Rule_Frame_Creating_Condition {
 
 	private JFrame frame;
 	private GUI_Rules_Frame GRF;
@@ -22,7 +22,7 @@ public class GUI_Rule_Frame_Creating {
 	private JPanel panelCenterComponent06;
 	private boolean needOperator=false;
 
-	public GUI_Rule_Frame_Creating(GUI_Rules_Frame grf) {
+	public GUI_Rule_Frame_Creating_Condition(GUI_Rules_Frame grf) {
 		this.GRF = grf;
 		init();
 	}
@@ -114,23 +114,13 @@ public class GUI_Rule_Frame_Creating {
 	}
 	
 	private void locButton(JPanel panel) {
-		JButton loc = new JButton("LOC");
+		final JButton loc = new JButton("LOC");
 		loc.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==false) {
-					String ifContent = ifCondition.getText();
-					panelCenterComponent06.remove(ifCondition);
-					String aux = ifContent + "LOC==" + 
-							GRF.getGOF().getMD().getLOC();
-					ifCondition = new JLabel(aux);
-					panelCenterComponent06.add(ifCondition);
-					frame.validate();
-					needOperator=true;
+					updateCondition(loc.getText());
 				} else {
-					 final JPanel warning = new JPanel();
-					 JOptionPane.showMessageDialog(warning, "Unable to select "
-					 		+ "metric! Please add operator first!", 
-					 		"Warning", JOptionPane.WARNING_MESSAGE);
+					showMetricsWarning();
 				}
 			}
 		});
@@ -138,23 +128,13 @@ public class GUI_Rule_Frame_Creating {
 	}
 	
 	private void cycloButton(JPanel panel) {
-		JButton cyclo = new JButton("CYCLO");
+		final JButton cyclo = new JButton("CYCLO");
 		cyclo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){	
 				if(needOperator==false) {
-					String ifContent = ifCondition.getText();
-					panelCenterComponent06.remove(ifCondition);
-					String aux = ifContent + "CYCLO==" + 
-							GRF.getGOF().getMD().getCYCLO();
-					ifCondition = new JLabel(aux);
-					panelCenterComponent06.add(ifCondition);
-					frame.validate();
-					needOperator=true;
+					updateCondition(cyclo.getText());
 				} else {
-					 final JPanel warning = new JPanel();
-					 JOptionPane.showMessageDialog(warning, "Unable to select "
-					 		+ "metric! Please add operator first!", 
-					 		"Warning", JOptionPane.WARNING_MESSAGE);
+					showMetricsWarning();
 				}
 			}
 		});
@@ -162,23 +142,13 @@ public class GUI_Rule_Frame_Creating {
 	}
 	
 	private void atfdButton(JPanel panel) {
-		JButton atfd = new JButton("ATFD");
+		final JButton atfd = new JButton("ATFD");
 		atfd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==false) {
-					String ifContent = ifCondition.getText();
-					panelCenterComponent06.remove(ifCondition);
-					String aux = ifContent + "ATFD==" + 
-							GRF.getGOF().getMD().getATFD();
-					ifCondition = new JLabel(aux);
-					panelCenterComponent06.add(ifCondition);
-					frame.validate();
-					needOperator=true;
+					updateCondition(atfd.getText());
 				} else {
-					 final JPanel warning = new JPanel();
-					 JOptionPane.showMessageDialog(warning, "Unable to select "
-					 		+ "metric! Please add operator first!", 
-					 		"Warning", JOptionPane.WARNING_MESSAGE);
+					showMetricsWarning();
 				}
 			}
 		});
@@ -186,27 +156,68 @@ public class GUI_Rule_Frame_Creating {
 	}
 	
 	private void laaButton(JPanel panel) {
-		JButton laa = new JButton("LAA");
+		final JButton laa = new JButton("LAA");
 		laa.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==false) {
-					String ifContent = ifCondition.getText();
-					panelCenterComponent06.remove(ifCondition);
-					String aux = ifContent + "LAA==" + 
-							GRF.getGOF().getMD().getLAA();
-					ifCondition = new JLabel(aux);
-					panelCenterComponent06.add(ifCondition);
-					frame.validate();
-					needOperator=true;
+					updateCondition(laa.getText());
 				} else {
-					 final JPanel warning = new JPanel();
-					 JOptionPane.showMessageDialog(warning, "Unable to select "
-					 		+ "metric! Please add operator first!", 
-					 		"Warning", JOptionPane.WARNING_MESSAGE);
+					showMetricsWarning();
 				}
 			}
 		});
 		panel.add(laa);
+	}
+	
+	private void updateCondition(String type) {
+		String ifContent = ifCondition.getText();
+		panelCenterComponent06.remove(ifCondition);	
+		String[] parts = ifContent.split(" ");
+		String result="";
+		for(int i=0; i<parts.length; i++) {
+			result = result + parts[i] + " ";
+		}
+		result = result + dealWithType(type);
+		ifCondition = new JLabel(result);
+		panelCenterComponent06.add(ifCondition);
+		frame.validate();
+//		needOperator=true;
+	}
+	
+	private String dealWithType(String t) {
+		String result = "";
+		if(t.equals("LOC")) {
+			needOperator=true;
+			result = result + "LOC==" + GRF.getGOF().getMD().getLOC() + " )";
+		}
+		if(t.equals("CYCLO")) {
+			needOperator=true;
+			result = result + "CYCLO==" + GRF.getGOF().getMD().getCYCLO() + " )";
+		}
+		if(t.equals("ATFD")) {
+			needOperator=true;
+			result = result + "ATFD==" + GRF.getGOF().getMD().getATFD() + " )";
+		}
+		if(t.equals("LAA")) {
+			needOperator=true;
+			result = result + "LAA==" + GRF.getGOF().getMD().getLAA() + " )";
+		}
+		if(t.equals("AND")) {
+			needOperator=false;
+			result = result + "&& ";
+		}
+		if(t.equals("OR")) {
+			needOperator=false;
+			result = result + "|| ";
+		}
+		return result;
+	}
+	
+	private void showMetricsWarning() {
+		 final JPanel warning = new JPanel();
+		 JOptionPane.showMessageDialog(warning, "Unable to select "
+		 		+ "metric! Please add operator first!", 
+		 		"Warning", JOptionPane.WARNING_MESSAGE);
 	}
 	
 	private void buildPanel03(JPanel panel) {
@@ -217,21 +228,38 @@ public class GUI_Rule_Frame_Creating {
 	private void buildPanel04(JPanel panel) {
 		panel.setLayout(new GridLayout(1,2));
 		
-		JButton and = new JButton("AND");
+		final JButton and = new JButton("AND");
 		and.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("&&");
+				if(needOperator==true) {
+//					updateCondition(and.getText());
+					System.out.println("em progresso...");
+				} else {
+					showOperatorsWarning();
+				}
 			}
 		});
 		panel.add(and);
 		
-		JButton or = new JButton("OR");
+		final JButton or = new JButton("OR");
 		or.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("||");
+				if(needOperator==true) {
+//					updateCondition(or.getText());
+					System.out.println("em progresso...");
+				} else {
+					showOperatorsWarning();
+				}
 			}
 		});
 		panel.add(or);		
+	}
+	
+	private void showOperatorsWarning() {
+		 final JPanel warning = new JPanel();
+		 JOptionPane.showMessageDialog(warning, "Unable to select "
+		 		+ "operator! Please add metric first!", 
+		 		"Warning", JOptionPane.WARNING_MESSAGE);
 	}
 	
 	private void buildPanel05(JPanel panel) {
@@ -240,7 +268,7 @@ public class GUI_Rule_Frame_Creating {
 	}
 	
 	private void buildPanel06(JPanel panel) {
-		ifCondition = new JLabel("if(");
+		ifCondition = new JLabel("if ( ");
 		panel.add(ifCondition);
 	}
 	
