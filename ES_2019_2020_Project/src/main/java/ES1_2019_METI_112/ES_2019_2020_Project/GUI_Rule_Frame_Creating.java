@@ -1,8 +1,14 @@
 package ES1_2019_METI_112.ES_2019_2020_Project;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,106 +17,262 @@ import javax.swing.JButton;
 public class GUI_Rule_Frame_Creating {
 
 	private JFrame frame;
-	private JTextField txtSelectionOfif;
-	private JTextField txtTresholds;
-	private JTextField txtOperators;
-	private JTextField txtResult;
-	private JTextField textField;
 	private GUI_Rules_Frame GRF;
+	private JLabel ifCondition;
+	private JPanel panelCenterComponent06;
+	private boolean needOperator=false;
 
-
-	/**
-	 * Create the application.
-	 */
 	public GUI_Rule_Frame_Creating(GUI_Rules_Frame grf) {
 		this.GRF = grf;
-		initialize();
+		init();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+	
+	private void init () {
+		frame = new JFrame("Software Quality Assessment");
+		frame.setLayout(new BorderLayout());
+		addFrameContent();
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		frame.pack();
+		open();
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void open(){
+		frame.setSize(500, 300);
+		frame.setVisible(true);
+		frame.setResizable(false);
+		frame.move(400, 150);
+	}
+	
+	private void addFrameContent() {
+		JPanel panelNorth = new JPanel();
+		JPanel panelCenter = new JPanel();
+		JPanel panelCenterComponent01 = new JPanel();
+		JPanel panelCenterComponent02 = new JPanel();
+		JPanel panelCenterComponent03 = new JPanel();
+		JPanel panelCenterComponent04 = new JPanel();
+		JPanel panelCenterComponent05 = new JPanel();
+		panelCenterComponent06 = new JPanel();
+		JPanel panelSouth = new JPanel();
 		
-		txtSelectionOfif = new JTextField();
-		txtSelectionOfif.setText("Selection of \"if\" condition");
-		txtSelectionOfif.setEditable(false);
-		txtSelectionOfif.setBounds(10, 11, 132, 20);
-		frame.getContentPane().add(txtSelectionOfif);
-		txtSelectionOfif.setColumns(10);
+		buildPanelNorth(panelNorth);
+		buildPanelCenter(panelCenter, panelCenterComponent01, panelCenterComponent02, 
+				panelCenterComponent03, panelCenterComponent04, panelCenterComponent05,
+				panelCenterComponent06);
+		buildPanelSouth(panelSouth);
 		
-		txtTresholds = new JTextField();
-		txtTresholds.setText("Tresholds");
-		txtTresholds.setEditable(false);
-		txtTresholds.setBounds(86, 59, 56, 20);
-		frame.getContentPane().add(txtTresholds);
-		txtTresholds.setColumns(10);
+		frame.add(panelNorth, BorderLayout.NORTH);
+		frame.add(panelCenter, BorderLayout.CENTER);
+		frame.add(panelSouth, BorderLayout.SOUTH);	
+	}
+	
+	private void buildPanelNorth(JPanel panel) {
+		panel.setLayout(new FlowLayout());
+		JLabel searchText = new JLabel("Selection of 'if' condition: ");
+		panel.add(searchText);
+	}
+	
+	private void buildPanelCenter(JPanel c, JPanel pc1, JPanel pc2, 
+			JPanel pc3, JPanel pc4, JPanel pc5, JPanel pc6) {
 		
-		JButton btnLoc = new JButton("LOC");
-		btnLoc.setBounds(212, 58, 53, 23);
-		frame.getContentPane().add(btnLoc);
+		c.setLayout(new GridLayout(5,2));
 		
-		JButton btnCyclo = new JButton("CYCLO");
-		btnCyclo.setBounds(275, 58, 65, 23);
-		frame.getContentPane().add(btnCyclo);
+		JLabel l1 = new JLabel("             ");
+		JLabel l2 = new JLabel("             ");
+		JLabel l3 = new JLabel("             ");
+		JLabel l4 = new JLabel("             ");
+		buildPanel01(pc1);
+		buildPanel02(pc2);
+		buildPanel03(pc3);
+		buildPanel04(pc4);
+		buildPanel05(pc5);
+		buildPanel06(pc6);
+		c.add(pc1);
+		c.add(pc2);
+		c.add(l1);
+		c.add(l2);
+		c.add(pc3);
+		c.add(pc4);
+		c.add(l3);
+		c.add(l4);
+		c.add(pc5);
+		c.add(pc6);
+	}
+	
+	private void buildPanel01(JPanel panel) {
+		JLabel metrics = new JLabel("Select a metric: ");
+		panel.add(metrics);
+	}
+	
+	private void buildPanel02(JPanel panel) {
+		panel.setLayout(new GridLayout(2,2));
 		
-		JButton btnAtfd = new JButton("ATFD");
-		btnAtfd.setBounds(212, 92, 65, 23);
-		frame.getContentPane().add(btnAtfd);
+		locButton(panel);
+		cycloButton(panel);
+		atfdButton(panel);
+		laaButton(panel);
+	}
+	
+	private void locButton(JPanel panel) {
+		JButton loc = new JButton("LOC");
+		loc.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needOperator==false) {
+					String ifContent = ifCondition.getText();
+					panelCenterComponent06.remove(ifCondition);
+					String aux = ifContent + "LOC==" + 
+							GRF.getGOF().getMD().getLOC();
+					ifCondition = new JLabel(aux);
+					panelCenterComponent06.add(ifCondition);
+					frame.validate();
+					needOperator=true;
+				} else {
+					 final JPanel warning = new JPanel();
+					 JOptionPane.showMessageDialog(warning, "Unable to select "
+					 		+ "metric! Please add operator first!", 
+					 		"Warning", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+		panel.add(loc);
+	}
+	
+	private void cycloButton(JPanel panel) {
+		JButton cyclo = new JButton("CYCLO");
+		cyclo.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){	
+				if(needOperator==false) {
+					String ifContent = ifCondition.getText();
+					panelCenterComponent06.remove(ifCondition);
+					String aux = ifContent + "CYCLO==" + 
+							GRF.getGOF().getMD().getCYCLO();
+					ifCondition = new JLabel(aux);
+					panelCenterComponent06.add(ifCondition);
+					frame.validate();
+					needOperator=true;
+				} else {
+					 final JPanel warning = new JPanel();
+					 JOptionPane.showMessageDialog(warning, "Unable to select "
+					 		+ "metric! Please add operator first!", 
+					 		"Warning", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+		panel.add(cyclo);
+	}
+	
+	private void atfdButton(JPanel panel) {
+		JButton atfd = new JButton("ATFD");
+		atfd.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needOperator==false) {
+					String ifContent = ifCondition.getText();
+					panelCenterComponent06.remove(ifCondition);
+					String aux = ifContent + "ATFD==" + 
+							GRF.getGOF().getMD().getATFD();
+					ifCondition = new JLabel(aux);
+					panelCenterComponent06.add(ifCondition);
+					frame.validate();
+					needOperator=true;
+				} else {
+					 final JPanel warning = new JPanel();
+					 JOptionPane.showMessageDialog(warning, "Unable to select "
+					 		+ "metric! Please add operator first!", 
+					 		"Warning", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+		panel.add(atfd);
+	}
+	
+	private void laaButton(JPanel panel) {
+		JButton laa = new JButton("LAA");
+		laa.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needOperator==false) {
+					String ifContent = ifCondition.getText();
+					panelCenterComponent06.remove(ifCondition);
+					String aux = ifContent + "LAA==" + 
+							GRF.getGOF().getMD().getLAA();
+					ifCondition = new JLabel(aux);
+					panelCenterComponent06.add(ifCondition);
+					frame.validate();
+					needOperator=true;
+				} else {
+					 final JPanel warning = new JPanel();
+					 JOptionPane.showMessageDialog(warning, "Unable to select "
+					 		+ "metric! Please add operator first!", 
+					 		"Warning", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+		panel.add(laa);
+	}
+	
+	private void buildPanel03(JPanel panel) {
+		JLabel operator = new JLabel("Select a operator: ");
+		panel.add(operator);
+	}
+	
+	private void buildPanel04(JPanel panel) {
+		panel.setLayout(new GridLayout(1,2));
 		
-		JButton btnLaa = new JButton("LAA");
-		btnLaa.setBounds(285, 92, 55, 23);
-		frame.getContentPane().add(btnLaa);
+		JButton and = new JButton("AND");
+		and.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("&&");
+			}
+		});
+		panel.add(and);
 		
-		txtOperators = new JTextField();
-		txtOperators.setText("Operators");
-		txtOperators.setEditable(false);
-		txtOperators.setBounds(86, 158, 86, 20);
-		frame.getContentPane().add(txtOperators);
-		txtOperators.setColumns(10);
+		JButton or = new JButton("OR");
+		or.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("||");
+			}
+		});
+		panel.add(or);		
+	}
+	
+	private void buildPanel05(JPanel panel) {
+		JLabel result = new JLabel("Result of the condition: ");
+		panel.add(result);
+	}
+	
+	private void buildPanel06(JPanel panel) {
+		ifCondition = new JLabel("if(");
+		panel.add(ifCondition);
+	}
+	
+	private void buildPanelSouth(JPanel panel) {
+		panel.setLayout(new FlowLayout());
 		
-		JButton btnAnd = new JButton("&&");
-		btnAnd.setBounds(212, 157, 53, 23);
-		frame.getContentPane().add(btnAnd);
+		JButton reset = new JButton("RESET");
+		reset.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){			
+				GRF.setIsOpenGRFC(false);
+				frame.dispose();
+				GRF.dealWithNewRule();
+			}
+		});
+		panel.add(reset);
 		
-		JButton button = new JButton("||");
-		button.setBounds(275, 157, 53, 23);
-		frame.getContentPane().add(button);
+		JButton ok = new JButton("OK");
+		ok.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("Open new window to choose the if consequence!");
+				System.out.println("If condition: " + ifCondition.getText());
+			}
+		});
+		panel.add(ok);
 		
-		txtResult = new JTextField();
-		txtResult.setText("Result");
-		txtResult.setEditable(false);
-		txtResult.setBounds(86, 189, 56, 20);
-		frame.getContentPane().add(txtResult);
-		txtResult.setColumns(10);
-		
-		textField = new JTextField();
-		textField.setBounds(166, 189, 174, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JButton btnOk = new JButton("OK");
-		btnOk.setBounds(176, 220, 89, 23);
-		frame.getContentPane().add(btnOk);
-		
-		JButton btnBack = new JButton("BACK");
-		btnBack.setBounds(299, 220, 89, 23);
-		btnBack.addActionListener(new ActionListener(){
+		JButton back = new JButton("BACK");
+		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				GRF.setIsOpenGRFC(false);
 				frame.dispose();
 			}
 		});
-		frame.getContentPane().add(btnBack);
-		
-		JButton btnReset = new JButton("RESET");
-		btnReset.setBounds(53, 220, 89, 23);
-		frame.getContentPane().add(btnReset);
-		
-		frame.setVisible(true);
+		panel.add(back);
 	}
 }

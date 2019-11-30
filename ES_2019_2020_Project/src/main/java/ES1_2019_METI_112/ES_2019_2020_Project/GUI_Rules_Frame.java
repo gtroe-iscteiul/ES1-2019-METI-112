@@ -28,6 +28,10 @@ public class GUI_Rules_Frame {
 		init();
 	}
 	
+	public GUI_Operative_Frame getGOF() {
+		return GOF;
+	}
+	
 	public GUI_Rule_Frame_Creating getGUFC() {
 		return GRFC;
 	}
@@ -103,7 +107,7 @@ public class GUI_Rules_Frame {
 		panel.add(back);
 	}
 	
-	private void dealWithNewRule() {		
+	public void dealWithNewRule() {		
 		if(GOF.getMD().hasBeenInitialized()==true) {
 			if (isGuiRuleFrameCreatingOpen==true) {
 				final JPanel warning = new JPanel();

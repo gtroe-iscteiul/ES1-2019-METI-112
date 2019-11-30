@@ -41,7 +41,7 @@ public class GUI_Thresholds_Frame {
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.pack();
 		open();
-		}
+	}
 		
 	@SuppressWarnings("deprecation")
 	private void open(){
