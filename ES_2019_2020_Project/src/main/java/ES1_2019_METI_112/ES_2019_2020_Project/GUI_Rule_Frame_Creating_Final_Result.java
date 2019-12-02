@@ -1,78 +1,138 @@
 package ES1_2019_METI_112.ES_2019_2020_Project;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 public class GUI_Rule_Frame_Creating_Final_Result {
 	
 	private JFrame frame;
 	private GUI_Rule_Frame_Creating_Consequence GRFC_consequence;
-	private GUI_Rule_Frame_Creating_Final_Result GRFCFR;
-	private JTextField textSelection;
-	private JTextArea textMetrics;
-	private ReadFile rf = new ReadFile("Rules Created");
-	private String[] rules = new String[10];
+	private AccessToRuleDatabase database;
+	
 	
 	public GUI_Rule_Frame_Creating_Final_Result(GUI_Rule_Frame_Creating_Consequence g) {
 		this.GRFC_consequence = g;
-		GRFCFR = this;
-		initialize();
+		database = new AccessToRuleDatabase("CreatedRuleDatabase");
+		init();
 	}
-
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+	
+	
+	private void init() {
+		frame = new JFrame("Software Quality Assessment");
+		frame.setLayout(new BorderLayout());
+		addFrameContent();
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		frame.pack();
+		open();
+	}
+	
+	
+	@SuppressWarnings("deprecation")
+	private void open(){
+		frame.setSize(500, 300);
+		frame.setVisible(true);
+		frame.setResizable(false);
+		frame.move(400, 150);
+	}
+	
+	
+	private void addFrameContent() {
+		JPanel panelNorth = new JPanel();
+		JPanel panelCenter = new JPanel();
+		JPanel panelSouth = new JPanel();
 		
-		textSelection = new JTextField();
-		textSelection.setText("Rule");
-		textSelection.setBounds(10, 11, 174, 20);
-		frame.getContentPane().add(textSelection);
-		textSelection.setColumns(10);
-		textSelection.setEditable(false);
+		buildPanelNorth(panelNorth);
+		buildPanelCenter(panelCenter);
+		buildPanelSouth(panelSouth);
 		
-		textMetrics = new JTextArea();
-		try {
-			rules = rf.readFile();
-			for (int i = 0; i < rules.length - 1; i++) {
-				textMetrics.insert(rules[i], i);
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-//		textMetrics.setText(rf.readFile());
-//		textMetrics.setText("(show rule)");
-		textMetrics.setBounds(98, 109, 86, 20);
-		frame.getContentPane().add(textMetrics);
-		textMetrics.setColumns(10);
-		textMetrics.setEditable(false);
+		frame.add(panelNorth, BorderLayout.NORTH);
+		frame.add(panelCenter, BorderLayout.CENTER);
+		frame.add(panelSouth, BorderLayout.SOUTH);
+	}
+	
+	
+	private void buildPanelNorth(JPanel panel) {
+		panel.setLayout(new FlowLayout());
+		JLabel searchText = new JLabel("Rule summary: ");
+		panel.add(searchText);
+	}
+	
+	
+	private void buildPanelCenter(JPanel panel) {
+		panel.setLayout(new GridLayout(2,2));
 		
-		JButton btnReset = new JButton("CONFIRM");
-		btnReset.setBounds(61, 227, 89, 23);
-		frame.getContentPane().add(btnReset);
+		JLabel null_1 = new JLabel("                           "
+				+ "   Condition (if): ");
+		panel.add(null_1);
+	
+		JLabel ifRule = new JLabel();
+		ifRule.setText(GRFC_consequence.getGRFCcondition().getCondition());
+		panel.add(ifRule);
 		
-		JButton btnOk = new JButton("CANCEL");
-		btnOk.setBounds(191, 227, 89, 23);
-		frame.getContentPane().add(btnOk);
+		JLabel null_2 = new JLabel("                            "
+				+ "  Consequence (then): ");
+		panel.add(null_2);
 		
-		JButton btnBack = new JButton("BACK");
-		btnBack.setBounds(317, 227, 89, 23);
-		frame.getContentPane().add(btnBack);
-		btnBack.addActionListener(new ActionListener() {		
-			public void actionPerformed(ActionEvent e) {
-				GRFC_consequence.setIsOpenGRFCFR(false);
-				frame.dispose();
+		JLabel thenRule = new JLabel();
+		thenRule.setText(GRFC_consequence.getConsequece());
+		panel.add(thenRule);
+	}
+	
+	
+	private void buildPanelSouth(JPanel panel) {
+		panel.setLayout(new FlowLayout());
+		
+		JButton confirm = new JButton("CONFIRM");
+		confirm.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+					saveRule();
+					closeAllRuleFrameCreating();
+					showInformationMessage();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
+		panel.add(confirm);
 		
-		frame.setVisible(true);
+		JButton back = new JButton("BACK");
+		back.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				closeRuleResultFrame();
+			}
+		});
+		panel.add(back);
+		
+		JButton cancel = new JButton("CANCEL");
+		cancel.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				closeAllRuleFrameCreating();
+			}
+		});
+		panel.add(cancel);
+	}
+	
+	
+	private void saveRule() throws IOException {	
+		try {
+		database.writeToFile("Rule_" + (database.getNumberOfLines()+1) + " " +
+				GRFC_consequence.getGRFCcondition().getCondition()
+				+ " " + GRFC_consequence.getConsequece());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void closeRuleResultFrame() {
@@ -80,5 +140,19 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 		frame.dispose();
 	}
 	
+	
+	private void showInformationMessage() {
+		final JPanel warning = new JPanel();
+		JOptionPane.showMessageDialog(warning, "Successfully saved!"
+		 		, "Information",
+				 JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	
+	private void closeAllRuleFrameCreating() {
+		closeRuleResultFrame();
+		GRFC_consequence.closeRuleConsequenceFrame();
+		GRFC_consequence.getGRFCcondition().closeRuleConditionFrame();
+	}
 	
 }

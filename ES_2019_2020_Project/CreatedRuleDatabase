@@ -1,0 +1,4 @@
+Rule_1 if(LAA==7&&LOC==6) LongMethod
+Rule_2 if(LAA==9.4&&ATFD==3) FeatureEnvy
+Rule_3 if(ATFD==7&&LAA==7) FeatureEnvy
+Rule_4 if(LOC==9.6||ATFD==4) FeatureEnvy
