@@ -1,0 +1,3 @@
+Condição: if(LOC==4&&ATFD==3) Consequência: Long Method
+Condição: if(LOC==9&&ATFD==9) Consequência: Feature Envy
+Condição: if(ATFD==1&&LAA==1) Consequência: Long Method

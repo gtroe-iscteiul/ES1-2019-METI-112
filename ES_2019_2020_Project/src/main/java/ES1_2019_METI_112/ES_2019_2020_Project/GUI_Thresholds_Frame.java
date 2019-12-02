@@ -119,11 +119,11 @@ public class GUI_Thresholds_Frame {
 	}
 	
 	private void dealWithButtons() {
-		if (LOC.getText().isBlank() || CYCLO.getText().isBlank()
-				|| ATFD.getText().isBlank() || LAA.getText().isBlank()) {
+//		if (LOC.getText().isBlank() || CYCLO.getText().isBlank()
+//				|| ATFD.getText().isBlank() || LAA.getText().isBlank()) {
 		// Usar este 'if' em caso de erro no 'isBlank', mas no fim, voltar a colocar
-//		if (LOC.getText().isEmpty() || CYCLO.getText().isEmpty()
-//				|| ATFD.getText().isEmpty() || LAA.getText().isEmpty()) {
+		if (LOC.getText().isEmpty() || CYCLO.getText().isEmpty()
+				|| ATFD.getText().isEmpty() || LAA.getText().isEmpty()) {
 			failed();
 		} else {
 			testingType();

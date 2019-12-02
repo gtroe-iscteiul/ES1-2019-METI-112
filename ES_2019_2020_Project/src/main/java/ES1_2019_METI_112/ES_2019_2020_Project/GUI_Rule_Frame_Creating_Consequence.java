@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ public class GUI_Rule_Frame_Creating_Consequence {
 	private GUI_Rule_Frame_Creating_Final_Result GRFCFR;
 	private boolean isGuiRuleFrameCreatingFinalResultOpen = false;
 	private String consequence;
+	private WriteFile wf = new WriteFile("Rules Created", true);
 
 
 	public GUI_Rule_Frame_Creating_Consequence(GUI_Rule_Frame_Creating_Condition g) {
@@ -245,6 +247,11 @@ public class GUI_Rule_Frame_Creating_Consequence {
 		System.out.println("Passar para frame de resumo da regra...");
 		System.out.println("Condição: " + GRFC_condition.getCondition());
 		System.out.println("Consequência: " + getConsequece());
+		try {
+			wf.writeToFile("Condição: " + GRFC_condition.getCondition() + " Consequência: " + getConsequece());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		GRFCFR = new GUI_Rule_Frame_Creating_Final_Result(GRFC_consequence);
 	}
 	
