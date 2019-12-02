@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,13 +24,17 @@ public class GUI_Rule_Frame_Creating_Consequence {
 	private GUI_Rule_Frame_Creating_Final_Result GRFCFR;
 	private boolean isGuiRuleFrameCreatingFinalResultOpen = false;
 	private String consequence;
-	private WriteFile wf = new WriteFile("Rules Created", true);
 
 
 	public GUI_Rule_Frame_Creating_Consequence(GUI_Rule_Frame_Creating_Condition g) {
 		this.GRFC_condition = g;
 		GRFC_consequence = this;
 		init();
+	}
+	
+	
+	public GUI_Rule_Frame_Creating_Condition getGRFCcondition() {
+		return GRFC_condition;
 	}
 	
 	
@@ -236,6 +239,14 @@ public class GUI_Rule_Frame_Creating_Consequence {
 	}
 	
 	
+	private void formatConsequence() {
+		String s1 = ifConsequence.getText();
+		String[] s2 = s1.split(" ");
+		String s3 = s2[0] + s2[1];
+		consequence = s3;
+	}
+	
+	
 	private void dealWithFinalResultFrame() {
 		if(isGuiRuleFrameCreatingFinalResultOpen==true) {
 			GRFCFR.closeRuleResultFrame();
@@ -244,15 +255,25 @@ public class GUI_Rule_Frame_Creating_Consequence {
 	
 	
 	private void openGRFCFR() {
-		System.out.println("Passar para frame de resumo da regra...");
-		System.out.println("Condição: " + GRFC_condition.getCondition());
-		System.out.println("Consequência: " + getConsequece());
-		try {
-			wf.writeToFile("Condição: " + GRFC_condition.getCondition() + " Consequência: " + getConsequece());
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(getConsequece().equals("Feature Envy") || 
+				getConsequece().equals("Long Method")) {
+			if (isGuiRuleFrameCreatingFinalResultOpen==true) {
+				final JPanel warning = new JPanel();
+				JOptionPane.showMessageDialog(warning, "Unable to open the rule"
+						+ "check window! Window is already open!", 
+						"Warning", JOptionPane.WARNING_MESSAGE);
+			} else {
+				formatConsequence();
+				isGuiRuleFrameCreatingFinalResultOpen=true;
+				GRFCFR = new GUI_Rule_Frame_Creating_Final_Result(GRFC_consequence);
+			}
+		} else {
+			 final JPanel warning = new JPanel();
+			 JOptionPane.showMessageDialog(warning, "Unable to proceed to "
+			 		+ "the rule check window! Please choose a metric first!", 
+			 		"Warning", JOptionPane.WARNING_MESSAGE);
 		}
-		GRFCFR = new GUI_Rule_Frame_Creating_Final_Result(GRFC_consequence);
+		
 	}
 	
 	

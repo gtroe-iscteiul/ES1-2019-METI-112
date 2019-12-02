@@ -1,11 +1,8 @@
-package ES1_2019_METI_112.ES_2019_2020_Project;
+package No_Longer_Use_Class;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class ReadFile {
 
@@ -15,6 +12,7 @@ public class ReadFile {
 		this.path = path;
 	}
 	
+	@SuppressWarnings("resource")
 	public String[] readFile() throws IOException {
 		 String[] vector = new String[10];
 		 BufferedReader br = new BufferedReader(new FileReader(path)); 
@@ -32,7 +30,7 @@ public class ReadFile {
 	
 	
 	public static void main(String[] args) {
-		ReadFile rf = new ReadFile("Rules Created");
+		ReadFile rf = new ReadFile("CreatedRuleDatabase");
 		try {
 			rf.readFile();
 		} catch (IOException e) {
