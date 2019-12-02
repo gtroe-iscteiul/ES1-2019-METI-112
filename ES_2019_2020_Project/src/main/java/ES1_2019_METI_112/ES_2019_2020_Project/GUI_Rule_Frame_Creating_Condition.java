@@ -18,14 +18,41 @@ public class GUI_Rule_Frame_Creating_Condition {
 
 	private JFrame frame;
 	private GUI_Rules_Frame GRF;
+	private GUI_Rule_Frame_Creating_Condition GRFC_condition;
 	private JLabel ifCondition;
-	private JPanel panelCenterComponent06;
+	private JPanel panelCenterResultComponent;
 	private boolean needOperator=false;
+	private GUI_Rule_Frame_Creating_Consequence GRFC_consequence;
+	private boolean isGuiRuleFrameCreatingConsequenceOpen = false;
+	private String condition;
+	
 
 	public GUI_Rule_Frame_Creating_Condition(GUI_Rules_Frame grf) {
 		this.GRF = grf;
+		GRFC_condition = this;
 		init();
 	}
+	
+		
+	public boolean isOpenGRFCconsequence() {
+		return isGuiRuleFrameCreatingConsequenceOpen;
+	}
+	
+	
+	public void setIsOpenGRFCconsequence(boolean state) {
+		isGuiRuleFrameCreatingConsequenceOpen = state;
+	}
+	
+	
+	public GUI_Rule_Frame_Creating_Consequence getGRFC_consequence() {
+		return GRFC_consequence;
+	}
+	
+	
+	public String getCondition() {
+		return condition;
+	}
+	
 	
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
@@ -36,6 +63,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 		open();
 	}
 	
+	
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 300);
@@ -43,6 +71,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 		frame.setResizable(false);
 		frame.move(400, 150);
 	}
+	
 	
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
@@ -52,13 +81,13 @@ public class GUI_Rule_Frame_Creating_Condition {
 		JPanel panelCenterComponent03 = new JPanel();
 		JPanel panelCenterComponent04 = new JPanel();
 		JPanel panelCenterComponent05 = new JPanel();
-		panelCenterComponent06 = new JPanel();
+		panelCenterResultComponent = new JPanel();
 		JPanel panelSouth = new JPanel();
 		
 		buildPanelNorth(panelNorth);
 		buildPanelCenter(panelCenter, panelCenterComponent01, panelCenterComponent02, 
 				panelCenterComponent03, panelCenterComponent04, panelCenterComponent05,
-				panelCenterComponent06);
+				panelCenterResultComponent);
 		buildPanelSouth(panelSouth);
 		
 		frame.add(panelNorth, BorderLayout.NORTH);
@@ -66,11 +95,13 @@ public class GUI_Rule_Frame_Creating_Condition {
 		frame.add(panelSouth, BorderLayout.SOUTH);	
 	}
 	
+	
 	private void buildPanelNorth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel("Selection of 'if' condition: ");
 		panel.add(searchText);
 	}
+	
 	
 	private void buildPanelCenter(JPanel c, JPanel pc1, JPanel pc2, 
 			JPanel pc3, JPanel pc4, JPanel pc5, JPanel pc6) {
@@ -81,12 +112,12 @@ public class GUI_Rule_Frame_Creating_Condition {
 		JLabel l2 = new JLabel("             ");
 		JLabel l3 = new JLabel("             ");
 		JLabel l4 = new JLabel("             ");
-		buildPanel01(pc1);
-		buildPanel02(pc2);
-		buildPanel03(pc3);
-		buildPanel04(pc4);
-		buildPanel05(pc5);
-		buildPanel06(pc6);
+		buildThresholdsLabel(pc1);
+		buildThresholdButtons(pc2);
+		buildOperatorsLabel(pc3);
+		buildOperatorButtons(pc4);
+		buildIfConditionLabel(pc5);
+		buildPanelResult(pc6);
 		c.add(pc1);
 		c.add(pc2);
 		c.add(l1);
@@ -99,12 +130,14 @@ public class GUI_Rule_Frame_Creating_Condition {
 		c.add(pc6);
 	}
 	
-	private void buildPanel01(JPanel panel) {
-		JLabel metrics = new JLabel("Select a metric: ");
-		panel.add(metrics);
+	
+	private void buildThresholdsLabel(JPanel panel) {
+		JLabel thresholds = new JLabel("Select a threshold: ");
+		panel.add(thresholds);
 	}
 	
-	private void buildPanel02(JPanel panel) {
+	
+	private void buildThresholdButtons(JPanel panel) {
 		panel.setLayout(new GridLayout(2,2));
 		
 		locButton(panel);
@@ -113,6 +146,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 		laaButton(panel);
 	}
 	
+	
 	private void locButton(JPanel panel) {
 		final JButton loc = new JButton("LOC");
 		loc.addActionListener(new ActionListener(){
@@ -120,12 +154,13 @@ public class GUI_Rule_Frame_Creating_Condition {
 				if(needOperator==false) {
 					updateCondition(loc.getText());
 				} else {
-					showMetricsWarning();
+					showThresholdsWarning();
 				}
 			}
 		});
 		panel.add(loc);
 	}
+	
 	
 	private void cycloButton(JPanel panel) {
 		final JButton cyclo = new JButton("CYCLO");
@@ -134,12 +169,13 @@ public class GUI_Rule_Frame_Creating_Condition {
 				if(needOperator==false) {
 					updateCondition(cyclo.getText());
 				} else {
-					showMetricsWarning();
+					showThresholdsWarning();
 				}
 			}
 		});
 		panel.add(cyclo);
 	}
+	
 	
 	private void atfdButton(JPanel panel) {
 		final JButton atfd = new JButton("ATFD");
@@ -148,12 +184,13 @@ public class GUI_Rule_Frame_Creating_Condition {
 				if(needOperator==false) {
 					updateCondition(atfd.getText());
 				} else {
-					showMetricsWarning();
+					showThresholdsWarning();
 				}
 			}
 		});
 		panel.add(atfd);
 	}
+	
 	
 	private void laaButton(JPanel panel) {
 		final JButton laa = new JButton("LAA");
@@ -162,27 +199,28 @@ public class GUI_Rule_Frame_Creating_Condition {
 				if(needOperator==false) {
 					updateCondition(laa.getText());
 				} else {
-					showMetricsWarning();
+					showThresholdsWarning();
 				}
 			}
 		});
 		panel.add(laa);
 	}
 	
+	
 	private void updateCondition(String type) {
 		String ifContent = ifCondition.getText();
-		panelCenterComponent06.remove(ifCondition);	
+		panelCenterResultComponent.remove(ifCondition);	
 		String[] parts = ifContent.split(" ");
 		String result="";
-		for(int i=0; i<parts.length; i++) {
+		for(int i=0; i<parts.length-1; i++) {
 			result = result + parts[i] + " ";
 		}
 		result = result + dealWithType(type);
 		ifCondition = new JLabel(result);
-		panelCenterComponent06.add(ifCondition);
+		panelCenterResultComponent.add(ifCondition);
 		frame.validate();
-//		needOperator=true;
 	}
+	
 	
 	private String dealWithType(String t) {
 		String result = "";
@@ -204,36 +242,38 @@ public class GUI_Rule_Frame_Creating_Condition {
 		}
 		if(t.equals("AND")) {
 			needOperator=false;
-			result = result + "&& ";
+			result = result + "&& )";
 		}
 		if(t.equals("OR")) {
 			needOperator=false;
-			result = result + "|| ";
+			result = result + "|| )";
 		}
 		return result;
 	}
 	
-	private void showMetricsWarning() {
+	
+	private void showThresholdsWarning() {
 		 final JPanel warning = new JPanel();
 		 JOptionPane.showMessageDialog(warning, "Unable to select "
-		 		+ "metric! Please add operator first!", 
+		 		+ "thresholds! Please select operator first!", 
 		 		"Warning", JOptionPane.WARNING_MESSAGE);
 	}
 	
-	private void buildPanel03(JPanel panel) {
+	
+	private void buildOperatorsLabel(JPanel panel) {
 		JLabel operator = new JLabel("Select a operator: ");
 		panel.add(operator);
 	}
 	
-	private void buildPanel04(JPanel panel) {
+	
+	private void buildOperatorButtons(JPanel panel) {
 		panel.setLayout(new GridLayout(1,2));
 		
 		final JButton and = new JButton("AND");
 		and.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==true) {
-//					updateCondition(and.getText());
-					System.out.println("em progresso...");
+					updateCondition(and.getText());
 				} else {
 					showOperatorsWarning();
 				}
@@ -245,8 +285,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 		or.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==true) {
-//					updateCondition(or.getText());
-					System.out.println("em progresso...");
+					updateCondition(or.getText());
 				} else {
 					showOperatorsWarning();
 				}
@@ -255,31 +294,35 @@ public class GUI_Rule_Frame_Creating_Condition {
 		panel.add(or);		
 	}
 	
+	
 	private void showOperatorsWarning() {
 		 final JPanel warning = new JPanel();
 		 JOptionPane.showMessageDialog(warning, "Unable to select "
-		 		+ "operator! Please add metric first!", 
+		 		+ "operator! Please select threshold first!", 
 		 		"Warning", JOptionPane.WARNING_MESSAGE);
 	}
 	
-	private void buildPanel05(JPanel panel) {
+	
+	private void buildIfConditionLabel(JPanel panel) {
 		JLabel result = new JLabel("Result of the condition: ");
 		panel.add(result);
 	}
 	
-	private void buildPanel06(JPanel panel) {
-		ifCondition = new JLabel("if ( ");
+	
+	private void buildPanelResult(JPanel panel) {
+		ifCondition = new JLabel("if ( )");
 		panel.add(ifCondition);
 	}
+	
 	
 	private void buildPanelSouth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		
 		JButton reset = new JButton("RESET");
 		reset.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){			
-				GRF.setIsOpenGRFC(false);
-				frame.dispose();
+			public void actionPerformed(ActionEvent e){	
+				dealWithConsequenceFrame();
+				closeRuleConditionFrame();
 				GRF.dealWithNewRule();
 			}
 		});
@@ -288,8 +331,8 @@ public class GUI_Rule_Frame_Creating_Condition {
 		JButton ok = new JButton("OK");
 		ok.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("Open new window to choose the if consequence!");
-				System.out.println("If condition: " + ifCondition.getText());
+				recordIfCondition();
+				openGRFCconsequence();
 			}
 		});
 		panel.add(ok);
@@ -297,10 +340,58 @@ public class GUI_Rule_Frame_Creating_Condition {
 		JButton back = new JButton("BACK");
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				GRF.setIsOpenGRFC(false);
-				frame.dispose();
+				dealWithConsequenceFrame();
+				closeRuleConditionFrame();
 			}
 		});
 		panel.add(back);
 	}
+	
+	
+	private void dealWithConsequenceFrame() {
+		if(isGuiRuleFrameCreatingConsequenceOpen==true) {
+			GRFC_consequence.closeRuleConsequenceFrame();
+		}
+	}
+	
+	
+	private void recordIfCondition() {
+		String c = ifCondition.getText();
+		String[] vector = c.split(" ");
+		String result = "";
+		for(int i=0; i<vector.length; i++) {
+			result = result + vector[i];
+		}
+		this.condition = result;
+	}
+	
+	
+	public void openGRFCconsequence() {	
+		String ifContent = ifCondition.getText();
+		String[] parts = ifContent.split(" ");
+		if(parts[parts.length-2].equals("&&") || parts[parts.length-2].equals("||")) {
+			 final JPanel warning = new JPanel();
+			 JOptionPane.showMessageDialog(warning, "Unable to proceed for "
+			 		+ "choice of consequence! Please end the "
+			 		+ "condition with a threshold first!", 
+			 		"Warning", JOptionPane.WARNING_MESSAGE);
+		} else {
+			if (isGuiRuleFrameCreatingConsequenceOpen==true) {
+				final JPanel warning = new JPanel();
+				JOptionPane.showMessageDialog(warning, "Unable to open new window "
+						+ "for creating rule consequence! Window is already open!", 
+						"Warning", JOptionPane.WARNING_MESSAGE);
+			} else {
+				this.isGuiRuleFrameCreatingConsequenceOpen = true;
+				GRFC_consequence = new GUI_Rule_Frame_Creating_Consequence(GRFC_condition);
+			}
+		}
+	}
+	
+	
+	public void closeRuleConditionFrame() {
+		GRF.setIsOpenGRFC(false);
+		frame.dispose();
+	}
+	
 }
