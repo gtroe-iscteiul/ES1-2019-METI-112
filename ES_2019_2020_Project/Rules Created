@@ -1,3 +1,15 @@
 Condição: if(LOC==4&&ATFD==3) Consequência: Long Method
 Condição: if(LOC==9&&ATFD==9) Consequência: Feature Envy
 Condição: if(ATFD==1&&LAA==1) Consequência: Long Method
+Condição: if(LOC==1||LAA==4) Consequência: Long Method
+Condição: if(LOC==1&&ATFD==2) Consequência: Feature Envy
+Condição: if(LOC==17&&ATFD==8) Consequência: Long Method
+Condição: if(ATFD==5&&LAA==7) Consequência: Feature Envy
+Condição: if(ATFD==6&&CYCLO==5) Consequência: Feature Envy
+Condição: if(ATFD==6&&LAA==5) Consequência: Feature Envy
+Condição: if(ATFD==6&&LAA==7) Consequência: Feature Envy
+Condição: if(ATFD==5&&CYCLO==6) Consequência: Long Method
+Condição: if(LOC==4&&LAA==2) Consequência: Long Method
+Condição: if(LOC==5&&CYCLO==4) Consequência: Feature Envy
+Condição: if(LOC==6&&LAA==6) Consequência: Feature Envy
+Condição: if(CYCLO==6&&ATFD==5) Consequência: Feature Envy
