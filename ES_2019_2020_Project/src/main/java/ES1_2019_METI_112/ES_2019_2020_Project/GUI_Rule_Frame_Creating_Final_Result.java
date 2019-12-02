@@ -67,4 +67,6 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 		GRFC_consequence.setIsOpenGRFCFR(false);
 		frame.dispose();
 	}
+	
+	
 }
