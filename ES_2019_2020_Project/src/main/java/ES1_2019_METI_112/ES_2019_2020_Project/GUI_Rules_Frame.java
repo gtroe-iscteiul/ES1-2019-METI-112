@@ -17,7 +17,7 @@ public class GUI_Rules_Frame {
 	private JFrame frame;
 	private GUI_Rules_Frame GRF;
 	private GUI_Operative_Frame GOF;
-	private GUI_Rule_Frame_Creating_Condition GRFCC;
+	private GUI_Rule_Frame_Creating_Condition GRFC_condition;
 	private GUI_Rule_Frame_Viewing GRFV;
 	private boolean isGuiRuleFrameCreatingOpen = false;
 	private boolean isGuiRuleFrameViewingOpen = false;
@@ -32,8 +32,8 @@ public class GUI_Rules_Frame {
 		return GOF;
 	}
 	
-	public GUI_Rule_Frame_Creating_Condition getGUFCC() {
-		return GRFCC;
+	public GUI_Rule_Frame_Creating_Condition getGUFC() {
+		return GRFC_condition;
 	}
 	
 	public GUI_Rule_Frame_Viewing getGUFV() {
@@ -116,7 +116,7 @@ public class GUI_Rules_Frame {
 						"Warning", JOptionPane.WARNING_MESSAGE);
 			} else {
 				this.isGuiRuleFrameCreatingOpen = true;
-				GRFCC = new GUI_Rule_Frame_Creating_Condition(GRF);
+				GRFC_condition = new GUI_Rule_Frame_Creating_Condition(GRF);
 			}
 		} else {
 			final JPanel warning = new JPanel();
