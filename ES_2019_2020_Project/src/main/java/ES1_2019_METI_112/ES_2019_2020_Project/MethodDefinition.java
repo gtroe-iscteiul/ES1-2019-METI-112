@@ -59,7 +59,7 @@ public class MethodDefinition {
 	
 	public boolean longMethodDefinition() {
 		boolean response;
-		if(Integer.parseInt(LOC) > 80 && Integer.parseInt(CYCLO) > 10) {
+		if(Double.parseDouble(LOC) > 80 && Double.parseDouble(CYCLO) > 10) {
 			response = true;
 		} else {
 			response = false;
@@ -69,7 +69,7 @@ public class MethodDefinition {
 	
 	public boolean featureEnvyDefinition() {
 		boolean response;
-		if(LOC.equals("4") && CYCLO.equals("0.42")) {
+		if(Double.parseDouble(ATFD) > 4 && Double.parseDouble(LAA) < 0.42){
 			response = true;
 		} else {
 			response = false;

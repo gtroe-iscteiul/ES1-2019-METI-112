@@ -24,11 +24,14 @@ public class GUI_Rule_Frame_Creating_Consequence {
 	private GUI_Rule_Frame_Creating_Final_Result GRFCFR;
 	private boolean isGuiRuleFrameCreatingFinalResultOpen = false;
 	private String consequence;
+	private MethodDefinition MD;
+	private String response;
 
 
 	public GUI_Rule_Frame_Creating_Consequence(GUI_Rule_Frame_Creating_Condition g) {
 		this.GRFC_condition = g;
 		GRFC_consequence = this;
+		MD = GRFC_condition.getGRF().getGOF().getMD();
 		init();
 	}
 	
@@ -169,11 +172,107 @@ public class GUI_Rule_Frame_Creating_Consequence {
 	
 	
 	private void updateConsequence(String type) {
-		needMetric=false;
-		panelCenterResultComponent.remove(ifConsequence);	
-		ifConsequence = new JLabel(type);
-		panelCenterResultComponent.add(ifConsequence);
-		frame.validate();
+		if (verify(type)==true) {
+			needMetric=false;
+			panelCenterResultComponent.remove(ifConsequence);
+			response = type;
+			ifConsequence = new JLabel(formatConsequence(type));
+			panelCenterResultComponent.add(ifConsequence);
+			frame.validate();
+		} else {
+			if(type.equals("Long Method")) {
+				showLongMethodWarning();
+			}
+			if(type.equals("Feature Envy")){
+				showFeatureEnvyWarning();
+			}
+		}	
+	}
+	
+	
+	private void showLongMethodWarning() {
+		 final JPanel warning = new JPanel();
+		 JOptionPane.showMessageDialog(warning, "Unable to detect consequence! "
+		 		+ "Metric type does not match thresholds interactions entered in "
+		 		+ "rule condition!"
+		 		+ "\n" + "To use Long Method, please change condition to contain "
+		 		+ "an AND operation between LOC and CYCLO!", 
+		 		"Warning", JOptionPane.WARNING_MESSAGE);
+	}
+	
+
+	private void showFeatureEnvyWarning() {
+		 final JPanel warning = new JPanel();
+		 JOptionPane.showMessageDialog(warning, "Unable to detect consequence! "
+		 		+ "Metric type does not match thresholds interactions entered in "
+		 		+ "rule condition!"
+		 		+ "\n" + "To use Feature Envy, please change condition to contain "
+		 		+ "an AND operation between ATFD and LAA!", 
+		 		"Warning", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	
+	private boolean verify(String type) {
+		boolean aux = false;
+		if(type.equals("Long Method")) {
+			aux = checkLongMethod();
+		}
+		if(type.equals("Feature Envy")) {
+			aux = checkFeatureEnvy();
+		}
+		return aux;
+	}
+	
+	
+	private boolean checkLongMethod() {
+		boolean aux = false;
+		int countLOC = 0;
+		int countCYCLO = 0;
+		String[] check = GRFC_condition.getCondition().split("&&");
+		if(check.length>1) {
+			int i = 0;
+			while(i<check.length) {
+				if(check[i].contains("LOC")) {
+					countLOC++;
+					i++;
+				}
+				if(check[i].contains("CYCLO")) {
+					countCYCLO++;
+					i++;
+				}
+				i++;
+			}
+		}
+		if(countLOC>0 && countCYCLO>0) {
+			aux = true;
+		}
+		return aux;
+	}
+	
+	
+	private boolean checkFeatureEnvy() {
+		boolean aux = false;
+		int countATFD = 0;
+		int countLAA = 0;
+		String[] check = GRFC_condition.getCondition().split("&&");
+		if(check.length>1) {
+			int i = 0;
+			while(i<check.length) {
+				if(check[i].contains("ATFD")) {
+					countATFD++;
+					i++;
+				}
+				if(check[i].contains("LAA")) {
+					countLAA++;
+					i++;
+				}
+				i++;
+			}
+		}
+		if(countATFD>0 && countLAA>0) {
+			aux = true;
+		}
+		return aux;
 	}
 	
 	
@@ -213,7 +312,6 @@ public class GUI_Rule_Frame_Creating_Consequence {
 		JButton ok = new JButton("OK");
 		ok.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				consequence = ifConsequence.getText();
 				openGRFCFR();
 			}
 		});
@@ -239,11 +337,15 @@ public class GUI_Rule_Frame_Creating_Consequence {
 	}
 	
 	
-	private void formatConsequence() {
-		String s1 = ifConsequence.getText();
-		String[] s2 = s1.split(" ");
-		String s3 = s2[0] + s2[1];
-		consequence = s3;
+	private String formatConsequence(String c) {
+		String aux = "";
+		if(c.equals("Feature Envy")) {
+			aux = "is_feature_envy=" + MD.featureEnvyDefinition();
+		}
+		if(c.equals("Long Method")) {
+			aux = "is_long_method=" + MD.longMethodDefinition();
+		}
+		return aux;
 	}
 	
 	
@@ -255,15 +357,14 @@ public class GUI_Rule_Frame_Creating_Consequence {
 	
 	
 	private void openGRFCFR() {
-		if(getConsequece().equals("Feature Envy") || 
-				getConsequece().equals("Long Method")) {
+		if(response.equals("Feature Envy") || response.equals("Long Method")) {
 			if (isGuiRuleFrameCreatingFinalResultOpen==true) {
 				final JPanel warning = new JPanel();
 				JOptionPane.showMessageDialog(warning, "Unable to open the rule"
 						+ "check window! Window is already open!", 
 						"Warning", JOptionPane.WARNING_MESSAGE);
 			} else {
-				formatConsequence();
+				consequence = ifConsequence.getText();
 				isGuiRuleFrameCreatingFinalResultOpen=true;
 				GRFCFR = new GUI_Rule_Frame_Creating_Final_Result(GRFC_consequence);
 			}

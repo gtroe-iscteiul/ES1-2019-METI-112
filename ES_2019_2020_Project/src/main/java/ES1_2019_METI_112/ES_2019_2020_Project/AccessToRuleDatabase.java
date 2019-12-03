@@ -28,14 +28,11 @@ public class AccessToRuleDatabase {
 	
 	@SuppressWarnings("resource")
 	public String[] readFile() throws IOException {
-		String[] vector = new String[10];
+		String[] vector = new String[getNumberOfLines()];
 		BufferedReader br = new BufferedReader(new FileReader(path)); 
-		String st; 
-		for (int i = 0; i < vector.length; i++) {
-			while ((st = br.readLine()) != null) {
-				vector[i] = st;
-				System.out.println(vector[i]); 
-			}
+		for (int i = 0; i < getNumberOfLines(); i++) {
+			vector[i] = br.readLine();
+//			System.out.println(vector[i]); 
 		}
 		return vector;
 	}
