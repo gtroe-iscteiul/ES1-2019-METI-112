@@ -113,7 +113,11 @@ public class GUI_Rule_Frame_Viewing {
 			public void actionPerformed(ActionEvent e){
 				int index = jList.getSelectedIndex();
 				((DefaultListModel) jList.getModel()).remove(index);
-				database.deleteRule("chave"); //Falta implementar esta funcionalidade para apagar a linha do ficheiro e não só da lista
+				try {
+					database.deleteRule(index); //Este método tem algum erro, mas o resto funciona(funciona o remover da jList)
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} 
 			}
 		});
 		panelSouth.add(delete);
