@@ -29,6 +29,14 @@ public class FileHandling {
 		 mySheet = myWorkBook.getSheetAt(0);
 	}
 	
+	public XSSFSheet getMySheet() {
+		return mySheet;
+	}
+
+	public File getFile() {
+		return file;
+	}
+	
 	public boolean existsFile (File file) {
 		if (file.exists()) {
 			return true;
@@ -127,16 +135,6 @@ public class FileHandling {
 		} else {
 			return false;
 		}
-	}
-	
-	//These 2 methods were created in order to perform the JUnit tests for the FileHandling class
-
-	public XSSFSheet getMySheet() {
-		return mySheet;
-	}
-
-	public File getFile() {
-		return file;
 	}
 	
 }

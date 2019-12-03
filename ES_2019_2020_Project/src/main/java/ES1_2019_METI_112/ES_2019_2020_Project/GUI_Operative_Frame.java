@@ -20,9 +20,11 @@ public class GUI_Operative_Frame {
 	private GUI_JTable GJT;
 	private GUI_Thresholds_Frame GTF;
 	private GUI_Rules_Frame GRF;
+	private GUI_Defect_Detection GDD;
 	private boolean isGuiJTableOpen = false;
 	private boolean isGuiThresholdsFrameOpen = false;
 	private boolean isGuiRulesFrameOpen = false;
+	private boolean isGuiDefectDetectionOpen = false;
 	private MethodDefinition MD;
 	
 	public GUI_Operative_Frame (GUI_Main_Class g) {
@@ -42,6 +44,10 @@ public class GUI_Operative_Frame {
 	
 	public GUI_Thresholds_Frame getGTF () {
 		return GTF;
+	}
+	
+	public GUI_Defect_Detection getGDD () {
+		return GDD;
 	}
 	
 	public boolean getIsOpenGJT() {
@@ -70,6 +76,14 @@ public class GUI_Operative_Frame {
 	
 	public void setIsOpenGRF(boolean state) {
 		this.isGuiRulesFrameOpen = state;
+	}
+	
+	public boolean getIsOpenGDD() {
+		return isGuiDefectDetectionOpen;
+	}
+	
+	public void setIsOpenGDD(boolean state) {
+		this.isGuiDefectDetectionOpen = state;
 	}
 	
 	private void init () {
@@ -117,8 +131,7 @@ public class GUI_Operative_Frame {
 						dealWithErrors_GSR();
 					}
 					if (number==4) {
-						System.out.println("Button 4: " + 
-								"abrir janela dos defeitos detectados");
+						dealWithErrors_GDD();
 					}
 					if (number==5) {
 						GMC.setIsOpenGOF(false);
@@ -175,5 +188,23 @@ public class GUI_Operative_Frame {
 		}
 	}
 	
-		
+	private void dealWithErrors_GDD() throws IOException {
+		if (getGMC().getFile().isEmpty()) {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "Can't take action because"
+					+ " the imported file has no content!", "Warning",
+					 JOptionPane.WARNING_MESSAGE);
+		} else {
+			if (isGuiDefectDetectionOpen==true) {
+				final JPanel warning = new JPanel();
+				JOptionPane.showMessageDialog(warning, "Unable to open new window "
+						+ "to perform defect detection! Window is already open!", 
+						"Warning", JOptionPane.WARNING_MESSAGE);
+			} else {
+				this.isGuiDefectDetectionOpen = true;
+				GDD = new GUI_Defect_Detection(GOF);
+			}
+		}	
+	}
+	
 }
