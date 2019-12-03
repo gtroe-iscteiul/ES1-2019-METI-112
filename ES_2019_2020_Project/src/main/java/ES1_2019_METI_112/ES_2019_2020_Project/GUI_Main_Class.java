@@ -125,7 +125,7 @@ public class GUI_Main_Class {
 	}
 	
 	private void dealWithInternalErrors(JTextField text) {
-		if (text.getText().isBlank()) {
+		if (text.getText().isEmpty()) {
 		// Usar este 'if' em caso de erro no 'isBlank', mas no fim, voltar a colocar
 //		if (text.getText().isEmpty()) {
 			 final JPanel warning = new JPanel();
