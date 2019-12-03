@@ -1,12 +1,20 @@
 package ES1_2019_METI_112.ES_2019_2020_Project;
 
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JButton;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 public class GUI_Rule_Frame_Viewing {
 
@@ -18,6 +26,7 @@ public class GUI_Rule_Frame_Viewing {
 	private JTextArea textMetrics;
 	private String[] rules;
 	private final int RuleMaxNumber = 10;
+	private JList jList;
 
 	/**
 	 * Create the application.
@@ -33,51 +42,89 @@ public class GUI_Rule_Frame_Viewing {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
-		textSelection = new JTextField();
-		textSelection.setText("Rule");
-		textSelection.setBounds(10, 11, 174, 20);
-		frame.getContentPane().add(textSelection);
-		textSelection.setColumns(10);
-		textSelection.setEditable(false);
-		
-		textMetrics = new JTextArea();
-		try {
-			rules = database.readFile();
-			for (int i = 0; i < rules.length - 1; i++) {
-				textMetrics.insert(rules[i], i);
+		frame = new JFrame("Software Quality Assessment");
+		frame.setLayout(new BorderLayout());
+		addFrameContent();
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		frame.pack();
+		open();
+
+	}
+
+	@SuppressWarnings("deprecation")
+	private void open() {
+		frame.setSize(500, 300);
+		frame.setVisible(true);
+		frame.setResizable(false);
+		frame.move(400, 150);		
+	}
+
+	private void addFrameContent() {
+		JPanel panelNorth = new JPanel();
+		JPanel panelCenter = new JPanel();
+		JPanel panelSouth = new JPanel();
+		buildPanelNorth(panelNorth);
+		buildPanelSouth(panelSouth);
+		buildPanelCenter(panelCenter);
+		frame.add(panelNorth, BorderLayout.NORTH);
+		frame.add(panelSouth, BorderLayout.SOUTH);
+		frame.add(panelCenter, BorderLayout.CENTER);
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void buildPanelCenter(JPanel panelCenter) {
+		panelCenter.setLayout(new FlowLayout());
+		String[] conteudo;
+	    DefaultListModel listModel = new DefaultListModel();
+	    try {
+			conteudo = database.readFile();
+			for (int i = 0; i < conteudo.length; i++) {
+				listModel.addElement(conteudo[i]);
 			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	    jList = new JList(listModel);
+	    panelCenter.add(jList);
+	}
+
+	private void buildPanelSouth(JPanel panelSouth) {
+		panelSouth.setLayout(new FlowLayout());
 		
-		JButton btnSelect = new JButton("SELECT");
-		btnSelect.setBounds(52, 227, 89, 23);
-		frame.getContentPane().add(btnSelect);
+		JButton select = new JButton("SELECT");
+		select.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+			
+			}
+		});
+		panelSouth.add(select);
 		
-		JButton btnBack = new JButton("BACK");
-		btnBack.setBounds(299, 220, 89, 23);		
-		btnBack.addActionListener(new ActionListener(){
+		JButton back = new JButton("BACK");
+		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				GRF.setIsOpenGRFV(false);
 				frame.dispose();
 			}
 		});
-		frame.getContentPane().add(btnBack);
+		panelSouth.add(back);
 		
-		JButton btnDelete = new JButton("DELETE");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JButton delete = new JButton("DELETE");
+		delete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				int index = jList.getSelectedIndex();
+				((DefaultListModel) jList.getModel()).remove(index);
+				database.deleteRule("chave"); //Falta implementar esta funcionalidade para apagar a linha do ficheiro e não só da lista
 			}
 		});
-		btnDelete.setBounds(304, 227, 89, 23);
-		frame.getContentPane().add(btnDelete);
-		
-		frame.setVisible(true);
+		panelSouth.add(delete);
 	}
 
+	private void buildPanelNorth(JPanel panelNorth) {
+		panelNorth.setLayout(new FlowLayout());
+		JLabel searchText = new JLabel("Rule: ");
+		panelNorth.add(searchText);
+	}
+
+	
+	
 }

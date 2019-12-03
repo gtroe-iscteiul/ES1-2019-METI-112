@@ -25,6 +25,10 @@ public class AccessToRuleDatabase {
 		print_line.close();	
 	}
 	
+	public void deleteRule(String textLine) {
+		
+	}
+	
 	
 	@SuppressWarnings("resource")
 	public String[] readFile() throws IOException {
