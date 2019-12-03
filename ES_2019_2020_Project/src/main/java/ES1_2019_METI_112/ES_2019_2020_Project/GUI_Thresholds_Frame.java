@@ -144,12 +144,12 @@ public class GUI_Thresholds_Frame {
 		GOF.getMD().setATFD(ATFD.getText());
 		GOF.getMD().setLAA(LAA.getText());
 		
-		GOF.setIsOpenGTF(false);
-		frame.dispose();
 		final JPanel warning = new JPanel();
 		JOptionPane.showMessageDialog(warning, "Successfully saved!"
 		 		, "Information",
 				 JOptionPane.INFORMATION_MESSAGE);
+		GOF.setIsOpenGTF(false);
+		frame.dispose();
 	}
 	
 	private void testingType() {

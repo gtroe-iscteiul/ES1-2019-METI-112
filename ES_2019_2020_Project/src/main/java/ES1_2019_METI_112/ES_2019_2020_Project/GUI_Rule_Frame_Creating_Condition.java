@@ -33,6 +33,11 @@ public class GUI_Rule_Frame_Creating_Condition {
 		init();
 	}
 	
+	
+	public GUI_Rules_Frame getGRF() {
+		return GRF;
+	}
+	
 		
 	public boolean isOpenGRFCconsequence() {
 		return isGuiRuleFrameCreatingConsequenceOpen;

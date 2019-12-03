@@ -99,7 +99,6 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 				try {
 					saveRule();
 					closeAllRuleFrameCreating();
-					showInformationMessage();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -127,13 +126,41 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 	
 	private void saveRule() throws IOException {	
 		try {
-		database.writeToFile("Rule_" + (database.getNumberOfLines()+1) + " " +
-				GRFC_consequence.getGRFCcondition().getCondition()
-				+ " " + GRFC_consequence.getConsequece());
+			if(ruleDoesNotExists()==true) {
+				database.writeToFile("Rule_" + (database.getNumberOfLines()+1) + " " +
+						GRFC_consequence.getGRFCcondition().getCondition()
+						+ " " + GRFC_consequence.getConsequece());
+				showInformationMessage();
+			} else {
+				 final JPanel warning = new JPanel();
+				 JOptionPane.showMessageDialog(warning, "Unable to add rule on "
+				 		+ "database! The rule already exists!", 
+				 		"Warning", JOptionPane.WARNING_MESSAGE);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	private boolean ruleDoesNotExists() throws IOException {
+		boolean response;
+		String[] vector = database.readFile();
+		int count = 0;
+		for (int i=0; i<vector.length; i++) {
+			String[] aux = vector[i].split(" ");
+			if(aux[1].equals(GRFC_consequence.getGRFCcondition().getCondition())) {
+				count++;
+			}
+		}
+		if(count>0) {
+			response = false;
+		} else {
+			response = true;
+		}
+		return response;
+	}
+	
 	
 	public void closeRuleResultFrame() {
 		GRFC_consequence.setIsOpenGRFCFR(false);
