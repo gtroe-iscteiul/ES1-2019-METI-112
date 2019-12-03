@@ -1,7 +1,5 @@
-Rule_1 if(LOC==9&&CYCLO==8) is_long_method=false
-Rule_2 if(ATFD==5&&LAA==0.41) is_feature_envy=true
-Rule_3 if(LOC==3&&CYCLO==42) is_long_method=false
-Rule_4 if(LOC==4&&CYCLO==6) is_long_method=false
-Rule_5 if(ATFD==5&&LAA==2) is_feature_envy=false
-Rule_6 if(LOC==5&&CYCLO==6) is_long_method=false
-Rule_7 if(LOC==4&&CYCLO==7||ATFD==69) is_long_method=false
+Rule_1 if(LOC==4&&CYCLO==6) is_long_method=false
+Rule_2 if(LOC==4&&CYCLO==6||ATFD==5) is_long_method=false
+Rule_3 if(LOC==1&&CYCLO==6) is_long_method=false
+Rule_4 if(LOC==6&&CYCLO==7) is_long_method=false
+Rule_5 if(LOC==6&&CYCLO==7&&LAA==8) is_long_method=false

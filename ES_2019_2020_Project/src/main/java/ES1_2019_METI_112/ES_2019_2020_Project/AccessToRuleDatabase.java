@@ -7,10 +7,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.swing.JList;
 
 public class AccessToRuleDatabase {
 	
 	private String path;
+	private ArrayList<String> chaves = new ArrayList<>(); //Lista para guardar as chaves da base de dados
 	
 	
 	public AccessToRuleDatabase(String path) {
@@ -22,11 +26,27 @@ public class AccessToRuleDatabase {
 		FileWriter write = new FileWriter(path, true);
 		PrintWriter print_line = new PrintWriter(write);
 		print_line.printf("%s" + "%n" , textLine);
+		guardarChave(textLine);
 		print_line.close();	
 	}
 	
-	public void deleteRule(String textLine) {
-		
+	private void guardarChave(String textLine) {
+		int espacoInt = textLine.indexOf(' ');
+		String chave = textLine.substring(0, espacoInt);
+		chaves.add(chave);
+	}
+	
+	public void deleteRule(int indice) throws IOException {
+		FileWriter write = new FileWriter(path, true);
+		BufferedReader br = new BufferedReader(new FileReader(path)); 
+		for (int i = 0; i < getNumberOfLines(); i++) {
+			if(br.readLine().equals(chaves.get(indice))) {
+				write.write("");
+			}
+		}	
+		write.close(); 
+		br.close(); 
+		chaves.remove(indice);
 	}
 	
 	
