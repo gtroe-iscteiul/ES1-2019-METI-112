@@ -82,6 +82,10 @@ public class GUI_Operative_Frame {
 		return isGuiDefectDetectionOpen;
 	}
 	
+	public boolean getIsOpenGRF(){
+		return isGuiRulesFrameOpen;
+	}
+	
 	public void setIsOpenGDD(boolean state) {
 		this.isGuiDefectDetectionOpen = state;
 	}
