@@ -133,11 +133,12 @@ public class GUI_Rule_Frame_Viewing {
 	
 	private void deleteRuleFromDatabase() {
 		// 2 linhas a seguir remove da JList
-//		int index = list.getSelectedIndex();
-//		((DefaultListModel<String>) list.getModel()).remove(index);
+		
 		try {
 			// remove do ficheiro txt
 			database.deleteRule(list.getSelectedValue().toString());
+			int index = list.getSelectedIndex();
+			((DefaultListModel<String>) list.getModel()).remove(index);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
