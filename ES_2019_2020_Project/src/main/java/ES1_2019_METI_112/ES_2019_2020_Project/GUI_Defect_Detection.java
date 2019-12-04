@@ -16,16 +16,26 @@ public class GUI_Defect_Detection {
 	
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
-//	private int DCI;
-//	private int DII;
-//	private int ADCI;
-//	private int ADII;
+	private int DCI;
+	private int DII;
+	private int ADCI;
+	private int ADII;
+	private int numberOfThreads;
 	
 	
 	public GUI_Defect_Detection (GUI_Operative_Frame g) {
 		this.GOF = g;
-//		setIndicatorsNull();
+		initIndicators();
+		this.numberOfThreads = 0;
 		init();
+	}
+	
+	
+	private void initIndicators() {
+		this.DII = 0;
+		this.DII = 0;
+		this.ADCI = 0;
+		this.ADII = 0;
 	}
 	
 	
@@ -34,25 +44,60 @@ public class GUI_Defect_Detection {
 	}
 	
 	
-/*	public void setDCI(int number) {
+	public synchronized int getNumberOfThreads() {
+		return numberOfThreads;
+	}
+	
+	
+	public synchronized void setThreadWorkingUp() {
+		this.numberOfThreads++;
+	}
+	
+	
+	public synchronized void setThreadWorkingDown() {
+		this.numberOfThreads--;
+	}
+	
+	
+	public synchronized int getDCI() {
+		return DCI;
+	}
+	
+	
+	public synchronized int getDII() {
+		return DII;
+	}
+	
+	
+	public synchronized int getADCI() {
+		return ADCI;
+	}
+	
+	
+	public synchronized int getADII() {
+		return ADII;
+	}
+	
+	
+	public synchronized void setDCI(int number) {
 		this.DCI = number;
 	}
 	
 	
-	public void setDII(int number) {
+	public synchronized void setDII(int number) {
 		this.DII = number;
 	}
 	
 	
-	public void setADCI(int number) {
+	public synchronized void setADCI(int number) {
 		this.ADCI = number;
 	}
 	
 	
-	public void setADII(int number) {
+	public synchronized void setADII(int number) {
 		this.ADII = number;
 	}
-*/	
+	
 	
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
@@ -101,7 +146,6 @@ public class GUI_Defect_Detection {
 		JButton iplasma = new JButton("iPlasma");
 		iplasma.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-//				setIndicatorsNull();
 				defectCalculation("iPlasma", "is_long_method");
 			}
 		});
@@ -110,7 +154,6 @@ public class GUI_Defect_Detection {
 		JButton pmd = new JButton("PMD");
 		pmd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-//				setIndicatorsNull();
 				defectCalculation("PMD", "is_long_method");
 			}
 		});
@@ -126,84 +169,29 @@ public class GUI_Defect_Detection {
 	}
 	
 	
-/*	private void setIndicatorsNull() {
-		DCI = 0;
-		DII = 0;
-		ADCI = 0;
-		ADII = 0;
-	}
-*/	
-	
 	private void defectCalculation(String tool, String metric) {
-/*		DefectDetectionThread d1 = new DefectDetectionThread(this,"DCI",tool,metric);
+		DefectDetectionThread d1 = new DefectDetectionThread(this,"DCI",tool,metric);
+		numberOfThreads++;
 		d1.start();
 		DefectDetectionThread d2 = new DefectDetectionThread(this,"DII",tool,metric);
+		numberOfThreads++;
 		d2.start();
 		DefectDetectionThread d3 = new DefectDetectionThread(this,"ADCI",tool,metric);
+		numberOfThreads++;
 		d3.start();
 		DefectDetectionThread d4 = new DefectDetectionThread(this,"ADII",tool,metric);
+		numberOfThreads++;
 		d4.start();
-		while(true) {
-			System.out.println("em espera...");
+		while(numberOfThreads!=0) {
+			//waiting for threads to finish
+			System.out.println("calculating...");
 		}
-*/		System.out.println("Defect Detection: " + tool);
-		System.out.println("DCI: " + getResultsDCI(tool, metric));
-//		System.out.println("DII: " + getResultsDII(tool, metric));
-//		System.out.println("ADCI: " + getResultsADCI(tool, metric));
-//		System.out.println("ADII: " + getResultsADII(tool, metric));
+		System.out.println("DCI: " + DCI);
+		System.out.println("DII: " + DII);
+		System.out.println("ADCI: " + ADCI);
+		System.out.println("ADII: " + ADII);
 	}
-	
-	
-	private int getResultsDCI(String tool, String metric) {
-		int DCI = 0;
-		int lines = getGOF().getGMC().getFile().getNumberOfLines();
-		for(int i=1; i<lines; i++) {
-			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("true") && 
-			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("true")) {
-				DCI++;
-			}
-		}
-		return DCI;
-	}
-	
-	
-	private int getResultsDII(String tool, String metric) {
-		int DII = 0;
-		int lines = getGOF().getGMC().getFile().getNumberOfLines();
-		for(int i=1; i<lines; i++) {
-			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("true") && 
-			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("false")) {
-				DII++;
-			}
-		}
-		return DII;
-	}
-	
-	private int getResultsADCI(String tool, String metric) {
-		int ADCI = 0;
-		int lines = getGOF().getGMC().getFile().getNumberOfLines();
-		for(int i=1; i<lines; i++) {
-			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("false") && 
-			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("false")) {
-				ADCI++;
-			}
-		}
-		return ADCI;
-	}
-	
-	
-	private int getResultsADII(String tool, String metric) {
-		int ADII = 0;
-		int lines = getGOF().getGMC().getFile().getNumberOfLines();
-		for(int i=1; i<lines; i++) {
-			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("false") && 
-			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("true")) {
-				ADII++;
-			}
-		}
-		return ADII;
-	}
-	
+
 	
 	private void buildPanelSouth(JPanel panel) {
 		JButton back = new JButton("BACK");

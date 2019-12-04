@@ -129,7 +129,7 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 			if(ruleDoesNotExists()==true) {
 				database.writeToFile("Rule_" + (database.getNumberOfLines()+1) + " " +
 						GRFC_consequence.getGRFCcondition().getCondition()
-						+ " " + GRFC_consequence.getConsequece());
+						+ " " + GRFC_consequence.getConsequece(), true);
 				showInformationMessage();
 			} else {
 				 final JPanel warning = new JPanel();

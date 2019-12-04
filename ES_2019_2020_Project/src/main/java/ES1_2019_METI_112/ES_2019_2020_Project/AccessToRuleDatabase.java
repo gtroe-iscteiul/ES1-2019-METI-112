@@ -7,48 +7,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-
-import javax.swing.JList;
+import java.util.LinkedList;
 
 public class AccessToRuleDatabase {
 	
 	private String path;
-	private ArrayList<String> chaves = new ArrayList<>(); //Lista para guardar as chaves da base de dados
-	
+	private LinkedList<String> deleteManager;
 	
 	public AccessToRuleDatabase(String path) {
 		this.path = path;
+		this.deleteManager = new LinkedList<>();
 	}
 	
 	
-	public void writeToFile(String textLine) throws IOException {
-		FileWriter write = new FileWriter(path, true);
+	public void writeToFile(String textLine, boolean operation) throws IOException {
+		FileWriter write = new FileWriter(path, operation);
 		PrintWriter print_line = new PrintWriter(write);
 		print_line.printf("%s" + "%n" , textLine);
-		guardarChave(textLine);
 		print_line.close();	
 	}
-	
-	private void guardarChave(String textLine) {
-		int espacoInt = textLine.indexOf(' ');
-		String chave = textLine.substring(0, espacoInt);
-		chaves.add(chave);
-	}
-	
-	public void deleteRule(int indice) throws IOException {
-		FileWriter write = new FileWriter(path, true);
-		BufferedReader br = new BufferedReader(new FileReader(path)); 
-		for (int i = 0; i < getNumberOfLines(); i++) {
-			if(br.readLine().equals(chaves.get(indice))) {
-				write.write("");
-			}
-		}	
-		write.close(); 
-		br.close(); 
-		chaves.remove(indice);
-	}
-	
+		
 	
 	@SuppressWarnings("resource")
 	public String[] readFile() throws IOException {
@@ -56,7 +34,6 @@ public class AccessToRuleDatabase {
 		BufferedReader br = new BufferedReader(new FileReader(path)); 
 		for (int i = 0; i < getNumberOfLines(); i++) {
 			vector[i] = br.readLine();
-//			System.out.println(vector[i]); 
 		}
 		return vector;
 	}
@@ -68,6 +45,31 @@ public class AccessToRuleDatabase {
 		LineNumberReader count = new LineNumberReader(new FileReader(file));
 		count.skip(file.length());
 		return count.getLineNumber();		
+	}
+	
+	
+	@SuppressWarnings("resource")
+	public void deleteRule(String rule) throws IOException {
+		String[] vector = new String[getNumberOfLines()];
+		BufferedReader br = new BufferedReader(new FileReader(path)); 
+		for (int i = 0; i < getNumberOfLines(); i++) {
+			vector[i] = br.readLine();
+			if(!vector[i].equals(rule)) {
+				deleteManager.add(vector[i]);
+			}
+		}
+		updateDatabase();
+	}
+	
+	
+	private void updateDatabase() throws IOException {
+		for(String i : deleteManager) {
+			if(deleteManager.getFirst().equals(i)) {
+				writeToFile(i.toString(), false);
+			} else {
+				writeToFile(i.toString(), true);
+			}
+		}
 	}
 	
 }
