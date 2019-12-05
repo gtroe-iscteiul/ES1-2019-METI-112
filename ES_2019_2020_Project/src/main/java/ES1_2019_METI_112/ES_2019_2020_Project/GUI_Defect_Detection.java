@@ -146,7 +146,8 @@ public class GUI_Defect_Detection {
 		JButton iplasma = new JButton("iPlasma");
 		iplasma.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				defectCalculation("iPlasma", "is_long_method");
+//				defectCalculation("iPlasma", "is_long_method");
+				defectDetection("iPlasma", "is_long_method");
 			}
 		});
 		panel.add(iplasma);
@@ -154,7 +155,8 @@ public class GUI_Defect_Detection {
 		JButton pmd = new JButton("PMD");
 		pmd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				defectCalculation("PMD", "is_long_method");
+//				defectCalculation("PMD", "is_long_method");
+				defectDetection("PMD", "is_long_method");
 			}
 		});
 		panel.add(pmd);
@@ -169,6 +171,57 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	private void defectDetection(String tool, String metric) {
+		System.out.println("//////////Defects Detection Started//////////");
+		int dci = 0;
+		int dii = 0;
+		int adci = 0;
+		int adii = 0;
+		int lines = getGOF().getGMC().getFile().getNumberOfLines();
+		for(int i=1; i<lines; i++) {
+			int auxDCI = 0;
+			int auxDII = 0;
+			int auxADCI = 0;
+			int auxADII = 0;
+			System.out.println("Method ID: " + i);
+			System.out.println("Using Tool: " + tool);
+			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("true") && 
+			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("true")) {
+				dci++;
+				auxDCI++;
+			}
+			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("true") && 
+			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("false")) {
+				dii++;
+				auxDII++;
+			}
+			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("false") && 
+			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("false")) {
+				adci++;
+				auxADCI++;
+			}
+			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("false") && 
+			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("true")) {
+				adii++;
+				auxADII++;
+			}
+			System.out.println("Number of hits (DCI + DII): " + (auxDCI + auxDII));
+			System.out.println("Error number (ADCI + ADII): " + (auxADCI + auxADII));
+			System.out.println("\n");
+		}
+		setDCI(dci);
+		setDII(dii);
+		setADCI(adci);
+		setADII(adii);
+		System.out.println("//////////Defects Detection Finished//////////");
+		System.out.println("\n");
+		calculationOfQualityIndicators();
+	}
+	
+	
+	// This function will be use on sprint3 to show the quality indicators
+	// We should determine if this function will allow us to calculate defects
+	@SuppressWarnings("unused")
 	private void defectCalculation(String tool, String metric) {
 		DefectDetectionThread d1 = new DefectDetectionThread(this,"DCI",tool,metric);
 		numberOfThreads++;
@@ -186,6 +239,14 @@ public class GUI_Defect_Detection {
 			//waiting for threads to finish
 			System.out.println("calculating...");
 		}
+		calculationOfQualityIndicators();
+	}
+	
+	
+	// This function will be use on sprint3 to show the quality indicators
+	// On sprint3, we should replace de "sysout" with a JFrame
+	private void calculationOfQualityIndicators() {
+		System.out.println("Quality Indicators:");
 		System.out.println("DCI: " + DCI);
 		System.out.println("DII: " + DII);
 		System.out.println("ADCI: " + ADCI);
