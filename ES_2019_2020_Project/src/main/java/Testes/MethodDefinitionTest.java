@@ -38,7 +38,8 @@ class MethodDefinitionTest {
 
 	@Test
 	final void testMethodDefinition() {
-		fail("Not yet implemented"); // TODO
+		m = new MethodDefinition(LOC, CYCLO, ATFD, LAA);
+		assertEquals(LOC, m.getLOC());
 	}
 
 	@Test
