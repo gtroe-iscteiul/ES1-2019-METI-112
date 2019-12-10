@@ -18,8 +18,10 @@ public class GUI_Rules_Frame {
 	private GUI_Rules_Frame GRF;
 	private GUI_Operative_Frame GOF;
 	private GUI_Rule_Frame_Creating_Condition GRFC_condition;
+//	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;
 	private GUI_Rule_Frame_Viewing GRFV;
 	private boolean isGuiRuleFrameCreatingOpen = false;
+//	private boolean isGuiRuleFrameChoosingConsequenceTypeOpen = false;
 	private boolean isGuiRuleFrameViewingOpen = false;
 	
 	public GUI_Rules_Frame(GUI_Operative_Frame g) {
@@ -36,6 +38,10 @@ public class GUI_Rules_Frame {
 		return GRFC_condition;
 	}
 	
+//	public GUI_Rule_Frame_Choosing_Consequence_Type getGRFCCT() {
+//		return GRFCCT;
+//	}
+	
 	public GUI_Rule_Frame_Viewing getGUFV() {
 		return GRFV;
 	}
@@ -44,6 +50,10 @@ public class GUI_Rules_Frame {
 		return isGuiRuleFrameCreatingOpen;
 	}
 	
+//	public boolean isOpenGRFCCT() {
+//		return isGuiRuleFrameChoosingConsequenceTypeOpen;
+//	}
+	
 	public boolean isOpenGRFV() {
 		return isGuiRuleFrameViewingOpen;
 	}
@@ -51,6 +61,10 @@ public class GUI_Rules_Frame {
 	public void setIsOpenGRFC(boolean state) {
 		isGuiRuleFrameCreatingOpen = state;
 	}
+	
+//	public void setIsOpenGRFCCT(boolean state) {
+//		isGuiRuleFrameChoosingConsequenceTypeOpen = state;
+//	}
 	
 	public void setIsOpenGRFV(boolean state) {
 		isGuiRuleFrameViewingOpen = state;
@@ -110,13 +124,16 @@ public class GUI_Rules_Frame {
 	public void dealWithNewRule() {		
 		if(GOF.getMD().hasBeenInitialized()==true) {
 			if (isGuiRuleFrameCreatingOpen==true) {
+//			if (isGuiRuleFrameChoosingConsequenceTypeOpen==true) {
 				final JPanel warning = new JPanel();
 				JOptionPane.showMessageDialog(warning, "Unable to open new window "
 						+ "for rules creation! Window is already open!", 
 						"Warning", JOptionPane.WARNING_MESSAGE);
 			} else {
 				this.isGuiRuleFrameCreatingOpen = true;
+//				this.isGuiRuleFrameChoosingConsequenceTypeOpen = true;
 				GRFC_condition = new GUI_Rule_Frame_Creating_Condition(GRF);
+//				GRFCCT = new GUI_Rule_Frame_Choosing_Consequence_Type(GRF);
 			}
 		} else {
 			final JPanel warning = new JPanel();
