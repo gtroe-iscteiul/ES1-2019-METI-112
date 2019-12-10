@@ -77,4 +77,15 @@ public class MethodDefinition {
 		return response;
 	}
 	
+	// in progress...
+	public boolean longMethodDefinition(int loc, int cyclo) {
+		boolean response;
+		if(Double.parseDouble(LOC) > loc && Double.parseDouble(CYCLO) > cyclo) {
+			response = true;
+		} else {
+			response = false;
+		}
+		return response;
+	}
+	
 }
