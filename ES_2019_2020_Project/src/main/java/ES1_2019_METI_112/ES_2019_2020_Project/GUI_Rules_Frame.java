@@ -17,12 +17,11 @@ public class GUI_Rules_Frame {
 	private JFrame frame;
 	private GUI_Rules_Frame GRF;
 	private GUI_Operative_Frame GOF;
-	private GUI_Rule_Frame_Creating_Condition GRFC_condition;
-//	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;
+	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;
 	private GUI_Rule_Frame_Viewing GRFV;
-	private boolean isGuiRuleFrameCreatingOpen = false;
-//	private boolean isGuiRuleFrameChoosingConsequenceTypeOpen = false;
+	private boolean isGuiRuleFrameChoosingConsequenceTypeOpen = false;
 	private boolean isGuiRuleFrameViewingOpen = false;
+	
 	
 	public GUI_Rules_Frame(GUI_Operative_Frame g) {
 		this.GOF = g;
@@ -30,45 +29,41 @@ public class GUI_Rules_Frame {
 		init();
 	}
 	
+	
 	public GUI_Operative_Frame getGOF() {
 		return GOF;
 	}
 	
-	public GUI_Rule_Frame_Creating_Condition getGUFC() {
-		return GRFC_condition;
+	
+	public GUI_Rule_Frame_Choosing_Consequence_Type getGRFCCT() {
+		return GRFCCT;
 	}
 	
-//	public GUI_Rule_Frame_Choosing_Consequence_Type getGRFCCT() {
-//		return GRFCCT;
-//	}
 	
-	public GUI_Rule_Frame_Viewing getGUFV() {
+	public GUI_Rule_Frame_Viewing getGRFV() {
 		return GRFV;
 	}
+
 	
-	public boolean isOpenGRFC() {
-		return isGuiRuleFrameCreatingOpen;
+	public boolean isOpenGRFCCT() {
+		return isGuiRuleFrameChoosingConsequenceTypeOpen;
 	}
 	
-//	public boolean isOpenGRFCCT() {
-//		return isGuiRuleFrameChoosingConsequenceTypeOpen;
-//	}
 	
 	public boolean isOpenGRFV() {
 		return isGuiRuleFrameViewingOpen;
 	}
 	
-	public void setIsOpenGRFC(boolean state) {
-		isGuiRuleFrameCreatingOpen = state;
+	
+	public void setIsOpenGRFCCT(boolean state) {
+		isGuiRuleFrameChoosingConsequenceTypeOpen = state;
 	}
 	
-//	public void setIsOpenGRFCCT(boolean state) {
-//		isGuiRuleFrameChoosingConsequenceTypeOpen = state;
-//	}
 	
 	public void setIsOpenGRFV(boolean state) {
 		isGuiRuleFrameViewingOpen = state;
 	}
+	
 	
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
@@ -78,6 +73,7 @@ public class GUI_Rules_Frame {
 		frame.pack();
 		open();
 	}
+	
 		
 	@SuppressWarnings("deprecation")
 	private void open(){
@@ -86,6 +82,7 @@ public class GUI_Rules_Frame {
 		frame.setResizable(false);
 		frame.move(400, 190);
 	}
+	
 
 	private void addFrameContent(){
 		JPanel panel = new JPanel();
@@ -93,6 +90,7 @@ public class GUI_Rules_Frame {
 		buildPanel(panel);
 		frame.add(panel, BorderLayout.CENTER);
 	}
+	
 	
 	private void buildPanel(JPanel panel) {
 		JButton visualization = new JButton("View Rules");
@@ -121,19 +119,17 @@ public class GUI_Rules_Frame {
 		panel.add(back);
 	}
 	
+	
 	public void dealWithNewRule() {		
 		if(GOF.getMD().hasBeenInitialized()==true) {
-			if (isGuiRuleFrameCreatingOpen==true) {
-//			if (isGuiRuleFrameChoosingConsequenceTypeOpen==true) {
+			if (isGuiRuleFrameChoosingConsequenceTypeOpen==true) {
 				final JPanel warning = new JPanel();
 				JOptionPane.showMessageDialog(warning, "Unable to open new window "
 						+ "for rules creation! Window is already open!", 
 						"Warning", JOptionPane.WARNING_MESSAGE);
 			} else {
-				this.isGuiRuleFrameCreatingOpen = true;
-//				this.isGuiRuleFrameChoosingConsequenceTypeOpen = true;
-				GRFC_condition = new GUI_Rule_Frame_Creating_Condition(GRF);
-//				GRFCCT = new GUI_Rule_Frame_Choosing_Consequence_Type(GRF);
+				this.isGuiRuleFrameChoosingConsequenceTypeOpen = true;
+				GRFCCT = new GUI_Rule_Frame_Choosing_Consequence_Type(GRF);
 			}
 		} else {
 			final JPanel warning = new JPanel();
@@ -143,6 +139,7 @@ public class GUI_Rules_Frame {
 					"Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	}
+	
 	
 	private void dealWithExistingRules() {
 		if (isGuiRuleFrameViewingOpen==true) {

@@ -55,18 +55,18 @@ class GUI_Rules_FrameTest {
 	}
 
 	@Test
-	final void testGetGUFC() {
-		assertNull(rf.getGUFC());
+	final void testGetGRFCCT() {
+		assertNull(rf.getGRFCCT());
 	}
 
 	@Test
 	final void testGetGUFV() {
-		assertEquals(null, rf.getGUFV());
+		assertEquals(null, rf.getGRFV());
 	}
 
 	@Test
 	final void testIsOpenGRFC() {
-		assertFalse(rf.isOpenGRFC());
+		assertFalse(rf.isOpenGRFCCT());
 	}
 
 	@Test
@@ -76,8 +76,8 @@ class GUI_Rules_FrameTest {
 
 	@Test
 	final void testSetIsOpenGRFC() {
-		rf.setIsOpenGRFC(true);
-		assertTrue(rf.isOpenGRFC());
+		rf.setIsOpenGRFCCT(true);
+		assertTrue(rf.isOpenGRFCCT());
 	}
 
 	@Test

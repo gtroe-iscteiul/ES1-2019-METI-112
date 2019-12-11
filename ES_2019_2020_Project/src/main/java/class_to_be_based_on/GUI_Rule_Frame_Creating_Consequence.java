@@ -1,4 +1,4 @@
-package ES1_2019_METI_112.ES_2019_2020_Project;
+package class_to_be_based_on;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+
+import ES1_2019_METI_112.ES_2019_2020_Project.MethodDefinition;
+
 import javax.swing.JButton;
 
 public class GUI_Rule_Frame_Creating_Consequence {
