@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -16,17 +17,24 @@ public class GUI_Defect_Detection {
 	
 	private JFrame frame;
 	private GUI_Operative_Frame GOF;
+	private GUI_Defect_Detection GDD;
 	private int DCI;
 	private int DII;
 	private int ADCI;
 	private int ADII;
 	private int numberOfThreads;
+	private GUI_Defect_Detection_Rule GDDR;
+	private boolean isOpenGDDR;
+	private String chosenRule;
 	
 	
 	public GUI_Defect_Detection (GUI_Operative_Frame g) {
 		this.GOF = g;
+		GDD = this;
 		initIndicators();
 		this.numberOfThreads = 0;
+		this.chosenRule = "";
+		this.isOpenGDDR = false;
 		init();
 	}
 	
@@ -99,6 +107,16 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	public void setChosenRule (String rule) {
+		this.chosenRule = rule;
+	}
+	
+	
+	public void setIsOpenGDDR (boolean state) {
+		isOpenGDDR = state;
+	}
+	
+	
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -164,7 +182,15 @@ public class GUI_Defect_Detection {
 		JButton rule = new JButton("Created rule");
 		rule.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("cálculo com uma das regras da base de dados");
+				if(isOpenGDDR==true) {
+					final JPanel warning = new JPanel();
+					JOptionPane.showMessageDialog(warning, "Unable to open new "
+							+ "window for the rule selection! Windows is already "
+							+ "open!", "Warning", JOptionPane.WARNING_MESSAGE);
+				} else {
+					isOpenGDDR=true;
+					GDDR = new GUI_Defect_Detection_Rule(GDD);
+				}
 			}
 		});
 		panel.add(rule);
@@ -219,6 +245,12 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	public void defectDetectionForRule() {
+		System.out.println("Procurar com regra '" + chosenRule + "'");
+	
+	}
+	
+	
 	// This function will be use on sprint3 to show the quality indicators
 	// We should determine if this function will allow us to calculate defects
 	@SuppressWarnings("unused")
@@ -258,6 +290,10 @@ public class GUI_Defect_Detection {
 		JButton back = new JButton("BACK");
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				if(isOpenGDDR==true) {
+					setIsOpenGDDR(false);
+					GDDR.closeFrame();
+				}
 				GOF.setIsOpenGDD(false);
 				frame.dispose();
 			}
