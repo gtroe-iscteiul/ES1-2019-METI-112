@@ -111,7 +111,7 @@ public class GUI_Defect_Detection_Rule {
 	
 	private void setRuleInformation() {
 		String[] vector = list.getSelectedValue().toString().split(" ");
-		String rule = vector[1] + " " + vector[2];
+		String rule = vector[0] + " " + vector[1] + " " + vector[2];
 		
 		GDD.setChosenRule(rule);
 		

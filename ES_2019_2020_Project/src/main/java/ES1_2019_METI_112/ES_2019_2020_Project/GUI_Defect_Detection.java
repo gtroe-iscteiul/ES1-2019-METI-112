@@ -246,14 +246,96 @@ public class GUI_Defect_Detection {
 	
 	
 	public void defectDetectionForRule() {
-		System.out.println("Procurar com regra '" + chosenRule + "'");
-	
+		String[] ifRule = chosenRule.split("if()");
+		String[] rule = ifRule[1].split(" ");
+		
+		if(chosenRule.contains("is_long_method")) {
+			longMethodConvert(rule);
+		}
+		if(chosenRule.contains("is_feature_envy")) {
+//			featureEnvy(condition, consequence);
+			System.out.println("falta definir cálculo para feature envy!");
+		}
 	}
 	
 	
+	private void longMethodConvert(String[] rule) {
+		String[] condition = rule[0].split("&&");
+
+		String[] aux1 = condition[0].split(">");
+		String[] aux2 = condition[1].split(">");
+
+		String[] aux3 = aux2[1].split("()");
+		String s = "";
+		for(int i=0; i<aux3.length-1;i++) {
+			s = s + aux3[i];
+		}
+		
+		longMethod(Double.parseDouble(aux1[1]), Double.parseDouble(s));
+	}
+	
+	
+	private void longMethod(Double l, Double c) {
+		System.out.println("//////////Defects Detection Started//////////");
+		int dci = 0;
+		int dii = 0;
+		int adci = 0;
+		int adii = 0;
+		int lines = getGOF().getGMC().getFile().getNumberOfLines();
+		
+		for(int i=1; i<lines; i++) {
+			int auxDCI = 0;
+			int auxDII = 0;
+			int auxADCI = 0;
+			int auxADII = 0;
+			
+			System.out.println("Method ID: " + i);
+			System.out.println("Using Tool: Created Rule");
+			
+			String loc = getGOF().getGMC().getFile().getCellValue(i, "LOC");
+			String cyclo = getGOF().getGMC().getFile().getCellValue(i, "CYCLO");
+			
+			if(getGOF().getMD().longMethodDefinition(loc, cyclo, l, c)==true && 
+					getGOF().getGMC().getFile().getCellValue(i, "is_long_method").
+					equals("true")){
+				dci++;
+				auxDCI++;
+			}
+			if(getGOF().getMD().longMethodDefinition(loc, cyclo, l, c)==true && 
+					getGOF().getGMC().getFile().getCellValue(i, "is_long_method").
+					equals("false")){
+				dii++;
+				auxDII++;
+			}
+			if(getGOF().getMD().longMethodDefinition(loc, cyclo, l, c)==false && 
+					getGOF().getGMC().getFile().getCellValue(i, "is_long_method").
+					equals("false")){
+				adci++;
+				auxADCI++;
+			}
+			if(getGOF().getMD().longMethodDefinition(loc, cyclo, l, c)==false && 
+					getGOF().getGMC().getFile().getCellValue(i, "is_long_method").
+					equals("true")){
+				adii++;
+				auxADII++;
+			}
+			System.out.println("Number of hits (DCI + DII): " + (auxDCI + auxDII));
+			System.out.println("Error number (ADCI + ADII): " + (auxADCI + auxADII));
+			System.out.println("\n");
+		}
+		setDCI(dci);
+		setDII(dii);
+		setADCI(adci);
+		setADII(adii);
+		System.out.println("//////////Defects Detection Finished//////////");
+		System.out.println("\n");
+		calculationOfQualityIndicators();
+	}
+			
+	
 	// This function will be use on sprint3 to show the quality indicators
 	// We should determine if this function will allow us to calculate defects
-	@SuppressWarnings("unused")
+/*	@SuppressWarnings("unused")
 	private void defectCalculation(String tool, String metric) {
 		DefectDetectionThread d1 = new DefectDetectionThread(this,"DCI",tool,metric);
 		numberOfThreads++;
@@ -273,7 +355,7 @@ public class GUI_Defect_Detection {
 		}
 		calculationOfQualityIndicators();
 	}
-	
+*/	
 	
 	// This function will be use on sprint3 to show the quality indicators
 	// On sprint3, we should replace de "sysout" with a JFrame
