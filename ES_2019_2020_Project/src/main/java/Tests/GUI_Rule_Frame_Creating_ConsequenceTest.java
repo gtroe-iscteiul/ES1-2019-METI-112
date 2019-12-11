@@ -1,4 +1,4 @@
-package Testes;
+package Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertFalse;
@@ -13,18 +13,17 @@ import org.junit.jupiter.api.Test;
 
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Main_Class;
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Operative_Frame;
+import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rule_Frame_Choosing_Consequence_Type;
+import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rule_Frame_Creating_Feature_Envy_Condition;
+import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rule_Frame_Creating_Feature_Envy_Consequence;
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rules_Frame;
-import class_to_be_based_on.GUI_Rule_Frame_Creating_Condition;
-import class_to_be_based_on.GUI_Rule_Frame_Creating_Consequence;
-import class_to_be_based_on.GUI_Rule_Frame_Creating_Final_Result;
 
 class GUI_Rule_Frame_Creating_ConsequenceTest {
 	
-	private GUI_Rule_Frame_Creating_Consequence rf_consequence;
-	private GUI_Rule_Frame_Creating_Condition rf_condition;
+	private GUI_Rule_Frame_Creating_Feature_Envy_Consequence rf_consequence;
+	private GUI_Rule_Frame_Creating_Feature_Envy_Condition rf_condition;
 	private GUI_Rules_Frame rf;
-	private GUI_Operative_Frame op;
-	private GUI_Main_Class main_class;
+	GUI_Rule_Frame_Choosing_Consequence_Type cc;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -36,11 +35,10 @@ class GUI_Rule_Frame_Creating_ConsequenceTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		main_class = new GUI_Main_Class ();
-		op = new GUI_Operative_Frame(main_class);
-		rf = new GUI_Rules_Frame (op);
-		rf_condition = new GUI_Rule_Frame_Creating_Condition(rf);
-		rf_consequence = new GUI_Rule_Frame_Creating_Consequence(rf_condition);
+		rf = new GUI_Rules_Frame(new GUI_Operative_Frame(new GUI_Main_Class()));
+		cc = new GUI_Rule_Frame_Choosing_Consequence_Type(rf);
+		rf_condition = new GUI_Rule_Frame_Creating_Feature_Envy_Condition(cc);
+		rf_consequence = new GUI_Rule_Frame_Creating_Feature_Envy_Consequence(rf_condition);
 	}
 
 	@AfterEach
@@ -54,23 +52,23 @@ class GUI_Rule_Frame_Creating_ConsequenceTest {
 
 	@Test
 	final void testGetGRFCcondition() {
-		assertEquals(rf_condition, rf_consequence.getGRFCcondition());
+		assertEquals(rf_condition, rf_consequence.getGRFCFE());
 	}
 
 	@Test
 	final void testIsOpenGRFCFR() {
-		assertFalse(rf_consequence.isOpenGRFCFR());
+		assertFalse(rf_consequence.isOpenGRFCFEFR());
 	}
 
 	@Test
 	final void testSetIsOpenGRFCFR() {
-		rf_consequence.setIsOpenGRFCFR(true);
-		assertTrue(rf_consequence.isOpenGRFCFR());
+		rf_consequence.setIsOpenGRFCFEFR(true);;
+		assertTrue(rf_consequence.isOpenGRFCFEFR());
 	}
 
 	@Test
 	final void testGetGRFCFR() {
-		assertEquals(null, rf_consequence.getGRFCFR());
+		assertEquals(null, rf_consequence.getGRFCFEFR());
 	}
 
 	@Test

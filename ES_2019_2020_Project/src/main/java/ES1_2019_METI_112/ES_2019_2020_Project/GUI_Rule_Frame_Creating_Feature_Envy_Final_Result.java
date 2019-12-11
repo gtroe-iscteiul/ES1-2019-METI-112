@@ -1,4 +1,4 @@
-package class_to_be_based_on;
+package ES1_2019_METI_112.ES_2019_2020_Project;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -14,16 +14,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import ES1_2019_METI_112.ES_2019_2020_Project.AccessToRuleDatabase;
-
-public class GUI_Rule_Frame_Creating_Final_Result {
+public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	
 	private JFrame frame;
-	private GUI_Rule_Frame_Creating_Consequence GRFC_consequence;
+	private GUI_Rule_Frame_Creating_Feature_Envy_Consequence GRFC_consequence;
 	private AccessToRuleDatabase database;
 	
 	
-	public GUI_Rule_Frame_Creating_Final_Result(GUI_Rule_Frame_Creating_Consequence g) {
+	public GUI_Rule_Frame_Creating_Feature_Envy_Final_Result(GUI_Rule_Frame_Creating_Feature_Envy_Consequence g) {
 		this.GRFC_consequence = g;
 		database = new AccessToRuleDatabase("CreatedRuleDatabase");
 		init();
@@ -42,7 +40,7 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 	
 	@SuppressWarnings("deprecation")
 	private void open(){
-		frame.setSize(500, 300);
+		frame.setSize(500, 400);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.move(400, 150);
@@ -79,7 +77,7 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 		panel.add(null_1);
 	
 		JLabel ifRule = new JLabel();
-		ifRule.setText(GRFC_consequence.getGRFCcondition().getCondition());
+		ifRule.setText(GRFC_consequence.getGRFCFE().getCondition());
 		panel.add(ifRule);
 		
 		JLabel null_2 = new JLabel("                            "
@@ -130,7 +128,7 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 		try {
 			if(ruleDoesNotExists()==true) {
 				database.writeToFile("Rule_" + (database.getNumberOfLines()+1) + " " +
-						GRFC_consequence.getGRFCcondition().getCondition()
+						GRFC_consequence.getGRFCFE().getCondition()
 						+ " " + GRFC_consequence.getConsequece(), true);
 				showInformationMessage();
 			} else {
@@ -151,7 +149,7 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 		int count = 0;
 		for (int i=0; i<vector.length; i++) {
 			String[] aux = vector[i].split(" ");
-			if(aux[1].equals(GRFC_consequence.getGRFCcondition().getCondition())) {
+			if(aux[1].equals(GRFC_consequence.getGRFCFE().getCondition())) {
 				count++;
 			}
 		}
@@ -165,7 +163,7 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 	
 	
 	public void closeRuleResultFrame() {
-		GRFC_consequence.setIsOpenGRFCFR(false);
+		GRFC_consequence.setIsOpenGRFCFEFR(false);
 		frame.dispose();
 	}
 	
@@ -181,7 +179,8 @@ public class GUI_Rule_Frame_Creating_Final_Result {
 	private void closeAllRuleFrameCreating() {
 		closeRuleResultFrame();
 		GRFC_consequence.closeRuleConsequenceFrame();
-		GRFC_consequence.getGRFCcondition().closeRuleConditionFrame();
+		GRFC_consequence.getGRFCFE().closeFrame();
+		GRFC_consequence.getGRFCFE().getGRFCCT().closeRuleConsequenceFrame();
 	}
 	
 }

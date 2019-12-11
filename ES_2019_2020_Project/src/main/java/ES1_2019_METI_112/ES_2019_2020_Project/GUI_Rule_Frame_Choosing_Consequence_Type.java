@@ -19,7 +19,7 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	private GUI_Rules_Frame GRF;
 	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;	
 	private GUI_Rule_Frame_Creating_Long_Method GRCLM;
-	private GUI_Rule_Frame_Creating_Feature_Envy GRCFE;
+	private GUI_Rule_Frame_Creating_Feature_Envy_Condition GRCFE;
 	private boolean isGuiRuleFrameCreatingLongMethodOpen = false;
 	private boolean isGuiRuleFrameCreatingFeatureEnvy = false;
 	
@@ -45,7 +45,7 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
-	public GUI_Rule_Frame_Creating_Feature_Envy getGRFCFE() {
+	public GUI_Rule_Frame_Creating_Feature_Envy_Condition getGRFCFE() {
 		return GRCFE;
 	}
 	
@@ -169,7 +169,7 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
-	private void openFeatureEnvyFrame() {
+	public void openFeatureEnvyFrame() {
 		if (isGuiRuleFrameCreatingLongMethodOpen==true 
 				|| isGuiRuleFrameCreatingFeatureEnvy==true) {
 			final JPanel warning = new JPanel();
@@ -178,7 +178,7 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 					"Warning", JOptionPane.WARNING_MESSAGE);
 		} else {
 			this.isGuiRuleFrameCreatingFeatureEnvy = true;
-			GRCFE = new GUI_Rule_Frame_Creating_Feature_Envy(GRFCCT);
+			GRCFE = new GUI_Rule_Frame_Creating_Feature_Envy_Condition(GRFCCT);
 		}
 	}
 	
@@ -198,7 +198,7 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 		
-	private void dealWithAfterFrame() {
+	public void dealWithAfterFrame() {
 		if(isGuiRuleFrameCreatingLongMethodOpen==true) {
 			GRCLM.closeFrame();
 		}
