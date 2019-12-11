@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Main_Class;
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Operative_Frame;
-import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rule_Frame_Creating_Condition;
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rules_Frame;
+import class_to_be_based_on.GUI_Rule_Frame_Creating_Condition;
 
 class GUI_Rule_Frame_Creating_ConditionTest {
 

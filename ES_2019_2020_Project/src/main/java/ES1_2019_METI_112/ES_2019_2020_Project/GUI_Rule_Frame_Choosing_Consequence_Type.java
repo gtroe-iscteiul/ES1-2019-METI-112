@@ -16,18 +16,57 @@ import javax.swing.JButton;
 public class GUI_Rule_Frame_Choosing_Consequence_Type {
 
 	private JFrame frame;
-//	private GUI_Rules_Frame GRF;
-	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;
+	private GUI_Rules_Frame GRF;
+	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;	
+	private GUI_Rule_Frame_Creating_Long_Method GRCLM;
+	private GUI_Rule_Frame_Creating_Feature_Envy GRCFE;
+	private boolean isGuiRuleFrameCreatingLongMethodOpen = false;
+	private boolean isGuiRuleFrameCreatingFeatureEnvy = false;
 	
 	
-	public GUI_Rule_Frame_Choosing_Consequence_Type() {//GUI_Rules_Frame grf) {
-//		this.GRF = grf;
+	public GUI_Rule_Frame_Choosing_Consequence_Type(GUI_Rules_Frame grf) {
+		this.GRF = grf;
 		GRFCCT = this;
 		init();
 	}	
 	
 	public GUI_Rule_Frame_Choosing_Consequence_Type getGRFCCT() {
 		return GRFCCT;
+	}
+	
+	
+	public GUI_Rules_Frame getGRF() {
+		return GRF;
+	}
+	
+	
+	public GUI_Rule_Frame_Creating_Long_Method getGRFCLM() {
+		return GRCLM;
+	}
+	
+	
+	public GUI_Rule_Frame_Creating_Feature_Envy getGRFCFE() {
+		return GRCFE;
+	}
+	
+	
+	public boolean isOpenGRFCFE() {
+		return isGuiRuleFrameCreatingFeatureEnvy;
+	}
+	
+	
+	public void setIsOpenGRFCFE(boolean state) {
+		isGuiRuleFrameCreatingFeatureEnvy = state;
+	}
+	
+	
+	public boolean isOpenGRFCLM() {
+		return isGuiRuleFrameCreatingLongMethodOpen;
+	}
+	
+	
+	public void setIsOpenGRFCLM(boolean state) {
+		isGuiRuleFrameCreatingLongMethodOpen = state;
 	}
 	
 	
@@ -92,14 +131,30 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 		final JButton longM = new JButton("Long Method");
 		longM.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				final JPanel warning = new JPanel();
-				JOptionPane.showMessageDialog(warning, "The method for this "
-						+ "metric is predefined and will only update previously "
-						+ "defined threshold limits!", "Information",
-						 JOptionPane.INFORMATION_MESSAGE);
+				openLongMethodFrame();
 			}
 		});
 		panel.add(longM);
+	}
+	
+	
+	private void openLongMethodFrame() {
+		if (isGuiRuleFrameCreatingLongMethodOpen==true 
+				|| isGuiRuleFrameCreatingFeatureEnvy==true) {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "Unable to open new window for "
+					+ "the metric selected! One metric windows is already open!", 
+					"Warning", JOptionPane.WARNING_MESSAGE);
+		} else {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "The method for this "
+					+ "metric is predefined and will only update previously "
+					+ "defined threshold limits!", "Information",
+					 JOptionPane.INFORMATION_MESSAGE);
+			
+			this.isGuiRuleFrameCreatingLongMethodOpen = true;
+			GRCLM = new GUI_Rule_Frame_Creating_Long_Method(GRFCCT);
+		}
 	}
 	
 	
@@ -107,10 +162,24 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 		final JButton featureE = new JButton("Feature Envy");
 		featureE.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("abrir GUI feature envy");
+				openFeatureEnvyFrame();
 			}
 		});
 		panel.add(featureE);
+	}
+	
+	
+	private void openFeatureEnvyFrame() {
+		if (isGuiRuleFrameCreatingLongMethodOpen==true 
+				|| isGuiRuleFrameCreatingFeatureEnvy==true) {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "Unable to open new window for "
+					+ "the metric selected! One metric windows is already open!", 
+					"Warning", JOptionPane.WARNING_MESSAGE);
+		} else {
+			this.isGuiRuleFrameCreatingFeatureEnvy = true;
+			GRCFE = new GUI_Rule_Frame_Creating_Feature_Envy(GRFCCT);
+		}
 	}
 	
 	
@@ -120,9 +189,8 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 		JButton back = new JButton("BACK");
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-//				dealWithFinalResultFrame(); //if next window is open
-//				closeRuleConsequenceFrame(); //close this frame
-				System.out.println("voltar a trás");
+				dealWithAfterFrame();
+				closeRuleConsequenceFrame();
 			}
 		});
 		panel.add(back);
@@ -130,46 +198,19 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 		
-//	private void dealWithFinalResultFrame() {
-//		if(isGuiRuleFrameCreatingFinalResultOpen==true) {
-//			GRFCFR.closeRuleResultFrame();
-//		}
-//	}
-	
-	
-/*	private void openGRFCFR() {
-		if(response.equals("Feature Envy") || response.equals("Long Method")) {
-			if (isGuiRuleFrameCreatingFinalResultOpen==true) {
-				final JPanel warning = new JPanel();
-				JOptionPane.showMessageDialog(warning, "Unable to open the rule"
-						+ "check window! Window is already open!", 
-						"Warning", JOptionPane.WARNING_MESSAGE);
-			} else {
-				consequence = ifConsequence.getText();
-				isGuiRuleFrameCreatingFinalResultOpen=true;
-				GRFCFR = new GUI_Rule_Frame_Creating_Final_Result(GRFC_consequence);
-			}
-		} else {
-			 final JPanel warning = new JPanel();
-			 JOptionPane.showMessageDialog(warning, "Unable to proceed to "
-			 		+ "the rule check window! Please choose a metric first!", 
-			 		"Warning", JOptionPane.WARNING_MESSAGE);
+	private void dealWithAfterFrame() {
+		if(isGuiRuleFrameCreatingLongMethodOpen==true) {
+			GRCLM.closeFrame();
 		}
-		
+		if(isGuiRuleFrameCreatingFeatureEnvy==true) {
+			GRCFE.closeFrame();
+		}
 	}
-*/	
-	
-	// this allows to return to previous window
-//	public void closeRuleConsequenceFrame() {
-//		GRF.setIsOpenGRFCCT(false);
-//		frame.dispose();
-//	}
-	
-	
-	public static void main(String[] args) {
-		GUI_Rule_Frame_Choosing_Consequence_Type grfcct = 
-				new GUI_Rule_Frame_Choosing_Consequence_Type();
-		grfcct.init();
+		
+
+	public void closeRuleConsequenceFrame() {
+		GRF.setIsOpenGRFCCT(false);
+		frame.dispose();
 	}
 	
 }
