@@ -127,8 +127,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	private void saveRule() throws IOException {	
 		try {
 			if(ruleDoesNotExists()==true) {
-				database.writeToFile("Rule_" + (database.getNumberOfLines()+1) + " " +
-						GRFC_consequence.getGRFCFE().getCondition()
+				database.writeToFile(GRFC_consequence.getGRFCFE().getCondition()
 						+ " " + GRFC_consequence.getConsequece(), true);
 				showInformationMessage();
 			} else {

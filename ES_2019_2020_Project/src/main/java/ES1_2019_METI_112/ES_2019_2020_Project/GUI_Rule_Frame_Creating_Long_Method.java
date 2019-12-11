@@ -133,8 +133,7 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	private void saveRule() throws IOException {	
 		try {
 			if(ruleDoesNotExists()==true) {
-				database.writeToFile("Rule_" + (database.getNumberOfLines()+1) + " " +
-						condicion + " " + consequence, true);
+				database.writeToFile(condicion + " " + consequence, true);
 				showInformationMessage();
 			} else {
 				 final JPanel warning = new JPanel();

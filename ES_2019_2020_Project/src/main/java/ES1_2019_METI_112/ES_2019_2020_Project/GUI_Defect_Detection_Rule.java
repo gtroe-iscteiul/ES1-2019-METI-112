@@ -11,20 +11,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-public class GUI_Rule_Frame_Viewing {
-
+public class GUI_Defect_Detection_Rule {
+	
 	private JFrame frame;
-	private GUI_Rules_Frame GRF;
+	private GUI_Defect_Detection GDD;
 	private AccessToRuleDatabase database;
 	private JList<String> list;
 
 
-	public GUI_Rule_Frame_Viewing(GUI_Rules_Frame grf) {
-		this.GRF = grf;
+	public GUI_Defect_Detection_Rule(GUI_Defect_Detection g) {
+		this.GDD = g;
 		database = new AccessToRuleDatabase("CreatedRuleDatabase");
 		init();
 	}
@@ -94,23 +93,15 @@ public class GUI_Rule_Frame_Viewing {
 		JButton select = new JButton("SELECT");
 		select.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				getRuleInformation();
+				setRuleInformation();
 			}
 		});
 		panelSouth.add(select);
 		
-		JButton delete = new JButton("DELETE");
-		delete.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				deleteRuleFromDatabase(); 
-			}
-		});
-		panelSouth.add(delete);
-		
 		JButton back = new JButton("BACK");
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				GRF.setIsOpenGRFV(false);
+				GDD.setIsOpenGDDR(false);
 				frame.dispose();
 			}
 		});
@@ -118,30 +109,21 @@ public class GUI_Rule_Frame_Viewing {
 	}
 	
 	
-	private void getRuleInformation() {
+	private void setRuleInformation() {
 		String[] vector = list.getSelectedValue().toString().split(" ");
-		String condition = "Condition (if): " + vector[0];
-		String consequence = "Consequence (then): " + vector[1];
-		String result = condition + "\n" + "\n" + consequence;
+		String rule = vector[1] + " " + vector[2];
 		
-		final JPanel warning = new JPanel();
-		JOptionPane.showMessageDialog(warning, result, "Information",
-				 JOptionPane.INFORMATION_MESSAGE);
+		GDD.setChosenRule(rule);
+		
+		closeFrame();
+		
+		GDD.defectDetectionForRule();
 	}
 	
 	
-	private void deleteRuleFromDatabase() {
-		try {
-			database.deleteRule(list.getSelectedValue().toString());
-			int index = list.getSelectedIndex();
-			((DefaultListModel<String>) list.getModel()).remove(index);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		final JPanel warning = new JPanel();
-		JOptionPane.showMessageDialog(warning, "Rule deleted successfully!", 
-				"Information", JOptionPane.INFORMATION_MESSAGE);
+	public void closeFrame() {
+		GDD.setIsOpenGDDR(false);
+		frame.dispose();
 	}
 	
 }

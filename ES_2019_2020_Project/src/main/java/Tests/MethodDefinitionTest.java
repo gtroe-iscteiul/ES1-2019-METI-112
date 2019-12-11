@@ -8,8 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Main_Class;
-import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Operative_Frame;
 import ES1_2019_METI_112.ES_2019_2020_Project.MethodDefinition;
 
 class MethodDefinitionTest {
@@ -115,16 +113,10 @@ class MethodDefinitionTest {
 	@Test
 	final void testLongMethodDefinition() {
 		m = new MethodDefinition(LOC, CYCLO, ATFD, LAA);
-	
-		m.setCYCLO("-1");
-		m.setLOC("-1");
 		
-		assertFalse(m.longMethodDefinition());
+		assertFalse(m.longMethodDefinition("-1", "-1", -1, -1));
 		
-		m.setCYCLO("12");
-		m.setLOC("90");
-		
-		assertTrue(m.longMethodDefinition());
+		assertTrue(m.longMethodDefinition("12", "90", 13, 91));
 	}
 
 	@Test

@@ -56,17 +56,7 @@ public class MethodDefinition {
 		}
 		return aux;
 	}
-	
-	public boolean longMethodDefinition() {
-		boolean response;
-		if(Double.parseDouble(LOC) > 80 && Double.parseDouble(CYCLO) > 10) {
-			response = true;
-		} else {
-			response = false;
-		}
-		return response;
-	}
-	
+		
 	public boolean featureEnvyDefinition() {
 		boolean response;
 		if(Double.parseDouble(ATFD) > 4 && Double.parseDouble(LAA) < 0.42){
@@ -77,10 +67,11 @@ public class MethodDefinition {
 		return response;
 	}
 	
-	// in progress...
-	public boolean longMethodDefinition(int loc, int cyclo) {
+	public boolean longMethodDefinition(String fileLOC, String fileCYCLO, 
+			int selectedLOC, int selectedCYCLO) {
 		boolean response;
-		if(Double.parseDouble(LOC) > loc && Double.parseDouble(CYCLO) > cyclo) {
+		if(Double.parseDouble(fileLOC) > selectedLOC && 
+				Double.parseDouble(fileCYCLO) > selectedCYCLO) {
 			response = true;
 		} else {
 			response = false;
