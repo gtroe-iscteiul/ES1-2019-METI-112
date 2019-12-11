@@ -68,7 +68,7 @@ public class MethodDefinition {
 	}
 	
 	public boolean longMethodDefinition(String fileLOC, String fileCYCLO, 
-			int selectedLOC, int selectedCYCLO) {
+			double selectedLOC, double selectedCYCLO) {
 		boolean response;
 		if(Double.parseDouble(fileLOC) > selectedLOC && 
 				Double.parseDouble(fileCYCLO) > selectedCYCLO) {
