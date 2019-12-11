@@ -1,12 +1,4 @@
-package class_to_be_based_on;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
-import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Rules_Frame;
+package ES1_2019_METI_112.ES_2019_2020_Project;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -15,44 +7,54 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
-public class GUI_Rule_Frame_Creating_Condition {
-
+public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
+	
 	private JFrame frame;
-	private GUI_Rules_Frame GRF;
-	private GUI_Rule_Frame_Creating_Condition GRFC_condition;
+	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;
+	private GUI_Rule_Frame_Creating_Feature_Envy_Condition GRFCFE;
+	
 	private JLabel ifCondition;
 	private JPanel panelCenterResultComponent;
 	private boolean needOperator=false;
-	private GUI_Rule_Frame_Creating_Consequence GRFC_consequence;
-	private boolean isGuiRuleFrameCreatingConsequenceOpen = false;
+	private boolean needSignal = true;
+	private GUI_Rule_Frame_Creating_Feature_Envy_Consequence GRFCFEC;
+	private boolean isGuiRuleFrameCreatingFeatureEnvyConsequenceOpen = false;
 	private String condition;
+	private String signal;
 	
-
-	public GUI_Rule_Frame_Creating_Condition(GUI_Rules_Frame grf) {
-		this.GRF = grf;
-		GRFC_condition = this;
+	
+	public GUI_Rule_Frame_Creating_Feature_Envy_Condition(
+			GUI_Rule_Frame_Choosing_Consequence_Type g) {
+		this.GRFCCT = g;
+		GRFCFE = this;
 		init();
-	}
-	
-	
-	public GUI_Rules_Frame getGRF() {
-		return GRF;
-	}
-	
 		
-	public boolean isOpenGRFCconsequence() {
-		return isGuiRuleFrameCreatingConsequenceOpen;
 	}
 	
 	
-	public void setIsOpenGRFCconsequence(boolean state) {
-		isGuiRuleFrameCreatingConsequenceOpen = state;
+	public GUI_Rule_Frame_Choosing_Consequence_Type getGRFCCT() {
+		return GRFCCT;
 	}
 	
 	
-	public GUI_Rule_Frame_Creating_Consequence getGRFC_consequence() {
-		return GRFC_consequence;
+	public boolean isOpenGRFCFEC() {
+		return isGuiRuleFrameCreatingFeatureEnvyConsequenceOpen;
+	}
+	
+	
+	public void setIsOpenGRFCFEC(boolean state) {
+		isGuiRuleFrameCreatingFeatureEnvyConsequenceOpen = state;
+	}
+	
+	
+	public GUI_Rule_Frame_Creating_Feature_Envy_Consequence getGRFCFEC() {
+		return GRFCFEC;
 	}
 	
 	
@@ -73,7 +75,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 	
 	@SuppressWarnings("deprecation")
 	private void open(){
-		frame.setSize(500, 300);
+		frame.setSize(500, 400);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.move(400, 150);
@@ -83,18 +85,22 @@ public class GUI_Rule_Frame_Creating_Condition {
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
-		JPanel panelCenterComponent01 = new JPanel();
-		JPanel panelCenterComponent02 = new JPanel();
-		JPanel panelCenterComponent03 = new JPanel();
-		JPanel panelCenterComponent04 = new JPanel();
-		JPanel panelCenterComponent05 = new JPanel();
+		JPanel panelCenterComponentThresholdLabel = new JPanel();
+		JPanel panelCenterComponentTreshlodButtons = new JPanel();
+		JPanel panelCenterComponentOperatorsLabel = new JPanel();
+		JPanel panelCenterComponentOperatorsButtons = new JPanel();
+		JPanel panelCenterComponentSignalsLabel = new JPanel();
+		JPanel panelCenterComponentSignalsButtons = new JPanel();
+		JPanel panelCenterComponentResultLabel = new JPanel();
 		panelCenterResultComponent = new JPanel();
 		JPanel panelSouth = new JPanel();
 		
 		buildPanelNorth(panelNorth);
-		buildPanelCenter(panelCenter, panelCenterComponent01, panelCenterComponent02, 
-				panelCenterComponent03, panelCenterComponent04, panelCenterComponent05,
-				panelCenterResultComponent);
+		buildPanelCenter(panelCenter, panelCenterComponentThresholdLabel, 
+				panelCenterComponentTreshlodButtons, panelCenterComponentOperatorsLabel,
+				panelCenterComponentOperatorsButtons, panelCenterComponentResultLabel,
+				panelCenterResultComponent, panelCenterComponentSignalsLabel, 
+				panelCenterComponentSignalsButtons);
 		buildPanelSouth(panelSouth);
 		
 		frame.add(panelNorth, BorderLayout.NORTH);
@@ -111,30 +117,29 @@ public class GUI_Rule_Frame_Creating_Condition {
 	
 	
 	private void buildPanelCenter(JPanel c, JPanel pc1, JPanel pc2, 
-			JPanel pc3, JPanel pc4, JPanel pc5, JPanel pc6) {
+			JPanel pc3, JPanel pc4, JPanel pc5, JPanel pc6, JPanel sl, JPanel sb) {
 		
-		c.setLayout(new GridLayout(5,2));
+		c.setLayout(new GridLayout(7,2));
 		
 		JLabel l1 = new JLabel("             ");
 		JLabel l2 = new JLabel("             ");
 		JLabel l3 = new JLabel("             ");
 		JLabel l4 = new JLabel("             ");
-		buildThresholdsLabel(pc1);
-		buildThresholdButtons(pc2);
-		buildOperatorsLabel(pc3);
-		buildOperatorButtons(pc4);
-		buildIfConditionLabel(pc5);
-		buildPanelResult(pc6);
-		c.add(pc1);
-		c.add(pc2);
-		c.add(l1);
-		c.add(l2);
-		c.add(pc3);
-		c.add(pc4);
-		c.add(l3);
-		c.add(l4);
-		c.add(pc5);
-		c.add(pc6);
+		JLabel l5 = new JLabel("             ");
+		JLabel l6 = new JLabel("             ");
+		
+		buildThresholdsLabel(pc1); buildThresholdButtons(pc2);
+		buildOperatorsLabel(pc3); buildOperatorButtons(pc4);
+		buildSignalsLabel(sl); buildSignalButtons(sb);
+		buildIfConditionLabel(pc5); buildPanelResult(pc6);
+		
+		c.add(pc1); c.add(pc2);
+		c.add(l1); c.add(l2);
+		c.add(pc3); c.add(pc4);
+		c.add(l3); c.add(l4);
+		c.add(sl); c.add(sb);
+		c.add(l5); c.add(l6);
+		c.add(pc5); c.add(pc6);
 	}
 	
 	
@@ -159,7 +164,11 @@ public class GUI_Rule_Frame_Creating_Condition {
 		loc.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==false) {
-					updateCondition(loc.getText());
+					if(needSignal==false) {
+						updateCondition(loc.getText());
+					} else {
+						showSignalsWarning(1);
+					}
 				} else {
 					showThresholdsWarning();
 				}
@@ -174,7 +183,11 @@ public class GUI_Rule_Frame_Creating_Condition {
 		cyclo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){	
 				if(needOperator==false) {
-					updateCondition(cyclo.getText());
+					if(needSignal==false) {
+						updateCondition(cyclo.getText());
+					} else {
+						showSignalsWarning(1);
+					}
 				} else {
 					showThresholdsWarning();
 				}
@@ -189,7 +202,11 @@ public class GUI_Rule_Frame_Creating_Condition {
 		atfd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==false) {
-					updateCondition(atfd.getText());
+					if(needSignal==false) {
+						updateCondition(atfd.getText());
+					} else {
+						showSignalsWarning(1);
+					}
 				} else {
 					showThresholdsWarning();
 				}
@@ -204,7 +221,11 @@ public class GUI_Rule_Frame_Creating_Condition {
 		laa.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==false) {
-					updateCondition(laa.getText());
+					if(needSignal==false) {
+						updateCondition(laa.getText());
+					} else {
+						showSignalsWarning(1);
+					}
 				} else {
 					showThresholdsWarning();
 				}
@@ -233,19 +254,23 @@ public class GUI_Rule_Frame_Creating_Condition {
 		String result = "";
 		if(t.equals("LOC")) {
 			needOperator=true;
-			result = result + "LOC==" + GRF.getGOF().getMD().getLOC() + " )";
+			result = result + "LOC" + signal +
+					GRFCCT.getGRF().getGOF().getMD().getLOC() + " )";
 		}
 		if(t.equals("CYCLO")) {
 			needOperator=true;
-			result = result + "CYCLO==" + GRF.getGOF().getMD().getCYCLO() + " )";
+			result = result + "CYCLO" + signal +
+					GRFCCT.getGRF().getGOF().getMD().getCYCLO() + " )";
 		}
 		if(t.equals("ATFD")) {
 			needOperator=true;
-			result = result + "ATFD==" + GRF.getGOF().getMD().getATFD() + " )";
+			result = result + "ATFD" + signal +
+					GRFCCT.getGRF().getGOF().getMD().getATFD() + " )";
 		}
 		if(t.equals("LAA")) {
 			needOperator=true;
-			result = result + "LAA==" + GRF.getGOF().getMD().getLAA() + " )";
+			result = result + "LAA" + signal +
+					GRFCCT.getGRF().getGOF().getMD().getLAA() + " )";
 		}
 		if(t.equals("AND")) {
 			needOperator=false;
@@ -273,14 +298,15 @@ public class GUI_Rule_Frame_Creating_Condition {
 	}
 	
 	
-	private void buildOperatorButtons(JPanel panel) {
-		panel.setLayout(new GridLayout(1,2));
+	private void buildOperatorButtons(JPanel panel) {;
+		panel.setLayout(new FlowLayout());
 		
 		final JButton and = new JButton("AND");
 		and.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==true) {
 					updateCondition(and.getText());
+					needSignal = true;
 				} else {
 					showOperatorsWarning();
 				}
@@ -293,6 +319,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 			public void actionPerformed(ActionEvent e){
 				if(needOperator==true) {
 					updateCondition(or.getText());
+					needSignal = true;
 				} else {
 					showOperatorsWarning();
 				}
@@ -307,6 +334,115 @@ public class GUI_Rule_Frame_Creating_Condition {
 		 JOptionPane.showMessageDialog(warning, "Unable to select "
 		 		+ "operator! Please select threshold first!", 
 		 		"Warning", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	
+	private void buildSignalsLabel(JPanel panel) {
+		JLabel signal = new JLabel("Select a signal for threshold: ");
+		panel.add(signal);
+	}
+	
+	
+	private void buildSignalButtons(JPanel panel) {
+		panel.setLayout(new FlowLayout());
+		
+		buildBiggerButton(panel);
+		buildSmallerButton(panel);
+		buildEqualButton(panel);
+		buildDifferentButton(panel);
+		
+	}
+	
+	
+	private void buildBiggerButton(JPanel panel) {
+		final JButton bigger = new JButton(">");
+		bigger.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needSignal==true) {
+					signal = new String(">");
+					needSignal = false;
+					confirmSignalSelection();
+				} else {
+					showSignalsWarning(2);
+				}
+			}
+		});
+		panel.add(bigger);
+	}
+	
+	
+	private void buildSmallerButton(JPanel panel) {
+		final JButton smaller = new JButton("<");
+		smaller.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needSignal==true) {
+					signal = new String("<");
+					needSignal = false;
+					confirmSignalSelection();
+				} else {
+					showSignalsWarning(2);
+				}
+			}
+		});
+		panel.add(smaller);	
+	}
+	
+	
+	private void buildEqualButton(JPanel panel) {
+		final JButton equal = new JButton("==");
+		equal.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needSignal==true) {
+					signal = new String("==");
+					needSignal = false;
+					confirmSignalSelection();
+				} else {
+					showSignalsWarning(2);
+				}
+			}
+		});
+		panel.add(equal);
+	}
+	
+	
+	private void buildDifferentButton(JPanel panel) {
+		final JButton different = new JButton("!=");
+		different.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needSignal==true) {
+					signal = new String("!=");
+					needSignal = false;
+					confirmSignalSelection();
+				} else {
+					showSignalsWarning(2);
+				}
+			}
+		});
+		panel.add(different);
+	}
+	
+	
+	private void confirmSignalSelection() {
+		final JPanel warning = new JPanel();
+		JOptionPane.showMessageDialog(warning, "Signal successfully selected!"
+		 		, "Information",
+				 JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	
+	private void showSignalsWarning(int x) {
+		 final JPanel warning = new JPanel();
+		if(x==1) {
+			 JOptionPane.showMessageDialog(warning, "Unable to select threshold!"
+				 		+ "Please select signal first!", 
+			 		"Warning", JOptionPane.WARNING_MESSAGE);
+		}
+		if(x==2) {
+			 JOptionPane.showMessageDialog(warning, "Unable to select "
+			 		+ "signal! Please select operator first!", 
+			 		"Warning", JOptionPane.WARNING_MESSAGE);
+		}
+		
 	}
 	
 	
@@ -329,8 +465,9 @@ public class GUI_Rule_Frame_Creating_Condition {
 		reset.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){	
 				dealWithConsequenceFrame();
-				closeRuleConditionFrame();
-				GRF.dealWithNewRule();
+				closeFrame();
+				GRFCCT.closeRuleConsequenceFrame();
+				GRFCCT.getGRF().dealWithNewRule();
 			}
 		});
 		panel.add(reset);
@@ -339,7 +476,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 		ok.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				recordIfCondition();
-				openGRFCconsequence();
+				openGRFCFE_consequence();
 			}
 		});
 		panel.add(ok);
@@ -348,7 +485,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				dealWithConsequenceFrame();
-				closeRuleConditionFrame();
+				closeFrame();
 			}
 		});
 		panel.add(back);
@@ -356,8 +493,8 @@ public class GUI_Rule_Frame_Creating_Condition {
 	
 	
 	private void dealWithConsequenceFrame() {
-		if(isGuiRuleFrameCreatingConsequenceOpen==true) {
-			GRFC_consequence.closeRuleConsequenceFrame();
+		if(isGuiRuleFrameCreatingFeatureEnvyConsequenceOpen==true) {
+			GRFCFEC.closeRuleConsequenceFrame();
 		}
 	}
 	
@@ -373,7 +510,7 @@ public class GUI_Rule_Frame_Creating_Condition {
 	}
 	
 	
-	public void openGRFCconsequence() {	
+	public void openGRFCFE_consequence() {	
 		String ifContent = ifCondition.getText();
 		String[] parts = ifContent.split(" ");
 		if(parts[parts.length-2].equals("&&") || parts[parts.length-2].equals("||")) {
@@ -383,21 +520,21 @@ public class GUI_Rule_Frame_Creating_Condition {
 			 		+ "condition with a threshold first!", 
 			 		"Warning", JOptionPane.WARNING_MESSAGE);
 		} else {
-			if (isGuiRuleFrameCreatingConsequenceOpen==true) {
+			if (isGuiRuleFrameCreatingFeatureEnvyConsequenceOpen==true) {
 				final JPanel warning = new JPanel();
 				JOptionPane.showMessageDialog(warning, "Unable to open new window "
 						+ "for creating rule consequence! Window is already open!", 
 						"Warning", JOptionPane.WARNING_MESSAGE);
 			} else {
-				this.isGuiRuleFrameCreatingConsequenceOpen = true;
-				GRFC_consequence = new GUI_Rule_Frame_Creating_Consequence(GRFC_condition);
+				this.isGuiRuleFrameCreatingFeatureEnvyConsequenceOpen = true;
+				GRFCFEC = new GUI_Rule_Frame_Creating_Feature_Envy_Consequence(GRFCFE);
 			}
 		}
 	}
 	
 	
-	public void closeRuleConditionFrame() {
-//		GRF.setIsOpenGRFC(false);
+	public void closeFrame() {
+		GRFCCT.setIsOpenGRFCFE(false);
 		frame.dispose();
 	}
 	
