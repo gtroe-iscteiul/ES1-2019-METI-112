@@ -22,6 +22,7 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	private GUI_Rule_Frame_Creating_Feature_Envy_Condition GRCFE;
 	private boolean isGuiRuleFrameCreatingLongMethodOpen = false;
 	private boolean isGuiRuleFrameCreatingFeatureEnvy = false;
+	private int countRuleID = 1;
 	
 	
 	public GUI_Rule_Frame_Choosing_Consequence_Type(GUI_Rules_Frame grf) {
@@ -67,6 +68,16 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	
 	public void setIsOpenGRFCLM(boolean state) {
 		isGuiRuleFrameCreatingLongMethodOpen = state;
+	}
+	
+	
+	public int getCountRuleID() {
+		return countRuleID;
+	}
+	
+	
+	public void setCountRuleID() {
+		countRuleID++;
 	}
 	
 	

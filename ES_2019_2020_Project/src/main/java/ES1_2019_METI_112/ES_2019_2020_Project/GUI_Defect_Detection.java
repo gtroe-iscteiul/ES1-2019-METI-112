@@ -253,8 +253,10 @@ public class GUI_Defect_Detection {
 			longMethodConvert(rule);
 		}
 		if(chosenRule.contains("is_feature_envy")) {
-//			featureEnvy(condition, consequence);
-			System.out.println("falta definir cálculo para feature envy!");
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "Our apologies but definition "
+					+ "not yet implemented!", "Warning", 
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	

@@ -30,6 +30,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	private boolean isCycloUsed;
 	private boolean isAtfdUsed;
 	private boolean isLaaUsed;
+	private boolean needCondition;
 	
 	
 	public GUI_Rule_Frame_Creating_Feature_Envy_Condition(
@@ -41,6 +42,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		this.isCycloUsed = false;
 		this.isAtfdUsed = false;
 		this.isLaaUsed = false;
+		this.needCondition = true;
 		init();
 		
 	}
@@ -264,6 +266,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	
 	
 	private void updateCondition(String type) {
+		needCondition = false;
 		String ifContent = ifCondition.getText();
 		panelCenterResultComponent.remove(ifCondition);	
 		String[] parts = ifContent.split(" ");
@@ -271,10 +274,6 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		for(int i=0; i<parts.length-1; i++) {
 			result = result + parts[i] + " ";
 		}
-//		if(needOperator==true) {
-//			result = result + "&&";
-//			needOperator=false;
-//		}
 		result = result + dealWithType(type);
 		ifCondition = new JLabel(result);
 		panelCenterResultComponent.add(ifCondition);
@@ -520,7 +519,6 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		ok.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				recordIfCondition();
-				openGRFCFE_consequence();
 			}
 		});
 		panel.add(ok);
@@ -544,13 +542,21 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	
 	
 	private void recordIfCondition() {
-		String c = ifCondition.getText();
-		String[] vector = c.split(" ");
-		String result = "";
-		for(int i=0; i<vector.length; i++) {
-			result = result + vector[i];
+		if(needCondition==false) {
+			String c = ifCondition.getText();
+			String[] vector = c.split(" ");
+			String result = "";
+			for(int i=0; i<vector.length; i++) {
+				result = result + vector[i];
+			}
+			this.condition = result;
+			openGRFCFE_consequence();
+		} else {
+			 final JPanel warning = new JPanel();
+			 JOptionPane.showMessageDialog(warning, "Unable to proceed to "
+			 		+ "the rule consequence window! Please choose a condition first!", 
+			 		"Warning", JOptionPane.WARNING_MESSAGE);
 		}
-		this.condition = result;
 	}
 	
 	

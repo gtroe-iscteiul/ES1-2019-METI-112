@@ -73,12 +73,12 @@ public class GUI_Rule_Frame_Viewing {
 	
 	private void buildPanelCenter(JPanel panelCenter) {
 		panelCenter.setLayout(new FlowLayout());
-		String[] conteudo;
+		String[] content;
 	    DefaultListModel<String> listModel = new DefaultListModel<>();
 	    try {
-			conteudo = database.readFile();
-			for (int i = 0; i < conteudo.length; i++) {
-				listModel.addElement(conteudo[i]);
+			content = database.readFile();
+			for (int i = 0; i < content.length; i++) {
+				listModel.addElement(content[i]);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -86,7 +86,7 @@ public class GUI_Rule_Frame_Viewing {
 	    list = new JList<String>(listModel);
 	    panelCenter.add(list);
 	}	
-	
+
 	
 	private void buildPanelSouth(JPanel panelSouth) {
 		panelSouth.setLayout(new FlowLayout());
@@ -120,9 +120,10 @@ public class GUI_Rule_Frame_Viewing {
 	
 	private void getRuleInformation() {
 		String[] vector = list.getSelectedValue().toString().split(" ");
-		String condition = "Condition (if): " + vector[0];
-		String consequence = "Consequence (then): " + vector[1];
-		String result = condition + "\n" + "\n" + consequence;
+		String id = "Rule: " + vector[0];
+		String condition = "Condition (if): " + vector[1];
+		String consequence = "Consequence (then): " + vector[2];
+		String result = id + "\n" + "\n" + condition + "\n" + "\n" + consequence;
 		
 		final JPanel warning = new JPanel();
 		JOptionPane.showMessageDialog(warning, result, "Information",
