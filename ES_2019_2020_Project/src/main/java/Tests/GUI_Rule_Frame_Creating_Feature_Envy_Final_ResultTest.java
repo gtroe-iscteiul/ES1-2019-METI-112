@@ -51,7 +51,8 @@ class GUI_Rule_Frame_Creating_Feature_Envy_Final_ResultTest {
 
 	@Test
 	final void testGUI_Rule_Frame_Creating_Feature_Envy_Final_Result() {
-		fail("Not yet implemented"); // TODO
+		rf_final.closeRuleResultFrame();
+		assertFalse(rf_consequence.isOpenGRFCFEFR());
 	}
 
 	@Test
