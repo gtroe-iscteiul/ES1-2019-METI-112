@@ -15,19 +15,39 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+
 public class GUI_Main_Class {
 	
+	/**
+	 *  Variável do ficheiro
+	 */
 	private FileHandling file;
+	/**
+	 * Nome do ficheiro que o utilizador quer abrir
+	 */
 	private String fileName;
+	/**
+	 * Frame da janela de importação do ficheiro
+	 */
 	private JFrame frame;
+	/**
+	 * Variável da GUI_Operative_Frame
+	 */
 	private GUI_Operative_Frame GOF;
 	private GUI_Main_Class GMC;
+	/**
+	 * Boolean que serve para verificar se a janela já se encontra aberta
+	 */
 	private boolean isGuiOperativeFrameOpen = false;
 	
 	public GUI_Main_Class () {
 		GMC = this;
 	}
 	
+	/**
+	 * Este método tem como objetivo inicializar a janela
+	 * 
+	 */
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -55,6 +75,9 @@ public class GUI_Main_Class {
 		this.isGuiOperativeFrameOpen = state;
 	}	
 	
+	/**
+	 * Este  método tem como objetivo definir definições da janela, tais como o seu tamanho 
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(400, 135);
@@ -63,6 +86,9 @@ public class GUI_Main_Class {
 		frame.move(450, 200);
 	}
 	
+	/**
+	 * Este método tem como objetivo adicionar componentes à janela
+	 */
 	private void addFrameContent(){
 		JPanel panel_1 = new JPanel();
 		JPanel panel_2 = new JPanel();
@@ -86,6 +112,11 @@ public class GUI_Main_Class {
 		frame.add(panel_3, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Este método tem como objetivo criar o painel Sul da janela
+	 * @param panel_3 o parâmetro painel
+	 * @param text parâmetro que serve para recuperar o texto escrito pelo utilizador
+	 */
 	private void panelBuild(JPanel panel_3, final JTextField text) {
 		JButton ok = new JButton("OK");
 		ok.addActionListener(new ActionListener(){
@@ -102,6 +133,12 @@ public class GUI_Main_Class {
 		panel_3.add(ok);
 	}
 	
+	
+	/**
+	 * Este método tem como objetivo lidar com as excepções referentes à importação do ficheiro
+	 * @param text parâmetro texto escrito pelo utilizador que serve para tratar as diferentes exceptions
+	 * @throws IOException
+	 */
 	private void importFile (JTextField text) throws IOException {
 		File f = new File(fileName);
 		 if (file.existsFile(f)) {
@@ -111,6 +148,11 @@ public class GUI_Main_Class {
 		 }		
 	}
 	
+	/**
+	 * Este método serve para lidar com situações em que o utilizador tenta abrir várias vezes a mesma janela
+	 * @param file Parâmetro referente ao ficheiro
+	 * @throws IOException
+	 */
 	private void dealWithExternalErrors(FileHandling file) throws IOException {
 		file.init(fileName);
 		if (isGuiOperativeFrameOpen==true) {
@@ -124,6 +166,10 @@ public class GUI_Main_Class {
 		}
 	}
 	
+	/**
+	 * Este método serve para lidar com situações em que o utilizador digita o nome errado
+	 * @param text Parâmetro texto referente ao texto escrito pelo utilizador
+	 */
 	private void dealWithInternalErrors(JTextField text) {
 		if (text.getText().isEmpty()) {
 		// Usar este 'if' em caso de erro no 'isBlank', mas no fim, voltar a colocar
@@ -146,6 +192,10 @@ public class GUI_Main_Class {
 	    System.setErr(System.out);
 	}
 		
+	/**
+	 * Método main do projeto
+	 * @param args Parâmetro args do main
+	 */
 	public static void main(String[] args) {
 		GUI_Main_Class GUI = new GUI_Main_Class();
 		GUI.init();
