@@ -1,5 +1,7 @@
 package classes_to_use_as_a_base;
 
+import java.io.ObjectInputStream.GetField;
+
 public class tryingFeatureEnvy {
 	
 	private String easyCondition;
@@ -92,6 +94,18 @@ public class tryingFeatureEnvy {
 		return result;
 	}
 	
+	private void factorsTotal(String s) {
+		String[] operators = getOperators(s).split(" ");
+		String[] signals = getSignals(s).split(" ");
+		String[] metrics = getMetrics(s).split(" ");
+		String[] values = getValues(s).split(" ");
+		
+		System.out.println("Number of oprators: " + operators.length);
+		System.out.println("Number of signals: " + signals.length);
+		System.out.println("Number of metrics: " + metrics.length);
+		System.out.println("Number of values: " + values.length);
+	}
+	
 	public static void main(String[] args) {
 		tryingFeatureEnvy fe = new tryingFeatureEnvy();
 		
@@ -106,7 +120,7 @@ public class tryingFeatureEnvy {
 		System.out.println("Signals: " + fe.getSignals(fe.getHardCondition()));
 		System.out.println("Metrics: " + fe.getMetrics(fe.getHardCondition()));
 		System.out.println("Values: " + fe.getValues(fe.getHardCondition()));
-		
+		fe.factorsTotal(fe.getHardCondition());
 	}
 		
 }
