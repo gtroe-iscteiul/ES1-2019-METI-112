@@ -14,19 +14,48 @@ import javax.swing.WindowConstants;
 
 public class GUI_Operative_Frame {
 	
+	
+	/**
+	 * Variável referente à classe main
+	 */
 	private GUI_Main_Class GMC;
+	/**
+	 * Variável referente à frame desta classe
+	 */
 	private JFrame frame;
+	/**
+	 * Variável referente a esta classe
+	 */
 	private GUI_Operative_Frame GOF;
+	/**
+	 * Variável referente à classe GUI_JTable
+	 */
 	private GUI_JTable GJT;
+	/**
+	 * Variável referente à classe GUI_Thresholds_Frame
+	 */
 	private GUI_Thresholds_Frame GTF;
+	/**
+	 * Variável referente à classe GUI_Rules_Frame
+	 */
 	private GUI_Rules_Frame GRF;
+	/**
+	 * Variável referente à classe GUI_Defect_Detection
+	 */
 	private GUI_Defect_Detection GDD;
+	/**
+	 * 4 booleanos que servem para verificar se a janela pertecente à sua classe, se está aberta
+	 */
 	private boolean isGuiJTableOpen = false;
 	private boolean isGuiThresholdsFrameOpen = false;
 	private boolean isGuiRulesFrameOpen = false;
 	private boolean isGuiDefectDetectionOpen = false;
 	private MethodDefinition MD;
 	
+	/**
+	 * Construtor da ckasse GUI_Operative_Frame
+	 * @param g - Variável da classe main
+	 */
 	public GUI_Operative_Frame (GUI_Main_Class g) {
 		this.GMC = g;
 		GOF = this;
@@ -34,6 +63,11 @@ public class GUI_Operative_Frame {
 		init();
 	}
 	
+	
+	
+	/**
+	 * Conjunto de getters e setters
+	 */
 	public GUI_Main_Class getGMC () {
 		return GMC;
 	}
@@ -90,6 +124,10 @@ public class GUI_Operative_Frame {
 		this.isGuiDefectDetectionOpen = state;
 	}
 	
+	
+	/**
+	 * Método para a inicialização da janela desta classe
+	 */
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -99,14 +137,20 @@ public class GUI_Operative_Frame {
 		open();
 		}
 		
+	/**
+	 * Este  método tem como objetivo definir definições da janela, tais como o seu tamanho 
+	 */
 	@SuppressWarnings("deprecation")
-	private void open(){
+	private void open() {
 		frame.setSize(500, 200);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.move(400, 190);
 	}
 
+	/**
+	 * Este método tem como objetivo adicionar componentes à janela
+	 */
 	private void addFrameContent(){
 		JPanel panel = new JPanel();		
 		panel.setLayout(new GridLayout(5,1));
@@ -120,6 +164,12 @@ public class GUI_Operative_Frame {
 		frame.add(panel, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Método referente à crição dos paineis da GUI_Operative_Frame
+	 * @param panel - Painel da janela
+	 * @param name - Nome do painel
+	 * @param number - Chave dos paineis
+	 */
 	private void buildPanel(JPanel panel, String name, final int number) {
 		JButton button = new JButton(name);
 		button.addActionListener(new ActionListener(){
@@ -149,6 +199,10 @@ public class GUI_Operative_Frame {
 		panel.add(button);
 	}
 	
+	/**
+	 * Este método serve para tratar as excepções referentes à abertura da janela GUI_JTable
+	 * @throws IOException
+	 */
 	private void dealWithErrors_GJT() throws IOException {
 		if (getGMC().getFile().isEmpty()) {
 			final JPanel warning = new JPanel();
@@ -168,6 +222,10 @@ public class GUI_Operative_Frame {
 		}
 	}
 	
+	/**
+	 * Este método serve para tratar as excepções referentes à abertura da janela GUI_Thresholds_Frame
+	 * @throws IOException
+	 */
 	private void dealWithErrors_GTF() throws IOException {
 		if (isGuiThresholdsFrameOpen==true) {
 			final JPanel warning = new JPanel();
@@ -180,6 +238,10 @@ public class GUI_Operative_Frame {
 		}
 	}
 	
+	/**
+	 * Este método serve para tratar as excepções referentes à abertura da janela GUI_Rules_Frame
+	 * @throws IOException
+	 */
 	private void dealWithErrors_GSR() throws IOException {
 		if (isGuiRulesFrameOpen==true) {
 			final JPanel warning = new JPanel();
@@ -192,6 +254,10 @@ public class GUI_Operative_Frame {
 		}
 	}
 	
+	/**
+	 * Este método serve para tratar as excepções referentes à abertura da janela GUIDefectDetection
+	 * @throws IOException
+	 */
 	private void dealWithErrors_GDD() throws IOException {
 		if (getGMC().getFile().isEmpty()) {
 			final JPanel warning = new JPanel();
