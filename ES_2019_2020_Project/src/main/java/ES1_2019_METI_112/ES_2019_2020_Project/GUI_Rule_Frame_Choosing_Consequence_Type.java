@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +23,6 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	private GUI_Rule_Frame_Creating_Feature_Envy_Condition GRCFE;
 	private boolean isGuiRuleFrameCreatingLongMethodOpen = false;
 	private boolean isGuiRuleFrameCreatingFeatureEnvy = false;
-	private int countRuleID = 1;
 	
 	
 	public GUI_Rule_Frame_Choosing_Consequence_Type(GUI_Rules_Frame grf) {
@@ -68,16 +68,6 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	
 	public void setIsOpenGRFCLM(boolean state) {
 		isGuiRuleFrameCreatingLongMethodOpen = state;
-	}
-	
-	
-	public int getCountRuleID() {
-		return countRuleID;
-	}
-	
-	
-	public void setCountRuleID() {
-		countRuleID++;
 	}
 	
 	
@@ -222,6 +212,22 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	public void closeRuleConsequenceFrame() {
 		GRF.setIsOpenGRFCCT(false);
 		frame.dispose();
+	}
+	
+	
+	public String generateRuleID() {
+		Random generator01 = new Random();
+		int aux01 = generator01.nextInt(99);
+
+		Random generator02 = new Random();
+		char aux02 = (char) ('a' + Math.abs(generator02.nextInt() % 26));
+
+		Random generator03 = new Random();
+		int aux03 = generator03.nextInt(9);
+
+		String result = "" + aux01 + aux02 + aux03;
+		
+		return result;
 	}
 	
 }

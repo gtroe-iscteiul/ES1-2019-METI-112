@@ -128,10 +128,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 		try {
 			if(ruleDoesNotExists()==true) {
 				database.writeToFile("Rule_" + (GRFC_consequence.
-						getGRFCFE().getGRFCCT().getCountRuleID()) + " " +
+						getGRFCFE().getGRFCCT().generateRuleID()) + " " +
 						GRFC_consequence.getGRFCFE().getCondition()
 						+ " " + GRFC_consequence.getConsequece(), true);
-				GRFC_consequence.getGRFCFE().getGRFCCT().setCountRuleID();
 				showInformationMessage();
 			} else {
 				 final JPanel warning = new JPanel();
