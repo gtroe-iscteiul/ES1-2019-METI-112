@@ -40,6 +40,19 @@ public class AccessToRuleDatabase {
 	
 	
 	@SuppressWarnings("resource")
+	public String[] getLine(int line) throws IOException {
+		String[] vector = new String[getNumberOfLines()];
+		BufferedReader br = new BufferedReader(new FileReader(path)); 
+		for (int i = 0; i < getNumberOfLines(); i++) {
+			if(i==(line-1)) {
+				vector[i] = br.readLine();
+			}
+		}
+		return vector;
+	}
+	
+	
+	@SuppressWarnings("resource")
 	public int getNumberOfLines() throws IOException {
 		File file = new File(path);
 		LineNumberReader count = new LineNumberReader(new FileReader(file));

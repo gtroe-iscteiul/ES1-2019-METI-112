@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -93,10 +94,18 @@ public class GUI_Defect_Detection_Rule {
 		JButton select = new JButton("SELECT");
 		select.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				setRuleInformation();
+				getRuleInformation();
 			}
 		});
 		panelSouth.add(select);
+		
+		JButton apply = new JButton("Apply");
+		apply.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				setRuleInformation();
+			}
+		});
+		panelSouth.add(apply);
 		
 		JButton back = new JButton("BACK");
 		back.addActionListener(new ActionListener(){
@@ -106,6 +115,19 @@ public class GUI_Defect_Detection_Rule {
 			}
 		});
 		panelSouth.add(back);
+	}
+	
+	
+	private void getRuleInformation() {
+		String[] vector = list.getSelectedValue().toString().split(" ");
+		String id = "Rule: " + vector[0];
+		String condition = "Condition (if): " + vector[1];
+		String consequence = "Consequence (then): " + vector[2];
+		String result = id + "\n" + "\n" + condition + "\n" + "\n" + consequence;
+		
+		final JPanel warning = new JPanel();
+		JOptionPane.showMessageDialog(warning, result, "Information",
+				 JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	
