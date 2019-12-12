@@ -83,7 +83,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	
 	@SuppressWarnings("deprecation")
 	private void open(){
-		frame.setSize(500, 300);
+		frame.setSize(500, 400);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.move(400, 150);
@@ -95,6 +95,8 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		JPanel panelCenter = new JPanel();
 		JPanel panelCenterComponentThresholdLabel = new JPanel();
 		JPanel panelCenterComponentTreshlodButtons = new JPanel();
+		JPanel panelCenterComponentOperatorsLabel = new JPanel();
+		JPanel panelCenterComponentOperatorsButtons = new JPanel();
 		JPanel panelCenterComponentSignalsLabel = new JPanel();
 		JPanel panelCenterComponentSignalsButtons = new JPanel();
 		JPanel panelCenterComponentResultLabel = new JPanel();
@@ -103,7 +105,8 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		
 		buildPanelNorth(panelNorth);
 		buildPanelCenter(panelCenter, panelCenterComponentThresholdLabel, 
-				panelCenterComponentTreshlodButtons, panelCenterComponentResultLabel,
+				panelCenterComponentTreshlodButtons, panelCenterComponentOperatorsLabel,
+				panelCenterComponentOperatorsButtons, panelCenterComponentResultLabel,
 				panelCenterResultComponent, panelCenterComponentSignalsLabel, 
 				panelCenterComponentSignalsButtons);
 		buildPanelSouth(panelSouth);
@@ -122,24 +125,29 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	
 	
 	private void buildPanelCenter(JPanel c, JPanel pc1, JPanel pc2, 
-			JPanel pc3, JPanel pc4, JPanel sl, JPanel sb) {
+			JPanel pc3, JPanel pc4, JPanel pc5, JPanel pc6, JPanel sl, JPanel sb) {
 		
-		c.setLayout(new GridLayout(5,2));
+		c.setLayout(new GridLayout(7,2));
 		
 		JLabel l1 = new JLabel("             ");
 		JLabel l2 = new JLabel("             ");
 		JLabel l3 = new JLabel("             ");
 		JLabel l4 = new JLabel("             ");
+		JLabel l5 = new JLabel("             ");
+		JLabel l6 = new JLabel("             ");
 		
 		buildThresholdsLabel(pc1); buildThresholdButtons(pc2);
+		buildOperatorsLabel(pc3); buildOperatorButtons(pc4);
 		buildSignalsLabel(sl); buildSignalButtons(sb);
-		buildIfConditionLabel(pc3); buildPanelResult(pc4);
+		buildIfConditionLabel(pc5); buildPanelResult(pc6);
 		
 		c.add(pc1); c.add(pc2);
 		c.add(l1); c.add(l2);
-		c.add(sl); c.add(sb);
-		c.add(l3); c.add(l4);
 		c.add(pc3); c.add(pc4);
+		c.add(l3); c.add(l4);
+		c.add(sl); c.add(sb);	
+		c.add(l5); c.add(l6);
+		c.add(pc5); c.add(pc6);
 	}
 	
 	
@@ -163,6 +171,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		final JButton loc = new JButton("LOC");
 		loc.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				if(needOperator==false) {
 					if(needSignal==false) {
 						if(isLocUsed==false) {
 							updateCondition(loc.getText());
@@ -173,6 +182,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 					} else {
 						showSignalsWarning(1);
 					}
+				} else {
+					showThresholdsWarning();
+				}
 			}
 		});
 		panel.add(loc);
@@ -183,6 +195,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		final JButton cyclo = new JButton("CYCLO");
 		cyclo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){	
+				if(needOperator==false) {
 					if(needSignal==false) {
 						if(isCycloUsed==false) {
 							updateCondition(cyclo.getText());
@@ -193,6 +206,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 					} else {
 						showSignalsWarning(1);
 					}
+				} else {
+					showThresholdsWarning();
+				}
 			}
 		});
 		panel.add(cyclo);
@@ -203,6 +219,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		final JButton atfd = new JButton("ATFD");
 		atfd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				if(needOperator==false) {
 					if(needSignal==false) {
 						if(isAtfdUsed==false) {
 							updateCondition(atfd.getText());
@@ -213,6 +230,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 					} else {
 						showSignalsWarning(1);
 					}
+				} else {
+					showThresholdsWarning();
+				}
 			}
 		});
 		panel.add(atfd);
@@ -223,6 +243,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		final JButton laa = new JButton("LAA");
 		laa.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				if(needOperator==false) {
 					if(needSignal==false) {
 						if(isLaaUsed==false) {
 							updateCondition(laa.getText());
@@ -233,6 +254,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 					} else {
 						showSignalsWarning(1);
 					}
+				} else {
+					showThresholdsWarning();
+				}
 			}
 		});
 		panel.add(laa);
@@ -247,10 +271,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		for(int i=0; i<parts.length-1; i++) {
 			result = result + parts[i] + " ";
 		}
-		if(needOperator==true) {
-			result = result + "&&";
-			needOperator=false;
-		}
+//		if(needOperator==true) {
+//			result = result + "&&";
+//			needOperator=false;
+//		}
 		result = result + dealWithType(type);
 		ifCondition = new JLabel(result);
 		panelCenterResultComponent.add(ifCondition);
@@ -284,7 +308,68 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 			result = result + "LAA" + signal + 
 					GRFCCT.getGRF().getGOF().getMD().getLAA() + " )";
 		}
+		if(t.equals("AND")) {
+			needOperator=false;
+			result = result + "&& )";
+		}
+		if(t.equals("OR")) {
+			needOperator=false;
+			result = result + "|| )";
+		}
 		return result;
+	}
+	
+	
+	private void showThresholdsWarning() {
+		 final JPanel warning = new JPanel();
+		 JOptionPane.showMessageDialog(warning, "Unable to select "
+		 		+ "thresholds! Please select operator first!", 
+		 		"Warning", JOptionPane.WARNING_MESSAGE);
+	}
+
+
+	private void buildOperatorsLabel(JPanel panel) {
+		JLabel operator = new JLabel("Select a operator: ");
+		panel.add(operator);
+	}
+
+
+	private void buildOperatorButtons(JPanel panel) {;
+		panel.setLayout(new FlowLayout());
+
+		final JButton and = new JButton("AND");
+		and.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needOperator==true) {
+					updateCondition(and.getText());
+					needSignal = true;
+				} else {
+					showOperatorsWarning();
+				}
+			}
+		});
+		panel.add(and);
+
+		final JButton or = new JButton("OR");
+		or.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(needOperator==true) {
+					updateCondition(or.getText());
+					needSignal = true;
+				} else {
+					showOperatorsWarning();
+				}
+			}
+		});
+		panel.add(or);		
+	}
+	
+	
+	private void showOperatorsWarning() {
+		 final JPanel warning = new JPanel();
+		 JOptionPane.showMessageDialog(warning, "Unable to select "
+			 		+ "operator! Please select threshold first!", 
+			 		"Warning", JOptionPane.WARNING_MESSAGE);
 	}
 	
 	
