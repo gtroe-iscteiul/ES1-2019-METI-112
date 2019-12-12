@@ -133,9 +133,8 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	private void saveRule() throws IOException {
 		try {
 			if(ruleDoesNotExists()==true) {
-				database.writeToFile("Rule_" + (GRFCCT.getCountRuleID()) + " " +
+				database.writeToFile("Rule_" + (GRFCCT.generateRuleID()) + " " +
 						condicion + " " + consequence, true);
-				GRFCCT.setCountRuleID();
 				showInformationMessage();
 			} else {
 				 final JPanel warning = new JPanel();

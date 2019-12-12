@@ -1,4 +1,4 @@
-Rule_4 if(LOC>9&&CYCLO>3) is_long_method=true
-Rule_2 if(CYCLO<3||ATFD>6) is_feature_envy=true
-Rule_3 if(CYCLO>3&&LOC<9||ATFD==6) is_feature_envy=false
-Rule_1 if(LOC>5&&CYCLO>4) is_long_method=true
+Rule_11f5 if(LOC>9&&CYCLO>8) is_long_method=true
+Rule_78d0 if(LOC>9.7&&CYCLO>5) is_long_method=true
+Rule_70r8 if(LOC>9.7&&CYCLO<5) is_feature_envy=true
+Rule_2n6 if(ATFD<6||LAA>1&&LOC==9.7) is_feature_envy=false
