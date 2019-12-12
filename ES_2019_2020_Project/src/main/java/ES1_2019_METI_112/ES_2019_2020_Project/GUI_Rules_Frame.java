@@ -19,10 +19,20 @@ public class GUI_Rules_Frame {
 	private GUI_Operative_Frame GOF;
 	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;
 	private GUI_Rule_Frame_Viewing GRFV;
+	/**
+	 * Booleano que serve para verificar se a janela já se encontra aberta
+	 */
 	private boolean isGuiRuleFrameChoosingConsequenceTypeOpen = false;
+	/**
+	 * Booleano que serve para verificar se a janela já se encontra aberta
+	 */
 	private boolean isGuiRuleFrameViewingOpen = false;
 	
 	
+	/**
+	 * Construtor da classe
+	 * @param g - Instância da classe GOF
+	 */
 	public GUI_Rules_Frame(GUI_Operative_Frame g) {
 		this.GOF = g;
 		GRF = this;
@@ -30,6 +40,9 @@ public class GUI_Rules_Frame {
 	}
 	
 	
+	/**
+	 * Getters e setters 
+	 */
 	public GUI_Operative_Frame getGOF() {
 		return GOF;
 	}
@@ -65,6 +78,9 @@ public class GUI_Rules_Frame {
 	}
 	
 	
+	/**
+	 * Este método tem como objetivo inicializar a janela
+	 */
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -75,6 +91,9 @@ public class GUI_Rules_Frame {
 	}
 	
 		
+	/**
+	 * Este  método tem como objetivo definir definições da janela, tais como o seu tamanho 
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 200);
@@ -84,6 +103,9 @@ public class GUI_Rules_Frame {
 	}
 	
 
+	/**
+	 * Este método tem como objetivo adicionar conteúdo à janela
+	 */
 	private void addFrameContent(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3,1));
@@ -92,6 +114,10 @@ public class GUI_Rules_Frame {
 	}
 	
 	
+	/**
+	 * Este método tem como objetivo adicionar conteúdo ao painel
+	 * @param panel - painel 
+	 */
 	private void buildPanel(JPanel panel) {
 		JButton visualization = new JButton("View Rules");
 		visualization.addActionListener(new ActionListener(){
@@ -120,6 +146,9 @@ public class GUI_Rules_Frame {
 	}
 	
 	
+	/**
+	 * Método com o objetivo de verificar se o utilizador pode criar uma nova regra
+	 */
 	public void dealWithNewRule() {		
 		if(GOF.getMD().hasBeenInitialized()==true) {
 			if (isGuiRuleFrameChoosingConsequenceTypeOpen==true) {
@@ -141,6 +170,9 @@ public class GUI_Rules_Frame {
 	}
 	
 	
+	/**
+	 * Método com o objetivo de verificar se o utilizador já tem a janela de visualização de regras aberto
+	 */
 	private void dealWithExistingRules() {
 		if (isGuiRuleFrameViewingOpen==true) {
 			final JPanel warning = new JPanel();
