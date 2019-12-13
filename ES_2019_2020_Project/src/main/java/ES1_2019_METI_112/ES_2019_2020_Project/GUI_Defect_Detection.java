@@ -30,6 +30,10 @@ public class GUI_Defect_Detection {
 	private boolean isOpenGDDJT;
 	
 	
+	/**
+	 * Construtor da classe
+	 * @param g - Recebe como parâmetro a GUI_Operative_Frame
+	 */
 	public GUI_Defect_Detection (GUI_Operative_Frame g) {
 		this.GOF = g;
 		GDD = this;
@@ -41,6 +45,9 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método inicializa os indicadores de qualidade
+	 */
 	private void initIndicators() {
 		this.DII = 0;
 		this.DII = 0;
@@ -48,6 +55,8 @@ public class GUI_Defect_Detection {
 		this.ADII = 0;
 	}
 	
+	
+	//Getters e setters da classe
 	
 	public GUI_Operative_Frame getGOF() {
 		return GOF;
@@ -131,8 +140,21 @@ public class GUI_Defect_Detection {
 		String aux = defectsCalculated[l][c];
 		return aux;
 	}
+  
+  
+  	public String[][] getDefectsCalculated() {
+		return defectsCalculated;
+	}
+
+
+	public void setDefectsCalculated(String[][] defectsCalculated) {
+		this.defectsCalculated = defectsCalculated;
+	}
 	
   
+	/**
+	 * Método para inicializar a janela
+	 */
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -143,6 +165,10 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este  método tem como objetivo estabelecer as definições da janela, 
+	 * tais como o seu tamanho, etc 
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 200);
@@ -152,6 +178,9 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Método para adicionar conteúdo aos três paineis (Norte, Sul e Centro) da janela
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -167,6 +196,10 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Método utilizado para adicionar a label ao painel norte
+	 * @param panel - Painel
+	 */
 	private void buildPanelNorth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		JLabel label = new JLabel("Define the tool to use: ");
@@ -174,6 +207,12 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar 3 botões ao painel central da janela.
+	 * Ao se carregar num dos botões, o programa corre o defectDetection da 
+	 * regra selecionada, seja ela iPlasma, PMD ou regra criada pelo utilizador
+	 * @param panel - Painel
+	 */
 	private void buildPanelCenter(JPanel panel) {
 		panel.setLayout(new GridLayout(3,1));
 		
@@ -211,6 +250,11 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método serve para calcular os indicadores de defeitos da regra escolhida
+	 * @param tool - Regra escolhida (iPlasma ou PMD)
+	 * @param metric - Método a comparar (long_method ou feature_envy)
+	 */
 	private void defectDetection(String tool, String metric) {
 		int dci = 0;
 		int dii = 0;
@@ -264,6 +308,10 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método serve para determinar se a regra a ser escolhida para o cálculo
+	 * é long_method ou feature_envy
+	 */
 	public void defectDetectionForRule() {
 		String[] ifRule = chosenRule.split("if()");
 		String[] rule = ifRule[1].split(" ");
@@ -280,6 +328,12 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método serve para extrair da String com a regra os limites de 
+	 * threshold a se usar no cálculo dos defeitos
+	 * 
+	 * @param rule - vector onde se realizou um split da String com a regra
+	 */
 	private void longMethodConvert(String[] rule) {
 		String[] condition = rule[0].split("&&");
 
@@ -296,6 +350,12 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método serve para calcular os indicadores de defeitos da regra escolhida
+	 * a partir da Database de regras criadas pelo utilizador
+	 * @param l - threshold da regra referente ao LOC 
+	 * @param c - threshold da regra referente ao CYCLO
+	 */
 	private void longMethod(Double l, Double c) {
 		int dci = 0;
 		int dii = 0;
@@ -356,6 +416,10 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método serve para abrir a janela GUI_Defect_Defection_JTable, classe esta
+	 * onde se poderá visualizar os resultados do cálculo de defeitos
+	 */
 	private void openGDDJT() {
 		if(isOpenGDDJT==true) {
 			final JPanel warning = new JPanel();
@@ -371,6 +435,12 @@ public class GUI_Defect_Detection {
 	}
 
 	
+	/**
+	 * Este método adiciona o botão BACK à janela Sul
+	 * 
+	 * BACK - Serve para voltar à janela anterior
+	 * @param panel - Painel
+	 */
 	private void buildPanelSouth(JPanel panel) {
 		JButton back = new JButton("BACK");
 		back.addActionListener(new ActionListener(){
@@ -382,6 +452,12 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método serve para construir a primeira linha da matrix, indicando
+	 * assim que tipo de elementos serão apresentados nas respectivas colunas
+	 * 
+	 * @param lines - número de linhas do ficheiro Excel manipulado neste projecto
+	 */
 	private void initMatrix(int lines) {
 		defectsCalculated = new String[lines][4];
 		defectsCalculated[0][0] = "Method ID";
@@ -391,14 +467,22 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	/**
+	 * Este método serve para informar o utilizador que deve aguardar enquanto
+	 * o cálculo dos defeitos é realizado
+	 */
 	private void waiting() {
-		final JPanel warning = new JPanel();
-		JOptionPane.showMessageDialog(warning, "Performing defect detection! "
+		final JPanel information = new JPanel();
+		JOptionPane.showMessageDialog(information, "Performing defect detection! "
 				+ "Please wait until results table is loaded!", "Information",
 				 JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	
+	/**
+	 * Este método serve para fechar todas as janelas correspondentes à detecção
+	 * de defeitos, incluíndo todas as janelas posteriores abertas
+	 */
 	private void closeFrame() {
 		if(isOpenGDDR==true) {
 			setIsOpenGDDR(false);
