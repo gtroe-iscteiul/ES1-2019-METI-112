@@ -26,6 +26,9 @@ public class GUI_Defect_Detection {
 	private GUI_Defect_Detection_Rule GDDR;
 	private boolean isOpenGDDR;
 	private String chosenRule;
+	private String[][] defectsCalculated;
+	private GUI_Defect_Detection_JTable GDDJT;
+	private boolean isOpenGDDJT;
 	
 	
 	public GUI_Defect_Detection (GUI_Operative_Frame g) {
@@ -35,6 +38,7 @@ public class GUI_Defect_Detection {
 		this.numberOfThreads = 0;
 		this.chosenRule = "";
 		this.isOpenGDDR = false;
+		this.isOpenGDDJT = false;
 		init();
 	}
 	
@@ -49,6 +53,11 @@ public class GUI_Defect_Detection {
 	
 	public GUI_Operative_Frame getGOF() {
 		return GOF;
+	}
+	
+	
+	public GUI_Defect_Detection_JTable getGDDJT() {
+		return GDDJT;
 	}
 	
 	
@@ -116,13 +125,17 @@ public class GUI_Defect_Detection {
 		isOpenGDDR = state;
 	}
 	
-//Função adicionada de forma a ser possível testar a função closeFrame() da classe GUI_Defect_Detection_Rule
-	
-	public boolean isOpenGDDR() {
-		return isOpenGDDR;
+	public void setIsOpenGDDJT (boolean state) {
+		isOpenGDDJT = state;
 	}
-
-
+	
+	
+	public String getElementFromMatrix(int l, int c) {
+		String aux = defectsCalculated[l][c];
+		return aux;
+	}
+	
+  
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -170,7 +183,6 @@ public class GUI_Defect_Detection {
 		JButton iplasma = new JButton("iPlasma");
 		iplasma.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-//				defectCalculation("iPlasma", "is_long_method");
 				defectDetection("iPlasma", "is_long_method");
 			}
 		});
@@ -179,7 +191,6 @@ public class GUI_Defect_Detection {
 		JButton pmd = new JButton("PMD");
 		pmd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-//				defectCalculation("PMD", "is_long_method");
 				defectDetection("PMD", "is_long_method");
 			}
 		});
@@ -204,19 +215,29 @@ public class GUI_Defect_Detection {
 	
 	
 	private void defectDetection(String tool, String metric) {
-		System.out.println("//////////Defects Detection Started//////////");
 		int dci = 0;
 		int dii = 0;
 		int adci = 0;
 		int adii = 0;
 		int lines = getGOF().getGMC().getFile().getNumberOfLines();
+		
+		defectsCalculated = new String[lines][4];
+		defectsCalculated[0][0] = "Method ID";
+		defectsCalculated[0][1] = "Used Tool";
+		defectsCalculated[0][2] = "Number of hits (DCI + DII)";
+		defectsCalculated[0][3] = "Error number (ADCI + ADII)";
+		
+		waiting();
+		
 		for(int i=1; i<lines; i++) {
 			int auxDCI = 0;
 			int auxDII = 0;
 			int auxADCI = 0;
 			int auxADII = 0;
-			System.out.println("Method ID: " + i);
-			System.out.println("Using Tool: " + tool);
+
+			defectsCalculated[i][0] = "" + i;
+			defectsCalculated[i][1] = tool;
+			
 			if(getGOF().getGMC().getFile().getCellValue(i, tool).equals("true") && 
 			  getGOF().getGMC().getFile().getCellValue(i, metric).equals("true")) {
 				dci++;
@@ -237,17 +258,16 @@ public class GUI_Defect_Detection {
 				adii++;
 				auxADII++;
 			}
-			System.out.println("Number of hits (DCI + DII): " + (auxDCI + auxDII));
-			System.out.println("Error number (ADCI + ADII): " + (auxADCI + auxADII));
-			System.out.println("\n");
+			int aux1 = auxDCI + auxDII;
+			int aux2 = auxADCI + auxADII;
+			defectsCalculated[i][2] = "" + aux1;
+			defectsCalculated[i][3] = "" + aux2;
 		}
 		setDCI(dci);
 		setDII(dii);
 		setADCI(adci);
 		setADII(adii);
-		System.out.println("//////////Defects Detection Finished//////////");
-		System.out.println("\n");
-		calculationOfQualityIndicators();
+		openGDDJT();
 	}
 	
 	
@@ -284,22 +304,29 @@ public class GUI_Defect_Detection {
 	
 	
 	private void longMethod(Double l, Double c) {
-		System.out.println("//////////Defects Detection Started//////////");
 		int dci = 0;
 		int dii = 0;
 		int adci = 0;
 		int adii = 0;
 		int lines = getGOF().getGMC().getFile().getNumberOfLines();
 		
+		defectsCalculated = new String[lines][4];
+		defectsCalculated[0][0] = "Method ID";
+		defectsCalculated[0][1] = "Used Tool";
+		defectsCalculated[0][2] = "Number of hits (DCI + DII)";
+		defectsCalculated[0][3] = "Error number (ADCI + ADII)";
+		
+		waiting();
+		
 		for(int i=1; i<lines; i++) {
 			int auxDCI = 0;
 			int auxDII = 0;
 			int auxADCI = 0;
 			int auxADII = 0;
-			
-			System.out.println("Method ID: " + i);
-			System.out.println("Using Tool: Created Rule");
-			
+
+			defectsCalculated[i][0] = "" + i;
+			defectsCalculated[i][1] = "Created Rule";
+					
 			String loc = getGOF().getGMC().getFile().getCellValue(i, "LOC");
 			String cyclo = getGOF().getGMC().getFile().getCellValue(i, "CYCLO");
 			
@@ -327,43 +354,32 @@ public class GUI_Defect_Detection {
 				adii++;
 				auxADII++;
 			}
-			System.out.println("Number of hits (DCI + DII): " + (auxDCI + auxDII));
-			System.out.println("Error number (ADCI + ADII): " + (auxADCI + auxADII));
-			System.out.println("\n");
-		}
+			int aux1 = auxDCI + auxDII;
+			int aux2 = auxADCI + auxADII;
+			defectsCalculated[i][2] = "" + aux1;
+			defectsCalculated[i][3] = "" + aux2;
+		}	
 		setDCI(dci);
 		setDII(dii);
 		setADCI(adci);
 		setADII(adii);
-		System.out.println("//////////Defects Detection Finished//////////");
-		System.out.println("\n");
-		calculationOfQualityIndicators();
+		openGDDJT();
+	}
+	
+	
+	private void openGDDJT() {
+		if(isOpenGDDJT==true) {
+			final JPanel warning = new JPanel();
+			JOptionPane.showMessageDialog(warning, "Unable to open new "
+					+ "window for checking results of defect detection! "
+					+ "Windows is already open!", "Warning", 
+					JOptionPane.WARNING_MESSAGE);
+		} else {
+			isOpenGDDJT=true;
+			GDDJT = new GUI_Defect_Detection_JTable(GDD);
+		}
 	}
 			
-	
-	// This function will be use on sprint3 to show the quality indicators
-	// We should determine if this function will allow us to calculate defects
-/*	@SuppressWarnings("unused")
-	private void defectCalculation(String tool, String metric) {
-		DefectDetectionThread d1 = new DefectDetectionThread(this,"DCI",tool,metric);
-		numberOfThreads++;
-		d1.start();
-		DefectDetectionThread d2 = new DefectDetectionThread(this,"DII",tool,metric);
-		numberOfThreads++;
-		d2.start();
-		DefectDetectionThread d3 = new DefectDetectionThread(this,"ADCI",tool,metric);
-		numberOfThreads++;
-		d3.start();
-		DefectDetectionThread d4 = new DefectDetectionThread(this,"ADII",tool,metric);
-		numberOfThreads++;
-		d4.start();
-		while(numberOfThreads!=0) {
-			//waiting for threads to finish
-			System.out.println("calculating...");
-		}
-		calculationOfQualityIndicators();
-	}
-*/	
 	
 	// This function will be use on sprint3 to show the quality indicators
 	// On sprint3, we should replace de "sysout" with a JFrame
@@ -389,6 +405,14 @@ public class GUI_Defect_Detection {
 			}
 		});
 		panel.add(back);
+	}
+	
+	
+	private void waiting() {
+		final JPanel warning = new JPanel();
+		JOptionPane.showMessageDialog(warning, "Performing defect detection! "
+				+ "Please wait until results table is loaded!", "Information",
+				 JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 }
