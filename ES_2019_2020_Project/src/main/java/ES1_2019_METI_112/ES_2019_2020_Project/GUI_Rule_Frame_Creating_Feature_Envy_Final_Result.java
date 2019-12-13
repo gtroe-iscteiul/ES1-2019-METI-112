@@ -21,6 +21,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	private AccessToRuleDatabase database;
 	
 	
+	/**
+	 * Construtor da classe
+	 * @param g - Recebe o GUI_Rule_Frame_Creating_Feature_Envy_Consequence como parâmetro
+	 */
 	public GUI_Rule_Frame_Creating_Feature_Envy_Final_Result(GUI_Rule_Frame_Creating_Feature_Envy_Consequence g) {
 		this.GRFC_consequence = g;
 		database = new AccessToRuleDatabase("CreatedRuleDatabase");
@@ -28,6 +32,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Método utilizado para inicializar a janela
+	 */
 	private void init() {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -38,6 +45,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Este método tem como objetivo estabelecer as definições da janela, 
+	 * tais como o seu tamanho, etc
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 400);
@@ -47,6 +58,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Método usado para adicionar os 3 painéis (Norte, Sul e Centro) à janela
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -62,6 +76,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Método para adiciona a label ao painel Norte
+	 * @param panel - Painel Norte
+	 */
 	private void buildPanelNorth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel("Rule summary: ");
@@ -69,6 +87,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Método que adiciona 4 labels (condição (2) e consequência (2)) ao painel Centro
+	 * @param panel - Painel Centro
+	 */
 	private void buildPanelCenter(JPanel panel) {
 		panel.setLayout(new GridLayout(2,2));
 		
@@ -90,6 +112,14 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Método que adiciona 3 botões ao painel Sul
+	 * 
+	 * CONFIRM - Este botão serve para guardar a regra criada
+	 * BACK - Este botão serve para voltar à janela anterior
+	 * CANCEL - Este botão serve para cancelar a criação da regra
+	 * @param panel - Painel Sul
+	 */
 	private void buildPanelSouth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		
@@ -124,6 +154,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Este método serve para guardar a regra criada pelo utilizador
+	 * @throws IOException
+	 */
 	private void saveRule() throws IOException {	
 		try {
 			if(ruleDoesNotExists()==true) {
@@ -144,6 +178,14 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Método usado para verificar se a regra criada pelo utilizador já existe 
+	 * na database
+	 * 
+	 * @return Retorna TRUE se não existir nenhuma regra igual na database e FALSE 
+	 * se já existir 
+	 * @throws IOException
+	 */
 	private boolean ruleDoesNotExists() throws IOException {
 		boolean response;
 		String[] vector = database.readFile();
@@ -163,12 +205,18 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Método usado para fechar esta janela
+	 */
 	public void closeRuleResultFrame() {
 		GRFC_consequence.setIsOpenGRFCFEFR(false);
 		frame.dispose();
 	}
 	
 	
+	/**
+	 * Este método informa o utilizador que a regra foi criada/guardada com sucesso
+	 */
 	private void showInformationMessage() {
 		final JPanel warning = new JPanel();
 		JOptionPane.showMessageDialog(warning, "Successfully saved!"
@@ -177,6 +225,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Final_Result {
 	}
 	
 	
+	/**
+	 * Método utilizado para fechar todas as janelas que involvam a criação
+	 *  da regra, sejam elas anteriores ou posteriores
+	 */
 	private void closeAllRuleFrameCreating() {
 		closeRuleResultFrame();
 		GRFC_consequence.closeRuleConsequenceFrame();
