@@ -104,6 +104,11 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	public String getChosenRule() {
+		return chosenRule;
+	}
+
+
 	public boolean isOpenGDDR () {
 		return isOpenGDDR;
 	}
