@@ -121,6 +121,15 @@ public class GUI_Defect_Detection {
 	}
 	
 	
+	public boolean isOpenGDDR () {
+		return isOpenGDDR;
+	}
+	
+	public boolean isOpenGDDJT () {
+		return isOpenGDDJT;
+	}
+	
+	
 	public void setIsOpenGDDR (boolean state) {
 		isOpenGDDR = state;
 	}
@@ -130,7 +139,7 @@ public class GUI_Defect_Detection {
 	}
 	
 	
-	public String getElementFromMatrix(int l, int c) {
+	public String getElementFromDefectDetectionMatrix(int l, int c) {
 		String aux = defectsCalculated[l][c];
 		return aux;
 	}
@@ -221,11 +230,7 @@ public class GUI_Defect_Detection {
 		int adii = 0;
 		int lines = getGOF().getGMC().getFile().getNumberOfLines();
 		
-		defectsCalculated = new String[lines][4];
-		defectsCalculated[0][0] = "Method ID";
-		defectsCalculated[0][1] = "Used Tool";
-		defectsCalculated[0][2] = "Number of hits (DCI + DII)";
-		defectsCalculated[0][3] = "Error number (ADCI + ADII)";
+		initMatrix(lines);
 		
 		waiting();
 		
@@ -261,7 +266,7 @@ public class GUI_Defect_Detection {
 			int aux1 = auxDCI + auxDII;
 			int aux2 = auxADCI + auxADII;
 			defectsCalculated[i][2] = "" + aux1;
-			defectsCalculated[i][3] = "" + aux2;
+			defectsCalculated[i][3] = "" + aux2;	
 		}
 		setDCI(dci);
 		setDII(dii);
@@ -310,12 +315,8 @@ public class GUI_Defect_Detection {
 		int adii = 0;
 		int lines = getGOF().getGMC().getFile().getNumberOfLines();
 		
-		defectsCalculated = new String[lines][4];
-		defectsCalculated[0][0] = "Method ID";
-		defectsCalculated[0][1] = "Used Tool";
-		defectsCalculated[0][2] = "Number of hits (DCI + DII)";
-		defectsCalculated[0][3] = "Error number (ADCI + ADII)";
-		
+		initMatrix(lines);
+
 		waiting();
 		
 		for(int i=1; i<lines; i++) {
@@ -405,6 +406,15 @@ public class GUI_Defect_Detection {
 			}
 		});
 		panel.add(back);
+	}
+	
+	
+	private void initMatrix(int lines) {
+		defectsCalculated = new String[lines][4];
+		defectsCalculated[0][0] = "Method ID";
+		defectsCalculated[0][1] = "Used Tool";
+		defectsCalculated[0][2] = "Number of hits (DCI + DII)";
+		defectsCalculated[0][3] = "Error number (ADCI + ADII)";
 	}
 	
 	
