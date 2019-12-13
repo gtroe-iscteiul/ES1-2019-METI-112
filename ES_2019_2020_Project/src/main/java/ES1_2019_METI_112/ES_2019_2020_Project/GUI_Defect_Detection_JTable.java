@@ -50,12 +50,12 @@ public class GUI_Defect_Detection_JTable {
 		String columnName [] = new String[columns];
 		
 		for (int i=0; i<columns; i++) {
-			columnName[i] = GDD.getElementFromMatrix(0, i);
+			columnName[i] = GDD.getElementFromDefectDetectionMatrix(0, i);
 		}
 		
 		for (int x=1; x<lines; x++) {
 			for (int y=0; y<columns; y++) {
-				data[x-1][y] = GDD.getElementFromMatrix(x, y);
+				data[x-1][y] = GDD.getElementFromDefectDetectionMatrix(x, y);
 			}
 		}
 		
