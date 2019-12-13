@@ -1,9 +1,14 @@
 package Tests;
 
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -24,7 +29,7 @@ class GUI_Rule_Frame_Choosing_Consequence_TypeTest {
 	private GUI_Rule_Frame_Choosing_Consequence_Type GRFCCT;
 	private GUI_Rule_Frame_Creating_Long_Method GRCLM;
 	private GUI_Rule_Frame_Creating_Feature_Envy_Condition GRCFE;
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -38,7 +43,7 @@ class GUI_Rule_Frame_Choosing_Consequence_TypeTest {
 		GRF = new GUI_Rules_Frame(GOF);
 		GRFCCT = new GUI_Rule_Frame_Choosing_Consequence_Type(GRF);
 		//GRCLM = new GUI_Rule_Frame_Creating_Long_Method(GRFCCT);
-		
+
 	}
 
 	@AfterEach
@@ -98,18 +103,37 @@ class GUI_Rule_Frame_Choosing_Consequence_TypeTest {
 
 	@Test
 	final void testOpenFeatureEnvyFrame() {
-		fail("Not yet implemented"); // TODO
+
+		GRFCCT.setIsOpenGRFCLM(true);
+		GRFCCT.setIsOpenGRFCFE(true);	
+		GRFCCT.openFeatureEnvyFrame();
+		
+		GRFCCT.setIsOpenGRFCLM(false);
+		GRFCCT.openFeatureEnvyFrame();
+		assertTrue(GRFCCT.isOpenGRFCFE());
 	}
 
 	@Test
 	final void testDealWithAfterFrame() {
-		fail("Not yet implemented"); // TODO
+		GRFCCT.openFeatureEnvyFrame();
+		GRFCCT.dealWithAfterFrame();
+		assertFalse(GRFCCT.isOpenGRFCFE());		
+		
+		GRFCCT.setIsOpenGRFCLM(true);
+		GRFCCT.dealWithAfterFrame();
+		assertFalse(GRFCCT.isOpenGRFCLM());
 	}
 
 	@Test
 	final void testCloseRuleConsequenceFrame() {
 		GRFCCT.closeRuleConsequenceFrame();
 		assertFalse(GRF.isOpenGRFCCT());
+	}
+	  
+	@Test
+	void testGenerateRuleID() {
+		Random random = new Random();
+		assertNotEquals(random,GRFCCT.generateRuleID());
 	}
 
 }
