@@ -25,12 +25,20 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	private boolean isGuiRuleFrameCreatingFeatureEnvy = false;
 	
 	
+	/**
+	 * Construtor da classe GUI_Rule_Frame_Choosing_Consequence_Type
+	 * @param grf - GUI_Rules_Frame
+	 */
 	public GUI_Rule_Frame_Choosing_Consequence_Type(GUI_Rules_Frame grf) {
 		this.GRF = grf;
 		GRFCCT = this;
 		init();
 	}	
 	
+	/**
+	 * Conjunto de getters  
+	 * @return das seguintes variáveis: GRFCCT, GRF, GRCLM, GRCFE
+	 */
 	public GUI_Rule_Frame_Choosing_Consequence_Type getGRFCCT() {
 		return GRFCCT;
 	}
@@ -51,26 +59,45 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Método que verifica o estado da variável isGuiRuleFrameCreatingFeatureEnvy
+	 * @return da variável isGuiRuleFrameCreatingFeatureEnvy (true ou false)
+	 */
 	public boolean isOpenGRFCFE() {
 		return isGuiRuleFrameCreatingFeatureEnvy;
 	}
 	
 	
+	/**
+	 * Setter da variável isGuiRuleFrameCreatingFeatureEnvy
+	 * @param state - Estado da variável isGuiRuleFrameCreatingFeatureEnvy (true ou false)
+	 */
 	public void setIsOpenGRFCFE(boolean state) {
 		isGuiRuleFrameCreatingFeatureEnvy = state;
 	}
 	
 	
+	/**
+	 * Método que verifica o estado da variável isGuiRuleFrameCreatingLongMethodOpen
+	 * @return da variável isGuiRuleFrameCreatingLongMethodOpen (true ou false)
+	 */
 	public boolean isOpenGRFCLM() {
 		return isGuiRuleFrameCreatingLongMethodOpen;
 	}
 	
 	
+	/**
+	 * Setter da variável isGuiRuleFrameCreatingLongMethodOpen
+	 * @param state - Estado da variável isGuiRuleFrameCreatingLongMethodOpen (true ou false)
+	 */
 	public void setIsOpenGRFCLM(boolean state) {
 		isGuiRuleFrameCreatingLongMethodOpen = state;
 	}
 	
 	
+	/**
+	 * Método que inicializa a JFrame
+	 */
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -81,6 +108,9 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Este  método tem como objetivo definir características da janela, tais como o seu tamanho 
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 300);
@@ -90,6 +120,9 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Este método tem como objetivo adicionar componentes à janela
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -106,6 +139,10 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Método referente à crição do painel norte da classe GUI_Rule_Frame_Choosing_Consequence_Type
+	 * @param panel - Painel da janela 
+	 */
 	private void buildPanelNorth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel(
@@ -114,6 +151,11 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Método referente à crição do painel central da classe GUI_Rule_Frame_Choosing_Consequence_Type
+	 * @param c - Painel da janela
+	 * @param pc - Painel central da janela
+	 */
 	private void buildPanelCenter(JPanel c, JPanel pc) {
 		c.setLayout(new GridLayout(1,2));
 		buildMetricButtons(pc);
@@ -121,6 +163,10 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 		
+	/**
+	 * Método referente à criação de botões das métricas
+	 * @param panel - Painel da janela
+	 */
 	private void buildMetricButtons(JPanel panel) {
 		panel.setLayout(new GridLayout(2,1));
 		longMethodButton(panel);
@@ -128,6 +174,10 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Método referente à criação do botão correspondente ao longMethod
+	 * @param panel - Painel da janela
+	 */
 	private void longMethodButton(JPanel panel) {
 		final JButton longM = new JButton("Long Method");
 		longM.addActionListener(new ActionListener(){
@@ -139,6 +189,9 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Método responsável pela criação da janela do longMethod
+	 */
 	private void openLongMethodFrame() {
 		if (isGuiRuleFrameCreatingLongMethodOpen==true 
 				|| isGuiRuleFrameCreatingFeatureEnvy==true) {
@@ -159,6 +212,10 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Método referente à criação do botão correspondente ao featureEnvy
+	 * @param panel - Painel da janela
+	 */
 	private void featureEnvyButton(JPanel panel) {
 		final JButton featureE = new JButton("Feature Envy");
 		featureE.addActionListener(new ActionListener(){
@@ -170,6 +227,9 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Método responsável pela criação da janela featureEnvy
+	 */
 	public void openFeatureEnvyFrame() {
 		if (isGuiRuleFrameCreatingLongMethodOpen==true 
 				|| isGuiRuleFrameCreatingFeatureEnvy==true) {
@@ -184,6 +244,10 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 	
+	/**
+	 * Método referente à crição do painel sul da classe GUI_Rule_Frame_Choosing_Consequence_Type
+	 * @param panel - Painel da janela
+	 */
 	private void buildPanelSouth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		
@@ -199,6 +263,10 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 	
 		
+	/**
+	 * Método responsável por fechar as janelas GRCLM e GRCFE, no caso da janela GUI_Rule_Frame_Choosing_Consequence_Type 
+	 * ter aberto uma das mesmas e se quiser fechar a GUI_Rule_Frame_Choosing_Consequence_Type
+	 */
 	public void dealWithAfterFrame() {
 		if(isGuiRuleFrameCreatingLongMethodOpen==true) {
 			GRCLM.closeFrame();
@@ -209,12 +277,19 @@ public class GUI_Rule_Frame_Choosing_Consequence_Type {
 	}
 		
 
+	/**
+	 * Método responsável por fechar a janela GUI_Rule_Frame_Choosing_Consequence_Type
+	 */
 	public void closeRuleConsequenceFrame() {
 		GRF.setIsOpenGRFCCT(false);
 		frame.dispose();
 	}
 	
 	
+	/**
+	 * Método responsável por gerar IDs para cada regra
+	 * @return result - soma das váriaveis aux01, aux02 e aux03
+	 */
 	public String generateRuleID() {
 		Random generator01 = new Random();
 		int aux01 = generator01.nextInt(99);
