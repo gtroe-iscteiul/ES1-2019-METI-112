@@ -18,7 +18,7 @@ import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Main_Class;
 import ES1_2019_METI_112.ES_2019_2020_Project.GUI_Operative_Frame;
 
 class GUI_Defect_DetectionTest {
-	
+
 	private GUI_Operative_Frame of;
 	private GUI_Main_Class mc;
 	private GUI_Defect_Detection dd;
@@ -41,7 +41,7 @@ class GUI_Defect_DetectionTest {
 	void setUp() throws Exception {
 		of = new GUI_Operative_Frame(mc);
 		dd = new GUI_Defect_Detection(of);
-		//jt = new GUI_Defect_Detection_JTable (dd);
+		//	jt = new GUI_Defect_Detection_JTable (dd);
 	}
 
 	@AfterEach
@@ -138,13 +138,30 @@ class GUI_Defect_DetectionTest {
 
 	@Test
 	final void testGetElementFromDefectDetectionMatrix() {
-		//assertNull(dd.getElementFromDefectDetectionMatrix(1, 2));
-		fail("Not yet implemented"); // TODO
+		String[][] aux = new String [2][3];
+		for(int i = 0; i != aux.length; i++) {
+			for(int j = 0; i != aux.length; j++) {
+
+				aux[i][j] = "rule";
+			}
+		}
+		dd.setDefectsCalculated(aux);
+		String a = "rule";
+		assertEquals(a, dd.getElementFromDefectDetectionMatrix(2, 3));
 	}
 
 	@Test
+	final void testGetDefectsCalculated() {
+		String[][] aux = new String [2][3];
+		dd.setDefectsCalculated(aux);
+		assertEquals(aux, dd.getDefectsCalculated());
+	}
+	
+	@Test
 	final void testDefectDetectionForRule() {
-		fail("Not yet implemented"); // TODO
+		dd.setChosenRule("is_feature_envy");
+		dd.defectDetectionForRule();
+
 	}
 
 }

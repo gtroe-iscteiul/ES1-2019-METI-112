@@ -133,6 +133,16 @@ public class GUI_Defect_Detection {
 	}
 	
   
+	public String[][] getDefectsCalculated() {
+		return defectsCalculated;
+	}
+
+
+	public void setDefectsCalculated(String[][] defectsCalculated) {
+		this.defectsCalculated = defectsCalculated;
+	}
+
+
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
