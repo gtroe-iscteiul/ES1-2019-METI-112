@@ -140,6 +140,16 @@ public class GUI_Defect_Detection {
 		String aux = defectsCalculated[l][c];
 		return aux;
 	}
+  
+  
+  	public String[][] getDefectsCalculated() {
+		return defectsCalculated;
+	}
+
+
+	public void setDefectsCalculated(String[][] defectsCalculated) {
+		this.defectsCalculated = defectsCalculated;
+	}
 	
   
 	/**
