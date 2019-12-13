@@ -88,7 +88,24 @@ class GUI_Rules_FrameTest {
 
 	@Test
 	final void testDealWithNewRule() {
-		fail("Not yet implemented"); // TODO
+		rf.getGOF().getMD().setATFD("0");
+		rf.getGOF().getMD().setCYCLO("0");
+		rf.getGOF().getMD().setLAA("0");
+		rf.getGOF().getMD().setLOC("0");
+		
+		rf.setIsOpenGRFCCT(false);
+		rf.dealWithNewRule();
+		assertTrue(rf.isOpenGRFCCT());
+		
+		rf.setIsOpenGRFCCT(true);
+		rf.dealWithNewRule();
+		
+		rf.getGOF().getMD().setATFD("-1");
+		rf.getGOF().getMD().setCYCLO("-1");
+		rf.getGOF().getMD().setLAA("-1");
+		rf.getGOF().getMD().setLOC("-1");
+		
+		rf.dealWithNewRule();
 	}
 
 }
