@@ -116,7 +116,13 @@ public class GUI_Defect_Detection {
 		isOpenGDDR = state;
 	}
 	
+//Função adicionada de forma a ser possível testar a função closeFrame() da classe GUI_Defect_Detection_Rule
 	
+	public boolean isOpenGDDR() {
+		return isOpenGDDR;
+	}
+
+
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
