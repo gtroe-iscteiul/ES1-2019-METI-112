@@ -22,7 +22,6 @@ public class GUI_Defect_Detection {
 	private int DII;
 	private int ADCI;
 	private int ADII;
-	private int numberOfThreads;
 	private GUI_Defect_Detection_Rule GDDR;
 	private boolean isOpenGDDR;
 	private String chosenRule;
@@ -35,7 +34,6 @@ public class GUI_Defect_Detection {
 		this.GOF = g;
 		GDD = this;
 		initIndicators();
-		this.numberOfThreads = 0;
 		this.chosenRule = "";
 		this.isOpenGDDR = false;
 		this.isOpenGDDJT = false;
@@ -61,57 +59,42 @@ public class GUI_Defect_Detection {
 	}
 	
 	
-	public synchronized int getNumberOfThreads() {
-		return numberOfThreads;
-	}
-	
-	
-	public synchronized void setThreadWorkingUp() {
-		this.numberOfThreads++;
-	}
-	
-	
-	public synchronized void setThreadWorkingDown() {
-		this.numberOfThreads--;
-	}
-	
-	
-	public synchronized int getDCI() {
+	public int getDCI() {
 		return DCI;
 	}
 	
 	
-	public synchronized int getDII() {
+	public int getDII() {
 		return DII;
 	}
 	
 	
-	public synchronized int getADCI() {
+	public int getADCI() {
 		return ADCI;
 	}
 	
 	
-	public synchronized int getADII() {
+	public int getADII() {
 		return ADII;
 	}
 	
 	
-	public synchronized void setDCI(int number) {
+	public void setDCI(int number) {
 		this.DCI = number;
 	}
 	
 	
-	public synchronized void setDII(int number) {
+	public void setDII(int number) {
 		this.DII = number;
 	}
 	
 	
-	public synchronized void setADCI(int number) {
+	public void setADCI(int number) {
 		this.ADCI = number;
 	}
 	
 	
-	public synchronized void setADII(int number) {
+	public void setADII(int number) {
 		this.ADII = number;
 	}
 	
@@ -378,18 +361,8 @@ public class GUI_Defect_Detection {
 		} else {
 			isOpenGDDJT=true;
 			GDDJT = new GUI_Defect_Detection_JTable(GDD);
+			GDDJT.setTool(defectsCalculated[1][1]);
 		}
-	}
-			
-	
-	// This function will be use on sprint3 to show the quality indicators
-	// On sprint3, we should replace de "sysout" with a JFrame
-	private void calculationOfQualityIndicators() {
-		System.out.println("Quality Indicators:");
-		System.out.println("DCI: " + DCI);
-		System.out.println("DII: " + DII);
-		System.out.println("ADCI: " + ADCI);
-		System.out.println("ADII: " + ADII);
 	}
 
 	
@@ -397,12 +370,7 @@ public class GUI_Defect_Detection {
 		JButton back = new JButton("BACK");
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if(isOpenGDDR==true) {
-					setIsOpenGDDR(false);
-					GDDR.closeFrame();
-				}
-				GOF.setIsOpenGDD(false);
-				frame.dispose();
+				closeFrame();
 			}
 		});
 		panel.add(back);
@@ -423,6 +391,20 @@ public class GUI_Defect_Detection {
 		JOptionPane.showMessageDialog(warning, "Performing defect detection! "
 				+ "Please wait until results table is loaded!", "Information",
 				 JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	
+	private void closeFrame() {
+		if(isOpenGDDR==true) {
+			setIsOpenGDDR(false);
+			GDDR.closeFrame();
+		}
+		if(isOpenGDDJT==true) {
+			setIsOpenGDDJT(false);
+			GDDJT.closeFrame();
+		}
+		GOF.setIsOpenGDD(false);
+		frame.dispose();
 	}
 	
 }

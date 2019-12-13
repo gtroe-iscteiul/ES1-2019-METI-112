@@ -1,7 +1,6 @@
 package Tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -18,7 +17,6 @@ class GUI_Defect_DetectionTest {
 	private GUI_Operative_Frame of;
 	private GUI_Main_Class mc;
 	private GUI_Defect_Detection dd;
-	private int numberOfThreads;
 	private int DCI;
 	private int DII;
 	private int ADCI;
@@ -44,32 +42,10 @@ class GUI_Defect_DetectionTest {
 	}
 
 	@Test
-	final void testGUI_Defect_Detection() {
-		assertEquals(0, dd.getNumberOfThreads());
-	}
-
-	@Test
 	final void testGetGOF() {
 		of = new GUI_Operative_Frame(mc);
 		//operative frame diferentes ..
 		assertEquals(of, dd.getGOF());
-	}
-
-	@Test
-	final void testGetNumberOfThreads() {
-		assertEquals(0, dd.getNumberOfThreads());
-	}
-
-	@Test
-	final void testSetThreadWorkingUp() {
-		dd.setThreadWorkingUp();
-		assertEquals(1, dd.getNumberOfThreads());
-	}
-
-	@Test
-	final void testSetThreadWorkingDown() {
-		dd.setThreadWorkingDown();
-		assertEquals(-1, dd.getNumberOfThreads());
 	}
 
 	@Test

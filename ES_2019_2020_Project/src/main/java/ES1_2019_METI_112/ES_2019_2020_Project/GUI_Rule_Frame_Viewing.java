@@ -151,9 +151,10 @@ public class GUI_Rule_Frame_Viewing {
 	 */
 	private void getRuleInformation() {
 		String[] vector = list.getSelectedValue().toString().split(" ");
-		String condition = "Condition (if): " + vector[0];
-		String consequence = "Consequence (then): " + vector[1];
-		String result = condition + "\n" + "\n" + consequence;
+		String id = "Rule: " + vector[0];
+		String condition = "Condition (if): " + vector[1];
+		String consequence = "Consequence (then): " + vector[2];
+		String result = id + "\n" + "\n" + condition + "\n" + "\n" + consequence;
 		
 		final JPanel warning = new JPanel();
 		JOptionPane.showMessageDialog(warning, result, "Information",
