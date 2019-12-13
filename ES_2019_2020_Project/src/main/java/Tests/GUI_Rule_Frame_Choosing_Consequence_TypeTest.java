@@ -1,9 +1,14 @@
 package Tests;
 
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
@@ -128,7 +133,8 @@ class GUI_Rule_Frame_Choosing_Consequence_TypeTest {
 	  
 	@Test
 	void testGenerateRuleID() {
-		fail("Not yet implemented"); // TODO
+		Random random = new Random();
+		assertNotEquals(random,GRFCCT.generateRuleID());
 	}
 
 }
