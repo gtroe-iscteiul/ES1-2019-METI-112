@@ -78,7 +78,12 @@ class GUI_Rule_Frame_Creating_Feature_Envy_ConditionTest {
 
 	@Test
 	final void testOpenGRFCFE_consequence() {
-		fail("Not yet implemented"); // TODO
+		g.setIsOpenGRFCFEC(true);
+		assertTrue(g.isOpenGRFCFEC());
+		
+		g.setIsOpenGRFCFEC(true);
+		g.openGRFCFE_consequence();
+	
 	}
 
 	@Test
