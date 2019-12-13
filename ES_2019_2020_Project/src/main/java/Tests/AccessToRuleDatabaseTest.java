@@ -4,7 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -20,7 +23,7 @@ class AccessToRuleDatabaseTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		String path = "CreatedRuleDatabase";
+		String path = "AuxRuleDataBase";
 		a = new AccessToRuleDatabase(path);
 	}
 
@@ -38,12 +41,18 @@ class AccessToRuleDatabaseTest {
 
 	@Test
 	void testAccessToRuleDatabase() throws IOException {
-		testGetNumberOfLines();
+		testWriteToFile();
 	}
 
 	@Test
-	void testWriteToFile() {
-		fail("Not yet implemented");
+	void testWriteToFile() throws FileNotFoundException {
+		Scanner s = new Scanner(new FileReader("AuxRuleDataBase"));
+		int size = 0;
+		while(s.hasNextLine()) {
+			String v = s.nextLine();
+			size++;
+		}
+		assertEquals(3, size);
 	}
 
 	@Test
@@ -55,11 +64,18 @@ class AccessToRuleDatabaseTest {
 
 		assertArrayEquals(expected, a.readFile());
 	}
+	
+	@Test
+	void testGetLine() throws IOException {
+		String[] expected = new String [3];
+		expected[0] = "Rule_2 if(LOC==4&&CYCLO==6||ATFD==5) is_long_method=false";
+		assertArrayEquals(expected, a.getLine(1));	
+	}
+
 
 	@Test
 	void testGetNumberOfLines() throws IOException {
 		assertEquals(3, a.getNumberOfLines());
-
 	}
 
 	@Test
@@ -71,7 +87,6 @@ class AccessToRuleDatabaseTest {
 		//A linha seguinte tem de estar comentada, sendo que esta afeta os dados do ficheiro CreatedRuleDataBase.
 		//So pode ser descomentada quando o teste esta a ser efetuado.
 		//A seguir ao método ser testado tem de se adicionar de novo a regra que foi eliminada.
-
 		//a.deleteRule("Rule_4 if(ATFD==680&&LAA==8&&CYCLO==7||LOC==6) is_feature_envy=false");
 
 		assertArrayEquals(expected, a.readFile());
