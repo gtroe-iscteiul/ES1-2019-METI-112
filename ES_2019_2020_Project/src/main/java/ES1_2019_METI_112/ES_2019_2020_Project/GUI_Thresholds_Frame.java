@@ -151,8 +151,8 @@ public class GUI_Thresholds_Frame {
 	 * Este método tem como objetivo verificar se os campos escritos pelo utilizador, se estão a null
 	 */
 	private void dealWithButtons() {
-		if (LOC.getText().isEmpty() || CYCLO.getText().isEmpty()
-				|| ATFD.getText().isEmpty() || LAA.getText().isEmpty()) {
+		if (LOC.getText().isBlank() || CYCLO.getText().isBlank()
+				|| ATFD.getText().isBlank() || LAA.getText().isBlank()) {
 		// Usar este 'if' em caso de erro no 'isBlank', mas no fim, voltar a colocar
 //		if (LOC.getText().isEmpty() || CYCLO.getText().isEmpty()
 //				|| ATFD.getText().isEmpty() || LAA.getText().isEmpty()) {

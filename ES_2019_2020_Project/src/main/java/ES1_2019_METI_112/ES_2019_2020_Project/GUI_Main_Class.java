@@ -171,9 +171,9 @@ public class GUI_Main_Class {
 	 * @param text Parâmetro texto referente ao texto escrito pelo utilizador
 	 */
 	private void dealWithInternalErrors(JTextField text) {
-		if (text.getText().isEmpty()) {
-		// Usar este 'if' em caso de erro no 'isBlank', mas no fim, voltar a colocar
 //		if (text.getText().isEmpty()) {
+		// Usar este 'if' em caso de erro no 'isBlank', mas no fim, voltar a colocar
+		if (text.getText().isBlank()) {
 			 final JPanel warning = new JPanel();
 			 JOptionPane.showMessageDialog(warning, "Blank search field! "
 			 		+ "Please enter filename to continue!", "Warning",
