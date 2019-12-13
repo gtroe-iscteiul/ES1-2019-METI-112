@@ -1,7 +1,5 @@
 package classes_to_use_as_a_base;
 
-import java.io.ObjectInputStream.GetField;
-
 public class tryingFeatureEnvy {
 	
 	private String easyCondition;
@@ -94,16 +92,45 @@ public class tryingFeatureEnvy {
 		return result;
 	}
 	
-	private void factorsTotal(String s) {
-		String[] operators = getOperators(s).split(" ");
+	private int getOperatorsNumber(String s) {
+		String[] operators;
+		if(getOperators(s)!=null){
+			operators = getOperators(s).split(" ");
+			return operators.length;
+		} else {
+			return 0;
+		}
+	}
+	
+	private int getSignalsNumber(String s) {
 		String[] signals = getSignals(s).split(" ");
+		return signals.length;
+	}
+	
+	private int getMetricsNumber(String s) {
 		String[] metrics = getMetrics(s).split(" ");
+		return metrics.length;
+	}
+	
+	private int getValuesNumber(String s) {
 		String[] values = getValues(s).split(" ");
-		
-		System.out.println("Number of oprators: " + operators.length);
-		System.out.println("Number of signals: " + signals.length);
-		System.out.println("Number of metrics: " + metrics.length);
-		System.out.println("Number of values: " + values.length);
+		return values.length;
+	}
+	
+	
+	private void dealWithOperatos(String s) {
+		if(getOperatorsNumber(s)==0) {
+			System.out.println("1 condição");
+		}
+		if(getOperatorsNumber(s)==1) {
+			System.out.println("2 condições");
+		}
+		if(getOperatorsNumber(s)==2) {
+			System.out.println("3 condições");
+		}
+		if(getOperatorsNumber(s)==3) {
+			System.out.println("4 condições");
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -114,13 +141,14 @@ public class tryingFeatureEnvy {
 		System.out.println("Signals: " + fe.getSignals(fe.getEasyCondition()));
 		System.out.println("Metrics: " + fe.getMetrics(fe.getEasyCondition()));
 		System.out.println("Values: " + fe.getValues(fe.getEasyCondition()));
+		fe.dealWithOperatos(fe.getEasyCondition());
 		
 		System.out.println("\n" + "//////////Hard condition//////////");
 		System.out.println("Operators: " + fe.getOperators(fe.getHardCondition()));
 		System.out.println("Signals: " + fe.getSignals(fe.getHardCondition()));
 		System.out.println("Metrics: " + fe.getMetrics(fe.getHardCondition()));
 		System.out.println("Values: " + fe.getValues(fe.getHardCondition()));
-		fe.factorsTotal(fe.getHardCondition());
+		fe.dealWithOperatos(fe.getHardCondition());
 	}
 		
 }
