@@ -1,0 +1,3 @@
+Rule_2 if(LOC==4&&CYCLO==6||ATFD==5) is_long_method=false
+Rule_3 if(LOC==9&&CYCLO==9||ATFD==9) is_long_method=false
+Rule_4 if(ATFD==680&&LAA==8&&CYCLO==7||LOC==6) is_feature_envy=false
