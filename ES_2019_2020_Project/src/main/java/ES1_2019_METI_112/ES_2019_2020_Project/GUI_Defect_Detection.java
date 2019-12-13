@@ -125,7 +125,6 @@ public class GUI_Defect_Detection {
 		isOpenGDDR = state;
 	}
 	
-	
 	public void setIsOpenGDDJT (boolean state) {
 		isOpenGDDJT = state;
 	}
@@ -136,7 +135,7 @@ public class GUI_Defect_Detection {
 		return aux;
 	}
 	
-	
+  
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -184,7 +183,6 @@ public class GUI_Defect_Detection {
 		JButton iplasma = new JButton("iPlasma");
 		iplasma.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-//				defectCalculation("iPlasma", "is_long_method");
 				defectDetection("iPlasma", "is_long_method");
 			}
 		});
@@ -193,7 +191,6 @@ public class GUI_Defect_Detection {
 		JButton pmd = new JButton("PMD");
 		pmd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-//				defectCalculation("PMD", "is_long_method");
 				defectDetection("PMD", "is_long_method");
 			}
 		});
