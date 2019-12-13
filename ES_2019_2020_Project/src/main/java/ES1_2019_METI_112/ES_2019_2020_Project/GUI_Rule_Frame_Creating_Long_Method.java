@@ -23,6 +23,10 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	private String consequence;
 	
 	
+	/**
+	 * Construtor da classe
+	 * @param g - Recebe o GUI_Rule_Frame_Choosing_Consequence_Type como parâmetro
+	 */
 	public GUI_Rule_Frame_Creating_Long_Method (
 			GUI_Rule_Frame_Choosing_Consequence_Type g) {
 		this.GRFCCT = g;
@@ -31,6 +35,9 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método inicializa a janela
+	 */
 	private void init() {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -41,6 +48,10 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método tem como objetivo estabelecer definições da janela, 
+	 * tais como o seu tamanho, etc
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 300);
@@ -50,6 +61,9 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método adiciona 3 paineis à janela (Norte, Sul e Centro)
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -65,6 +79,10 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar uma label ao painel Norte
+	 * @param panel - Painel Norte
+	 */
 	private void buildPanelNorth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel("Rule summary: ");
@@ -72,6 +90,10 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar 4 labels ao painel central
+	 * @param panel - Painel Centro
+	 */
 	private void buildPanelCenter(JPanel panel) {
 		panel.setLayout(new GridLayout(2,2));
 		
@@ -96,6 +118,18 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar 3 botões ao painel sul
+	 * 
+	 * CONFIRM - Este botão guarda a regra criada
+	 * 
+	 * BACK - Este botão fecha a janela atual e volta à anterior
+	 * 
+	 * CANCEL - Este botão cancela a criação das regras e fecha todas as janelas 
+	 * que estejam ligadas à criação desta regra
+	 * 
+	 * @param panel - Painel Sul
+	 */
 	private void buildPanelSouth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		
@@ -130,6 +164,10 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método guarda a regra criada pelo utilizador na Database
+	 * @throws IOException
+	 */
 	private void saveRule() throws IOException {
 		try {
 			if(ruleDoesNotExists()==true) {
@@ -148,6 +186,12 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método verifica se já existe uma regra igual na database
+	 * 
+	 * @return Retorna um boolean em que retorna TRUE se não existir uma regra igual na database e FALSE se já existir
+	 * @throws IOException
+	 */
 	private boolean ruleDoesNotExists() throws IOException {
 		boolean response;
 		String[] vector = database.readFile();
@@ -167,12 +211,20 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+
+	/**
+	 * Este método fecha a janela atual
+	 */
 	public void closeFrame() {
 		GRFCCT.setIsOpenGRFCLM(false);
 		frame.dispose();
 	}
 	
 	
+	/**
+	 * Este método gera uma mensagem para informar o utilizador que a regra foi
+	 * registada/criada com sucesso
+	 */
 	private void showInformationMessage() {
 		final JPanel warning = new JPanel();
 		JOptionPane.showMessageDialog(warning, "Successfully saved!"
@@ -181,6 +233,10 @@ public class GUI_Rule_Frame_Creating_Long_Method {
 	}
 	
 	
+	/**
+	 * Este método fecha todas as janelas que estejam ligadas à criação da 
+	 * respectiva regra (anteriores ou posteriores)
+	 */
 	private void closeAllRuleFrameCreating() {
 		closeFrame();
 		GRFCCT.closeRuleConsequenceFrame();
