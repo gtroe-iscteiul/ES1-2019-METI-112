@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 
+
 public class GUI_Defect_Detection_JTable {
 	
 	private GUI_Defect_Detection GDD;
@@ -22,6 +23,10 @@ public class GUI_Defect_Detection_JTable {
 	private String tool;
 	
 	
+	/**
+	 * Construtor da classe GUI_Defect_Detection_JTable
+	 * @param g - GUI_Defect_Detection
+	 */
 	public GUI_Defect_Detection_JTable(GUI_Defect_Detection g) {
 		GDDJT = this;
 		this.GDD = g;
@@ -30,6 +35,10 @@ public class GUI_Defect_Detection_JTable {
 	}
 	
 	
+	/**
+	 * Getters da classe GUI_Defect_Detection_JTable
+	 * @return das seguintes variáveis: GDD e isOpenGDDQI que indica o estado da GUI_Defect_Detection_Quality_Indicators
+	 */
 	public GUI_Defect_Detection getGDD() {
 		return GDD;
 	}
@@ -40,21 +49,36 @@ public class GUI_Defect_Detection_JTable {
 	}
 	
 	
+	/**
+	 * Setter da variável state que permite definir o estado da GUI_Defect_Detection_Quality_Indicators
+	 * @param state - boolean
+	 */
 	public void setIsOpenGDDQI(boolean state) {
 		isOpenGDDQI = state;
 	}
 	
 	
+	/**
+	 * Getter da classe GUI_Defect_Detection_JTable
+	 * @return da variável tool
+	 */
 	public String getTool() {
 		return tool;
 	}
 	
 	
+	/**
+	 * Setter da variável t
+	 * @param t - String
+	 */
 	public void setTool(String t) {
 		this.tool = t;
 	}
 	
 	
+	/**
+	 * Método que inicializa a JFrame
+	 */
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -65,6 +89,9 @@ public class GUI_Defect_Detection_JTable {
 	}
 	
 		
+	/**
+	 * Este  método tem como objetivo definir características da janela, tais como o seu tamanho 
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(800, 500);
@@ -74,11 +101,17 @@ public class GUI_Defect_Detection_JTable {
 	}
 	
 
+	/**
+	 * Este método tem como objetivo adicionar componentes à janela
+	 */
 	private void addFrameContent(){
 		openJTable();
 	}
 	
 	
+	/**
+	 * Este método tem como objetivo abrir uma JTable, bem como a criação dos botões: "Quality Indicators" e "BACK"
+	 */
 	private void openJTable() {
 		int lines = GDD.getGOF().getGMC().getFile().getNumberOfLines();
 		int columns = 4;
@@ -124,6 +157,9 @@ public class GUI_Defect_Detection_JTable {
 	}
 	
 	
+	/**
+	 * Este método é responsável por abrir a janela GUI_Defect_Detection_Quality_Indicators
+	 */
 	private void openGDDQI() {		
 		if(isOpenGDDQI==true) {
 			final JPanel warning = new JPanel();
@@ -138,6 +174,9 @@ public class GUI_Defect_Detection_JTable {
 	}
 	
 	
+	/**
+	 * Método responsável por fechar a janela GUI_Defect_Detection_Quality_Indicators 
+	 */
 	public void closeFrame() {
 		if(isOpenGDDQI==true) {
 			GDDQI.closeFrame();
