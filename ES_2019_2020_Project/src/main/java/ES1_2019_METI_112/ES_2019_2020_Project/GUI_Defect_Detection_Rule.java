@@ -23,6 +23,10 @@ public class GUI_Defect_Detection_Rule {
 	private JList<String> list;
 
 
+	/**
+	 * Método onstrutor da classe
+	 * @param g - Parâmetro da classe GUI_Defect_Detection
+	 */
 	public GUI_Defect_Detection_Rule(GUI_Defect_Detection g) {
 		this.GDD = g;
 		database = new AccessToRuleDatabase("CreatedRuleDatabase");
@@ -30,6 +34,9 @@ public class GUI_Defect_Detection_Rule {
 	}
 
 
+	/**
+	 * Método inicializa a janela
+	 */
 	private void init() {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -40,6 +47,10 @@ public class GUI_Defect_Detection_Rule {
 	}
 	
 
+	/**
+	 * Este método tem como objetivo estabelecer as definições da janela, 
+	 * tais como o seu tamanho, etc
+	 */
 	@SuppressWarnings("deprecation")
 	private void open() {
 		frame.setSize(500, 300);
@@ -49,6 +60,10 @@ public class GUI_Defect_Detection_Rule {
 	}
 	
 
+	/**
+	 * Método para adicionar conteúdo à janela, sendo esta constituída por 
+	 * três paineis (Norte, Sul e Centro)
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -64,6 +79,11 @@ public class GUI_Defect_Detection_Rule {
 	}
 	
 	
+	/**
+	 * Método usado para construir o painel Norte da janela, 
+	 * constituído por uma JLabel
+	 * @param panelNorth - Painel
+	 */
 	private void buildPanelNorth(JPanel panelNorth) {
 		panelNorth.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel("List of rules created: ");
@@ -71,6 +91,11 @@ public class GUI_Defect_Detection_Rule {
 	}
 	
 	
+	/**
+	 * Método usado para construir o painel Central da janela, 
+	 * constituído por uma JList para visualizar as regras criadas
+	 * @param panelCenter - Painel
+	 */
 	private void buildPanelCenter(JPanel panelCenter) {
 		panelCenter.setLayout(new FlowLayout());
 		String[] conteudo;
@@ -88,6 +113,15 @@ public class GUI_Defect_Detection_Rule {
 	}	
 	
 	
+	/**
+	 * Método usado para construir o painel Sul da janela, 
+	 * constituído pelos botões SELECT e BACK
+	 * 
+	 * SELECT - Serve para escolher qual método a ser executado
+	 * BACK - Volta à janela anterior
+	 * APPLY - Serve para aplicar as alterações
+	 * @param panelSouth - Painel
+	 */
 	private void buildPanelSouth(JPanel panelSouth) {
 		panelSouth.setLayout(new FlowLayout());
 		
@@ -118,6 +152,9 @@ public class GUI_Defect_Detection_Rule {
 	}
 	
 	
+	/**
+	 * Método usado para obter a informação sobre a regra selecionada
+	 */
 	private void getRuleInformation() {
 		String[] vector = list.getSelectedValue().toString().split(" ");
 		String id = "Rule: " + vector[0];
@@ -131,6 +168,9 @@ public class GUI_Defect_Detection_Rule {
 	}
 	
 	
+	/**
+	 * Método usado para executar o calculo dos defeitos atarvés da regra escolhida
+	 */
 	private void setRuleInformation() {
 		String[] vector = list.getSelectedValue().toString().split(" ");
 		String rule = vector[0] + " " + vector[1] + " " + vector[2];
@@ -143,6 +183,9 @@ public class GUI_Defect_Detection_Rule {
 	}
 	
 	
+	/**
+	 * Método utilizado para fechar a janela
+	 */
 	public void closeFrame() {
 		GDD.setIsOpenGDDR(false);
 		frame.dispose();
