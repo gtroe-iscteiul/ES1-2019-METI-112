@@ -18,12 +18,19 @@ public class GUI_Defect_Detection_Quality_Indicators {
 	private GUI_Defect_Detection_JTable GDDJT;
 	
 
+	/**
+	 * Construtor da classe GUI_Defect_Detection_Quality_Indicators
+	 * @param g - GUI_Defect_Detection_JTable
+	 */
 	public GUI_Defect_Detection_Quality_Indicators(GUI_Defect_Detection_JTable g) {
 		this.GDDJT = g;
 		init();
 	}
 
 
+	/**
+	 * Método que inicializa a JFrame
+	 */
 	private void init() {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -34,6 +41,9 @@ public class GUI_Defect_Detection_Quality_Indicators {
 	}
 	
 
+	/**
+	 * Este  método tem como objetivo definir características da janela, tais como o seu tamanho 
+	 */
 	@SuppressWarnings("deprecation")
 	private void open() {
 		frame.setSize(300, 250);
@@ -43,6 +53,9 @@ public class GUI_Defect_Detection_Quality_Indicators {
 	}
 	
 
+	/**
+	 * Este método tem como objetivo adicionar componentes à janela
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -58,6 +71,10 @@ public class GUI_Defect_Detection_Quality_Indicators {
 	}
 	
 	
+	/**
+	 * Método referente à crição do painel norte da classe GUI_Defect_Detection_Quality_Indicators
+	 * @param panelNorth - Painel norte da janela
+	 */
 	private void buildPanelNorth(JPanel panelNorth) {
 		panelNorth.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel("Quality indicators for " + GDDJT.getTool() + ":");
@@ -65,6 +82,10 @@ public class GUI_Defect_Detection_Quality_Indicators {
 	}
 	
 	
+	/**
+	 * Método referente à crição do painel central da classe GUI_Defect_Detection_Quality_Indicators
+	 * @param panelCenter - Painel central da janela
+	 */
 	private void buildPanelCenter(JPanel panelCenter) {
 		panelCenter.setLayout(new GridLayout(4,1));
 		
@@ -83,6 +104,10 @@ public class GUI_Defect_Detection_Quality_Indicators {
 	}	
 	
 	
+	/**
+	 * Método referente à crição do painel sul da classe GUI_Defect_Detection_Quality_Indicators, bem como o botão BACK
+	 * @param panelSouth - Painel sul da janela
+	 */
 	private void buildPanelSouth(JPanel panelSouth) {
 		panelSouth.setLayout(new FlowLayout());
 		
@@ -96,6 +121,9 @@ public class GUI_Defect_Detection_Quality_Indicators {
 	}
 	
 	
+	/**
+	 * Método responsável pelo fecho da janela
+	 */
 	public void closeFrame() {
 		GDDJT.setIsOpenGDDQI(false);
 		frame.dispose();
