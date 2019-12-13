@@ -120,34 +120,87 @@ public class tryingFeatureEnvy {
 	
 	private void dealWithOperatos(String s) {
 		if(getOperatorsNumber(s)==0) {
-			System.out.println("1 condição");
+			oneCondition(s);
 		}
 		if(getOperatorsNumber(s)==1) {
-			System.out.println("2 condições");
+			twoConditions(s);
 		}
 		if(getOperatorsNumber(s)==2) {
-			System.out.println("3 condições");
+			threeConditions(s);
 		}
 		if(getOperatorsNumber(s)==3) {
-			System.out.println("4 condições");
+			fourConditions(s);
 		}
 	}
+	
+	
+	private void oneCondition(String s) {
+		String aux = getMetrics(s) + " " + getSignals(s) + " " + getValues(s);
+		System.out.println(aux);
+	}
+	
+	
+	private void twoConditions(String s) {
+		String[] m = getMetrics(s).split(" ");
+		String[] si = getSignals(s).split(" ");
+		String[] v = getValues(s).split(" ");
+		String[] o = getOperators(s).split(" ");
+		
+		String condition1 = m[0] + " " + si[0] + " " + v[0];
+		String condition2 = m[1] + " " + si[1] + " " + v[1];
+		
+		System.out.println(condition1);
+		System.out.println(o[0]);
+		System.out.println(condition2);
+	}
+	
+	
+	private void threeConditions(String s) {
+		String[] m = getMetrics(s).split(" ");
+		String[] si = getSignals(s).split(" ");
+		String[] v = getValues(s).split(" ");
+		String[] o = getOperators(s).split(" ");
+		
+		String condition1 = m[0] + " " + si[0] + " " + v[0];
+		String condition2 = m[1] + " " + si[1] + " " + v[1];
+		String condition3 = m[2] + " " + si[2] + " " + v[2];
+		
+		System.out.println(condition1);
+		System.out.println(o[0]);
+		System.out.println(condition2);
+		System.out.println(o[1]);
+		System.out.println(condition3);
+	}
+	
+	
+	private void fourConditions(String s) {
+		String[] m = getMetrics(s).split(" ");
+		String[] si = getSignals(s).split(" ");
+		String[] v = getValues(s).split(" ");
+		String[] o = getOperators(s).split(" ");
+		
+		String condition1 = m[0] + " " + si[0] + " " + v[0];
+		String condition2 = m[1] + " " + si[1] + " " + v[1];
+		String condition3 = m[2] + " " + si[2] + " " + v[2];
+		String condition4 = m[3] + " " + si[3] + " " + v[3];
+		
+		System.out.println(condition1);
+		System.out.println(o[0]);
+		System.out.println(condition2);
+		System.out.println(o[1]);
+		System.out.println(condition3);
+		System.out.println(o[2]);
+		System.out.println(condition4);
+	}
+	
 	
 	public static void main(String[] args) {
 		tryingFeatureEnvy fe = new tryingFeatureEnvy();
 		
 		System.out.println("//////////Easy condition//////////");
-		System.out.println("Operators: " + fe.getOperators(fe.getEasyCondition()));
-		System.out.println("Signals: " + fe.getSignals(fe.getEasyCondition()));
-		System.out.println("Metrics: " + fe.getMetrics(fe.getEasyCondition()));
-		System.out.println("Values: " + fe.getValues(fe.getEasyCondition()));
 		fe.dealWithOperatos(fe.getEasyCondition());
 		
 		System.out.println("\n" + "//////////Hard condition//////////");
-		System.out.println("Operators: " + fe.getOperators(fe.getHardCondition()));
-		System.out.println("Signals: " + fe.getSignals(fe.getHardCondition()));
-		System.out.println("Metrics: " + fe.getMetrics(fe.getHardCondition()));
-		System.out.println("Values: " + fe.getValues(fe.getHardCondition()));
 		fe.dealWithOperatos(fe.getHardCondition());
 	}
 		
