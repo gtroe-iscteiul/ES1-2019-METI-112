@@ -26,6 +26,11 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	private String consequence;
 
 
+	/**
+	 * Método construtor da classe
+	 * 
+	 * @param g
+	 */
 	public GUI_Rule_Frame_Creating_Feature_Envy_Consequence(
 			GUI_Rule_Frame_Creating_Feature_Envy_Condition g) {
 		this.GRFCFE = g;
@@ -33,6 +38,8 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 		init();
 	}
 	
+	
+	// gets e sets respectivos aos atributos gerais da classe
 	
 	public GUI_Rule_Frame_Creating_Feature_Envy_Condition getGRFCFE() {
 		return GRFCFE;
@@ -59,6 +66,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Método para inicializar a janela
+	 */
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -69,6 +79,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este  método tem como objetivo estabelecer as definições da janela, 
+	 * tais como o seu tamanho, etc
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 400);
@@ -78,6 +92,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar conteúdo à janela (diversos paineis)
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -98,6 +115,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Método para adicionar conteúdo ao painel norte da janela
+	 * @param panel - Painel
+	 */
 	private void buildPanelNorth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel("Selection of 'if' consequence: ");
@@ -105,6 +126,15 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Método para adicionar conteúdo ao painel central da janela
+	 * 
+	 * @param c - PainelCentro
+	 * @param pc1 - panelCenterComponent01
+	 * @param pc2 - panelCenterComponent02
+	 * @param pc3 - panelCenterComponent03
+	 * @param pc4 - panelCenterResultComponent
+	 */
 	private void buildPanelCenter(JPanel c, JPanel pc1, JPanel pc2, 
 			JPanel pc3, JPanel pc4) {
 		
@@ -129,12 +159,21 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serva para criar a label respectivas às métricas
+	 * @param panel - Painel
+	 */
 	private void buildMetricsLabel(JPanel panel) {
 		JLabel metrics = new JLabel("Select value for consequence: ");
 		panel.add(metrics);
 	}
 	
 	
+	/**
+	 * Este método serve para criar os dois botões (true ou false) para a escolha
+	 * da consequência da regra
+	 * @param panel - painel
+	 */
 	private void buildMetricButtons(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		
@@ -143,6 +182,13 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+
+	/**
+	 * Este método serve para adicionar à regra criada pelo utilizador, uma 
+	 * consequência para o boolean "is_feature_envy", sendo este registado 
+	 * como TRUE
+	 * @param panel - Painel
+	 */
 	private void trueButton(JPanel panel) {
 		final JButton TRUE = new JButton("True");
 		TRUE.addActionListener(new ActionListener(){
@@ -158,6 +204,12 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar à regra criada pelo utilizador, uma 
+	 * consequência para o boolean "is_feature_envy", sendo este registado 
+	 * como FALSE
+	 * @param panel - Painel
+	 */
 	private void falseButton(JPanel panel) {
 		final JButton FALSE = new JButton("False");
 		FALSE.addActionListener(new ActionListener(){
@@ -173,6 +225,12 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serve para fazer update ao texto referente à consequência
+	 * da regra criada pelo utilizador
+	 * 
+	 * @param type - Verdadeiro ou Falso
+	 */
 	private void updateConsequence(String type) {
 		needBoolean=false;
 		panelCenterResultComponent.remove(ifConsequence);
@@ -182,6 +240,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serve para enviar uma mensagem de erro ao utilizador, informando
+	 * que a consequência já foi escolhida
+	 */
 	private void showBooleanWarning() {
 		 final JPanel warning = new JPanel();
 		 JOptionPane.showMessageDialog(warning, "Unable to select consequence! "
@@ -190,18 +252,41 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método adiciona uma label ao painel central
+	 * @param panel - Painel
+	 */
 	private void buildIfConsequenceLabel(JPanel panel) {
 		JLabel result = new JLabel("Metric used as consequence: ");
 		panel.add(result);
 	}
 	
 	
+	/**
+	 * Este método adiciona uma label ao painel central, apresentando a consequência
+	 * à regra acabada de definir
+	 * @param panel - Painel
+	 */
 	private void buildPanelResult(JPanel panel) {
 		ifConsequence = new JLabel("");
 		panel.add(ifConsequence);
 	}
 	
 	
+	/**
+	 * Este método serve para criar o painel sul da janela, contendo 4 botões
+	 * 
+	 * RESET - Este botão serve fazer reset à consequência escolhida
+	 * 
+	 * OK - Este botão serve para guardar as alterações e abrir a janela 
+	 * GUI_Rule_Frame_Creating_Feature_Envy_Final_Result
+	 * 
+	 * BACK - Este botão serve para voltar à janela anterior
+	 * 
+	 * CANCEL - Este botão serve para cancelar a criação da regra
+	 * 
+	 * @param panel - Painel
+	 */
 	private void buildPanelSouth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		
@@ -246,6 +331,12 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serve formatar o texto da consequência, sendo possivel apresentar
+	 * correctamente através da label respectiva
+	 * @param c - True ou False
+	 * @return
+	 */
 	private String formatConsequence(String c) {
 		String aux = "";
 		if(c.equals("True")) {
@@ -258,6 +349,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serve para fechar a janela posterior, caso esta se encontre aberta
+	 */
 	private void dealWithFinalResultFrame() {
 		if(isGuiRuleFrameCreatingFeatureEnvyFinalResultOpen==true) {
 			GRFCFEFR.closeRuleResultFrame();
@@ -265,6 +359,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serve para abrir a próxima janela, ou seja, a janela da interface
+	 *  GUI_Rule_Frame_Creating_Feature_Envy_Final_Result
+	 */
 	private void openGRFCFEFR() {
 		if(needBoolean==false) {
 			if (isGuiRuleFrameCreatingFeatureEnvyFinalResultOpen==true) {
@@ -289,6 +387,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Consequence {
 	}
 	
 	
+	/**
+	 * Este método serve para fechar a janela atual e janelas posteriores
+	 */
 	public void closeRuleConsequenceFrame() {
 		dealWithFinalResultFrame();
 		GRFCFE.setIsOpenGRFCFEC(false);
