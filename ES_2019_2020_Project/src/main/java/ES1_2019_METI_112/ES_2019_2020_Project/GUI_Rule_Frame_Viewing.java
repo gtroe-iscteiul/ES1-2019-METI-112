@@ -23,6 +23,10 @@ public class GUI_Rule_Frame_Viewing {
 	private JList<String> list;
 
 
+	/**
+	 * Construtor da classe
+	 * @param grf - Recebe a GUI_Rules_Frame como parâmetro
+	 */
 	public GUI_Rule_Frame_Viewing(GUI_Rules_Frame grf) {
 		this.GRF = grf;
 		database = new AccessToRuleDatabase("CreatedRuleDatabase");
@@ -30,6 +34,9 @@ public class GUI_Rule_Frame_Viewing {
 	}
 
 
+	/**
+	 * Método que serve para inicializar a janela
+	 */
 	private void init() {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -40,6 +47,9 @@ public class GUI_Rule_Frame_Viewing {
 	}
 	
 
+	/**
+	 * Este  método tem como objetivo definir definições da janela, tais como o seu tamanho 
+	 */
 	@SuppressWarnings("deprecation")
 	private void open() {
 		frame.setSize(500, 300);
@@ -49,6 +59,9 @@ public class GUI_Rule_Frame_Viewing {
 	}
 	
 
+	/**
+	 * Este método tem como objetivo adicionar componentes à janela
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -64,6 +77,10 @@ public class GUI_Rule_Frame_Viewing {
 	}
 	
 	
+	/**
+	 * Este método adiciona componentes ao painel norte da janela
+	 * @param panelNorth - Painel
+	 */
 	private void buildPanelNorth(JPanel panelNorth) {
 		panelNorth.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel("List of rules created: ");
@@ -71,14 +88,18 @@ public class GUI_Rule_Frame_Viewing {
 	}
 	
 	
+	/**
+	 * Este método adiciona componentes ao painel central da janela
+	 * @param panelCenter - Painel
+	 */
 	private void buildPanelCenter(JPanel panelCenter) {
 		panelCenter.setLayout(new FlowLayout());
-		String[] content;
+		String[] conteudo;
 	    DefaultListModel<String> listModel = new DefaultListModel<>();
 	    try {
-			content = database.readFile();
-			for (int i = 0; i < content.length; i++) {
-				listModel.addElement(content[i]);
+			conteudo = database.readFile();
+			for (int i = 0; i < conteudo.length; i++) {
+				listModel.addElement(conteudo[i]);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -86,8 +107,15 @@ public class GUI_Rule_Frame_Viewing {
 	    list = new JList<String>(listModel);
 	    panelCenter.add(list);
 	}	
-
 	
+	
+	/**
+	 * Este método adiciona componentes ao painel sul da janela
+	 * SELECT - Mostra informação sobre a regra criada
+	 * DELETE - Apaga a regra
+	 * BACK - Volta para a janela anterior
+	 * @param panelSouth - Painel
+	 */
 	private void buildPanelSouth(JPanel panelSouth) {
 		panelSouth.setLayout(new FlowLayout());
 		
@@ -118,12 +146,14 @@ public class GUI_Rule_Frame_Viewing {
 	}
 	
 	
+	/**
+	 * Este método apresenta a informação sobre as regras
+	 */
 	private void getRuleInformation() {
 		String[] vector = list.getSelectedValue().toString().split(" ");
-		String id = "Rule: " + vector[0];
-		String condition = "Condition (if): " + vector[1];
-		String consequence = "Consequence (then): " + vector[2];
-		String result = id + "\n" + "\n" + condition + "\n" + "\n" + consequence;
+		String condition = "Condition (if): " + vector[0];
+		String consequence = "Consequence (then): " + vector[1];
+		String result = condition + "\n" + "\n" + consequence;
 		
 		final JPanel warning = new JPanel();
 		JOptionPane.showMessageDialog(warning, result, "Information",
@@ -131,6 +161,9 @@ public class GUI_Rule_Frame_Viewing {
 	}
 	
 	
+	/**
+	 * Este método apaga a regra da database
+	 */
 	private void deleteRuleFromDatabase() {
 		try {
 			database.deleteRule(list.getSelectedValue().toString());
