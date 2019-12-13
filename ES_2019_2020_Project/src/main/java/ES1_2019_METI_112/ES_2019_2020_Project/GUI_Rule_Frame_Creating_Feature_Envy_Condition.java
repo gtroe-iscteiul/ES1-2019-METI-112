@@ -33,6 +33,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	private boolean needCondition;
 	
 	
+	/**
+	 * Construtor da classe 
+	 * @param g - GUI_Rule_Frame_Choosing_Consequence_Type
+	 */
 	public GUI_Rule_Frame_Creating_Feature_Envy_Condition(
 			GUI_Rule_Frame_Choosing_Consequence_Type g) {
 		this.GRFCCT = g;
@@ -47,6 +51,7 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		
 	}
 	
+	//Getters e setters da classe
 	
 	public GUI_Rule_Frame_Choosing_Consequence_Type getGRFCCT() {
 		return GRFCCT;
@@ -73,6 +78,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método serve para inicializar a janela
+	 */
 	private void init () {
 		frame = new JFrame("Software Quality Assessment");
 		frame.setLayout(new BorderLayout());
@@ -83,6 +91,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este  método tem como objetivo definir atributos da janela, tais como 
+	 * o seu tamanho 
+	 */
 	@SuppressWarnings("deprecation")
 	private void open(){
 		frame.setSize(500, 400);
@@ -92,6 +104,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método tem como objetivo adicionar os paineis à janela
+	 */
 	private void addFrameContent() {
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -119,6 +134,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método adiciona uma label ao painel norte da janela
+	 * @param panel - Painel
+	 */
 	private void buildPanelNorth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		JLabel searchText = new JLabel("Selection of 'if' condition: ");
@@ -126,6 +145,20 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+
+	/**
+	 * Este método tem como objetivo adicionar labels e métodos para a construção 
+	 * do painel centro da janela
+	 * @param c - Painel Centro
+	 * @param pc1 - Painel Treshold
+	 * @param pc2 - Painel Treshold buttons
+	 * @param pc3 - Painel Operators Label
+	 * @param pc4 - Painel Operators buttons
+	 * @param pc5 - Painel Result Label
+	 * @param pc6 - Painel Result Component
+	 * @param sl - Painel Signal Label
+	 * @param sb - Painel Signal Buttons
+	 */
 	private void buildPanelCenter(JPanel c, JPanel pc1, JPanel pc2, 
 			JPanel pc3, JPanel pc4, JPanel pc5, JPanel pc6, JPanel sl, JPanel sb) {
 		
@@ -153,12 +186,20 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método serve para criar a label do painel Tresholds
+	 * @param panel - Painel
+	 */
 	private void buildThresholdsLabel(JPanel panel) {
 		JLabel thresholds = new JLabel("Select a threshold: ");
 		panel.add(thresholds);
 	}
 	
 	
+	/**
+	 * Este método serve adicionar os botões ao painel Tresholds
+	 * @param panel - Painel
+	 */
 	private void buildThresholdButtons(JPanel panel) {
 		panel.setLayout(new GridLayout(2,2));
 		
@@ -169,6 +210,12 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar funcionalidade ao botão LOC, 
+	 * em que dependendo das escolhas do utilizador, o programa poderá ou 
+	 * não enviar mensagens de erro ao utilizador
+	 * @param panel - Painel
+	 */
 	private void locButton(JPanel panel) {
 		final JButton loc = new JButton("LOC");
 		loc.addActionListener(new ActionListener(){
@@ -193,6 +240,12 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar funcionalidade ao botão CYCLO, 
+	 * em que dependendo das escolhas do utilizador, o programa poderá ou 
+	 * não enviar mensagens de erro ao utilizador
+	 * @param panel - Painel
+	 */
 	private void cycloButton(JPanel panel) {
 		final JButton cyclo = new JButton("CYCLO");
 		cyclo.addActionListener(new ActionListener(){
@@ -217,6 +270,12 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar funcionalidade ao botão ATFD, 
+	 * em que dependendo das escolhas do utilizador, o programa poderá ou 
+	 * não enviar mensagens de erro ao utilizador
+	 * @param panel - Painel
+	 */
 	private void atfdButton(JPanel panel) {
 		final JButton atfd = new JButton("ATFD");
 		atfd.addActionListener(new ActionListener(){
@@ -241,6 +300,12 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar funcionalidade ao botão LAA, 
+	 * em que dependendo das escolhas do utilizador, o programa poderá ou 
+	 * não enviar mensagens de erro ao utilizador
+	 * @param panel - Painel
+	 */
 	private void laaButton(JPanel panel) {
 		final JButton laa = new JButton("LAA");
 		laa.addActionListener(new ActionListener(){
@@ -265,6 +330,11 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método serve para adicionar as métricas, operadores e sinais 
+	 * que o utilizador vai adicionando à regra
+	 * @param type - Métrica escolhida
+	 */
 	private void updateCondition(String type) {
 		needCondition = false;
 		String ifContent = ifCondition.getText();
@@ -281,6 +351,11 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método serve para o programa determinar qual a condição definida
+	 * @param t - Métrica escolhida
+	 * @return - Retorna a string resultante do utilizador fazer a sua regra
+	 */
 	private String dealWithType(String t) {
 		String result = "";
 		if(t.equals("LOC")) {
@@ -319,6 +394,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método lança um aviso acerda das thresholds para o utilizador
+	 */
 	private void showThresholdsWarning() {
 		 final JPanel warning = new JPanel();
 		 JOptionPane.showMessageDialog(warning, "Unable to select "
@@ -326,13 +404,23 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 		 		"Warning", JOptionPane.WARNING_MESSAGE);
 	}
 
-
+	
+	/**
+	 * Este método adiciona uma label (referente aos operadores) ao painel 
+	 * @param panel - Painel
+	 */
 	private void buildOperatorsLabel(JPanel panel) {
 		JLabel operator = new JLabel("Select a operator: ");
 		panel.add(operator);
 	}
 
 
+
+	/**
+	 * Este método adiciona os botões AND e OR ao painel, definindo 
+	 * também as suas acções
+	 * @param panel - Painel
+	 */
 	private void buildOperatorButtons(JPanel panel) {;
 		panel.setLayout(new FlowLayout());
 
@@ -364,6 +452,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método lança aviso acerca dos operadores para o utilizador
+	 */
 	private void showOperatorsWarning() {
 		 final JPanel warning = new JPanel();
 		 JOptionPane.showMessageDialog(warning, "Unable to select "
@@ -372,6 +463,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método lança um aviso de thresholds duplicadas para o utilizador
+	 */
 	private void showRepeatedThresholdWarning() {
 		 final JPanel warning = new JPanel();
 		 JOptionPane.showMessageDialog(warning, "Unable to select "
@@ -380,12 +474,20 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método adiciona uma label (referente aos sinais) ao painel
+	 * @param panel - Painel
+	 */
 	private void buildSignalsLabel(JPanel panel) {
 		JLabel signal = new JLabel("Select a signal for threshold: ");
 		panel.add(signal);
 	}
 	
 	
+	/**
+	 * Este método adiciona os botões(sinais) ao painel 
+	 * @param panel
+	 */
 	private void buildSignalButtons(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		
@@ -397,6 +499,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método definie e adiciona funcionalidade ao botão ">"
+	 * @param panel - Painel
+	 */
 	private void buildBiggerButton(JPanel panel) {
 		final JButton bigger = new JButton(">");
 		bigger.addActionListener(new ActionListener(){
@@ -414,6 +520,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método define e adiciona funcionalidade ao botão "<"
+	 * @param panel - Painel
+	 */
 	private void buildSmallerButton(JPanel panel) {
 		final JButton smaller = new JButton("<");
 		smaller.addActionListener(new ActionListener(){
@@ -431,6 +541,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método define e adiciona funcionalidade ao botão "=="
+	 * @param panel - Painel
+	 */
 	private void buildEqualButton(JPanel panel) {
 		final JButton equal = new JButton("==");
 		equal.addActionListener(new ActionListener(){
@@ -448,6 +562,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método define e adiciona funcionalidade ao botão "!="
+	 * @param panel - Painel
+	 */
 	private void buildDifferentButton(JPanel panel) {
 		final JButton different = new JButton("!=");
 		different.addActionListener(new ActionListener(){
@@ -465,6 +583,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método lança uma mensagem informativa de sucesso para o utilizador
+	 */
 	private void confirmSignalSelection() {
 		final JPanel warning = new JPanel();
 		JOptionPane.showMessageDialog(warning, "Signal successfully selected!"
@@ -473,6 +594,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método lança uma mensagem de erro para o utilizador
+	 * @param x - Consoante o número escolhido, envia uma mensagem de erro diferente
+	 */
 	private void showSignalsWarning(int x) {
 		 final JPanel warning = new JPanel();
 		if(x==1) {
@@ -489,18 +614,33 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método adiciona uma label (referente à condição) ao painel
+	 * @param panel - Painel
+	 */
 	private void buildIfConditionLabel(JPanel panel) {
 		JLabel result = new JLabel("Result of the condition: ");
 		panel.add(result);
 	}
 	
 	
+	/**
+	 * Este método adiciona uma label (referente ao resultado da condição) ao painel
+	 * @param panel - Painel
+	 */
 	private void buildPanelResult(JPanel panel) {
 		ifCondition = new JLabel("if ( )");
 		panel.add(ifCondition);
 	}
 	
 	
+	/**
+	 * Este método constrói o painel sul da janela
+	 * RESET - O utilizador consegue reescrever a regra
+	 * OK - O utilizador guarda a regra
+	 * BACK - Volta para a janela anterior
+	 * @param panel - Painel
+	 */
 	private void buildPanelSouth(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		
@@ -534,6 +674,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método trata dos problemas de haver janelas deste tipo duplicadas
+	 */
 	private void dealWithConsequenceFrame() {
 		if(isGuiRuleFrameCreatingFeatureEnvyConsequenceOpen==true) {
 			GRFCFEC.closeRuleConsequenceFrame();
@@ -541,6 +684,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método guarda a regra criada
+	 */
 	private void recordIfCondition() {
 		if(needCondition==false) {
 			String c = ifCondition.getText();
@@ -560,6 +706,10 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método abre a janela GUI_Rule_Frame_Creating_Feature_Envy_Consequence 
+	 * ou então lança mensagens de erro ao utilizador
+	 */
 	public void openGRFCFE_consequence() {	
 		String ifContent = ifCondition.getText();
 		String[] parts = ifContent.split(" ");
@@ -583,6 +733,9 @@ public class GUI_Rule_Frame_Creating_Feature_Envy_Condition {
 	}
 	
 	
+	/**
+	 * Este método fecha a janela atual
+	 */
 	public void closeFrame() {
 		GRFCCT.setIsOpenGRFCFE(false);
 		frame.dispose();
